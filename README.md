@@ -11,7 +11,6 @@
 <br/>
 <br/>
 
----
 ## 📌 Contact & Links
 
 <img src="me.png" alt="여자" style="width:80px"/>
