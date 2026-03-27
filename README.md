@@ -10,7 +10,7 @@
 
 ---
 ### 📌 Contact & Links
-![프로필](me.png)
+<img src="me.png" alt="여자" style="width:80px"/>
 
 |||
 |-|-|
