@@ -87,5 +87,11 @@ System.out.println(a + "+" + b + "=" + (a+b));
   - p      : 문단
   - pre    : 줄바꿈을 포함하는 문단
   - img    : 이미지 , src="경로" , alt="설명"
-  - a      : 링크 , href="경로" , title="설명" 
+  - a      : 링크 , href="경로" , title="설명"
 
+- 3. java
+  1. 자바의 자료형 분류(기본형/참조형)
+  2. 기본형 : 값 , 참조형 : 주소값
+  2-1. 논리형 boolean - true/false 1byte
+  2-2. 정수형 : byte short int long / 1 2 4 8byte
+  2-3. 실수형 : float double / 4 8 byte
