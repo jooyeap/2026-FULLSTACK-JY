@@ -60,6 +60,16 @@ System.out.println(a + "+" + b + "=" + (a+b));
 
 ### 3. Todo : java 자료형/입력
 
+- 1. 자료형의 구분
+    - 기본형 : 실제값 저장 ( 1 : int )
+    - 참조형 : 주소값 저장 ( "abc" : String )
+
+- 2. 기본자료형
+    - 논리형 : boolean ( true , false )
+    - 정수형 : byte - short - ★int★ - long(4L) / 1 - 2 - 4 - 8 byte
+    - 실수형 : float(3.14f) - ★double★ / 4 - 8 byte
+
+★ 정수 < 실수
 
 ---
 
