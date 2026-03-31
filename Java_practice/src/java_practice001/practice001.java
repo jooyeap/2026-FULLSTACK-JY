@@ -56,6 +56,8 @@ public class practice001 {
 		// 아래 nextLine에 값을 입력하기전에 엔터값이 들어가서 입력불가함 유의해야할거같음
 		String name = sc.nextLine();
 		System.out.println(name);
+
+		//asdasd
 		
 	}
 
