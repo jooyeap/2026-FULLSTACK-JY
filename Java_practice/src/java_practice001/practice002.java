@@ -8,7 +8,7 @@ public class practice002 {
 		
 		Scanner sc = new Scanner(System.in);
 		int hp = 0;
-		int time = 0;
+		int time = 8;
 		int str = 0;
 		int days = 0;
 		int hpy = 0;
@@ -40,9 +40,32 @@ public class practice002 {
 					
 				}
 				
-				if(numM == 2) {
+				while(numM == 2) {
 					
 					System.out.println("2번 실행\n");
+					System.out.println("무엇을 할까요?");
+					System.out.println("1. 공부하기");
+					System.out.println("2. 놀기");
+					System.out.println("3. 자기");
+					System.out.println("4. 메인으로 돌아가기");
+					numM = sc.nextInt();
+					if(numM == 1) {
+						
+					}
+					if(numM == 2) {
+						
+					}
+					if(numM == 3) {
+						System.out.println("잠을 잡니다");
+						days++;
+						hp = +30;
+						str = -30;
+						
+					}
+					if(numM == 4) {
+						System.out.println("메인으로 돌아갑니다.");
+					}
+					
 					
 				}
 				
