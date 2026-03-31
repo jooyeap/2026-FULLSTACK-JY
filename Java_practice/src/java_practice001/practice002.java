@@ -59,26 +59,27 @@ public class practice002 {
 					
 				}
 				
-				if(numM == 5) {
+				while(numM == 5) {
 					
+					while(true) {
 					System.out.println("5번 실행\n");
 					System.out.println("종료하시겠습니까?");
 					System.out.println("1. 종료 / 2. 메인으로");
 					numM = sc.nextInt();
 					
-					if(numM == 1 && numM == 2) {
-						
-						if(numM == 1) {
-						System.out.println("종료합니다.");
-						break;
-						}
-						if(numM == 2) {
-						System.out.println("메인으로 돌아갑니다.");
-						}
+					if(numM == 1) {
+					System.out.println("종료합니다.");
+					System.exit(0);
+					}
+					if(numM == 2) {
+					System.out.println("메인으로 돌아갑니다.");
+					break;
 					}
 					else {
-						System.out.println("정상적인 값을 입력해주세요");
+						System.out.println("정상적인 값을 입력해주세요.\n");
+						continue;
 					}
+				  }
 					
 				}
 				

@@ -50,9 +50,9 @@ public class CastingEx002 {
 //		System.out.println(avg);
 //		System.out.println(level);
 		
-		System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+		System.out.println(":::::::::::::::::::");
 		System.out.println(":: GOOD IT SCORE ::");
-		System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+		System.out.println(":::::::::::::::::::");
 		System.out.println("국어\t영어\t수학\t총점\t평균\t레벨");
 		System.out.printf("%d\t%d\t%d\t%d\t%.2f\t%d", kor , eng , mat , total , avg , level);
 
