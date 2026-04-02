@@ -23,5 +23,5 @@ public class CastingEx003 {
 		//출력
 		System.out.println( ch + "를 소문자로" + lower );
 	}
-
+ 
 }
