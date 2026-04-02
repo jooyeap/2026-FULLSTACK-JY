@@ -68,7 +68,7 @@ public class practice002 {
 					System.out.println("보유 현금 : " + gold);
 					System.out.println("능력 : " + stat);
 					
-				}
+				} // 1번 마지막
 				
 				// 2. 행동
 				else if(numM == 2) {
@@ -157,7 +157,7 @@ public class practice002 {
 						}
 					}
 					
-				}
+				} // 2번 마지막
 				
 				// 3. 설명
 				else if(numM == 3) {
@@ -170,13 +170,13 @@ public class practice002 {
 					System.out.println("최종 목표는 공부하여 능력을 키우고 돈을 벌어 집을 사는것입니다.");
 					
 					
-				}
+				} // 3번 마지막
 				
 				else if(numM == 4) {
 					
 					System.out.println("4번 실행\n");
 					
-				}
+				} // 4번 마지막
 				
 				else if(numM == 5) {
 					
@@ -200,7 +200,7 @@ public class practice002 {
 					}
 				  }
 					
-				}
+				} // 5번 마지막
 				else {
 					System.out.println(ERR_MSG);
 				}
