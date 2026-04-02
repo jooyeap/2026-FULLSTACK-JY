@@ -46,12 +46,14 @@ public class IfEx007 {
 		}
 		else if(ch == '/') {
 			result = ((double)num1 / num2);
-			st = "%d %s %d = %.2f";
+			//st = "%d %s %d = %.2f";
 			
 		}
 		
-		System.out.printf(st,num1,ch,num2,result);
-		//System.out.println(num1 + st + num2 +"="+ result);
+		//System.out.printf(st,num1,ch,num2,result);
+		
+		System.out.printf(ch == '/' ? "%d %s %d = %.2f" :
+									  "%d %s %d = %.0f", num1, ch, num2, result);
 		//System.out.println((int)ch);
 		
 //		System.out.println(
