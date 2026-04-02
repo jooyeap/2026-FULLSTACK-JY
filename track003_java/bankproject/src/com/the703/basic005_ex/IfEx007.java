@@ -20,7 +20,7 @@ public class IfEx007 {
 		double result = 0;
 		int result2 = 0;
 		char ch = '\u0000';
-		String st = "%d %s %d = %.2f";
+		String st = "%d %s %d = %.0f";
 		
 		
 		Scanner sc = new Scanner(System.in);
@@ -36,16 +36,13 @@ public class IfEx007 {
 		
 		if(ch == '+') {
 			result = (num1 + num2);
-			st = "%d %s %d = %.0f";
 		}
 		
 		else if(ch == '-') {
 			result = num1 - num2;
-			st = "%d %s %d = %.0f";
 		}
 		else if(ch == '*') {
 			result = num1 * num2;
-			st = "%d %s %d = %.0f";
 		}
 		else if(ch == '/') {
 			result = ((double)num1 / num2);
