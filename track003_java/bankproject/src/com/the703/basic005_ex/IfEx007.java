@@ -18,9 +18,8 @@ public class IfEx007 {
 		
 		int num1 , num2 = 0;
 		double result = 0;
-		int result2 = 0;
 		char ch = '\u0000';
-		String st = "%d %s %d = %.0f";
+		//String st = "%d %s %d = %.0f";
 		
 		
 		Scanner sc = new Scanner(System.in);
@@ -50,10 +49,11 @@ public class IfEx007 {
 			
 		}
 		
-		//System.out.printf(st,num1,ch,num2,result);
 		
 		System.out.printf(ch == '/' ? "%d %s %d = %.2f" :
 									  "%d %s %d = %.0f", num1, ch, num2, result);
+
+		//System.out.printf(st,num1,ch,num2,result);
 		//System.out.println((int)ch);
 		
 //		System.out.println(
@@ -64,5 +64,5 @@ public class IfEx007 {
 //				   ))));
 		
 	}
-
+	
 }
