@@ -8,7 +8,7 @@ public class practice002 {
 		
 		Scanner sc = new Scanner(System.in);
 		int hp = 60;
-		int time = 16;
+		int time = 8;
 		int str = 0;
 		int days = 0;
 		int gold = 0;
@@ -18,25 +18,29 @@ public class practice002 {
 		String OVER_TIME = "행동하기에 시간이 모자랍니다.";
 		String GO_MENU = "초기메뉴로 돌아갑니다.";
 		String ERR_MSG = "정상적인 값을 입력해주세요";
+		String NO_MONEY = "잔액이 부족합니다.";
 		
 		
 		while(true) {
 			
 			
 			if(str >= 70) {
-				System.out.println();
+				System.out.println("피로가 70이상 쌓여있습니다 휴식이 필요합니다.\n"
+						+ ":("); // 피로경고
 			}
 			
 			else if(hp <= 50) {
-				System.out.println(":(");
+				System.out.println("체력이 50 이하입니다 휴식이 필요합니다.\n"
+						+ ":("); // 체력 경고
 			}
 			
-			else if(time <= 20) {
-				System.out.println(":(");
+			else if(time >= 20) {
+				System.out.println("시간이 늦어 눈이 점점 감깁니다\n"
+						+ ":("); // 시간 경고
 			}
 			
 			else {
-			 	System.out.println(":)");
+			 	System.out.println(":)"); // 평상시
 			}
 			
 			System.out.println();
@@ -98,7 +102,7 @@ public class practice002 {
 						
 						numM = sc.nextInt();
 						
-						if(time >= 24) {
+						if(time >= 24 && numM !=3) {
 							System.out.print("행동하기에 시간이 많이 늦어\n"
 											+"잠자리에 듭니다.");
 							hp += 30;
@@ -125,10 +129,12 @@ public class practice002 {
 									System.out.println(OVER_STR);
 								}
 								else {
-									System.out.println("공부를 합니다.");
+									System.out.println("공부를 합니다.\n"
+											+ "능력 +0.5\n"
+											+ "피로 -10\n");
 									stat += 0.5;
 									str += 10;
-									time++;
+									time += 2;
 									break;
 								}
 							
@@ -138,22 +144,24 @@ public class practice002 {
 							System.out.println("놀기");
 							if(str >= 0) {
 								str -= 20;
-								System.out.println("피로가 10 만큼 감소합니다.");
+								System.out.println("피로 -20\n");
 								if(str <= 0 ) {
-									System.out.println("피로는 0보다 낮을 수 없습니다.");
+									System.out.println("피로는 0보다 낮을 수 없습니다.\n");
 									str = 0;
 									}
 								}
-							time++;
+							time += 2;
 							break;
 						}
 						else if(numM == 3) {
 							
-							System.out.println("잠을 잡니다");
+							System.out.println("잠을 잡니다\n"
+									+ "체력 +30\n"
+									+ "피로 -50\n");
 							hp += 30;
 							if(hp > 100) {
 								hp = 100;
-								System.out.println("체력은 100이상을 보유할 수 없습니다.");
+								System.out.println("체력은 100이상을 보유할 수 없습니다.\n");
 								}
 							if(str >= 0) {
 								str -= 50;
@@ -182,7 +190,9 @@ public class practice002 {
 							}
 							else {
 								System.out.println("일을 합니다");
-								gold += 1000 * stat;
+								System.out.println((10000 * stat) + "+ 원\n"
+										+ "피로 +30\n");
+								gold += 10000 * stat;
 								str += 30;
 								time += 8;
 								break;
@@ -216,7 +226,68 @@ public class practice002 {
 				
 				else if(numM == 4) {
 					
-					System.out.println("4번 실행\n");
+					while(true) {
+						
+						System.out.print("4. 돈 쓰기\n"
+										+"------------\n"
+										+"1. ☆★집★☆\n"
+										+"2. 츄르\n"
+										+"3. 밥\n"
+										+"4. 책\n"
+										+"5. 나가기\n");
+						numM = sc.nextInt();
+						
+						if(numM == 1) {
+							
+							if(gold > 1000000) {
+								System.out.println(NO_MONEY);
+							}
+							else {
+								System.out.println("드디어 고양이 집을 마련했습니다.");
+							}
+						}
+						
+						else if(numM == 2) {
+							
+							if(gold > 30000) {
+								System.out.println(NO_MONEY);
+							}
+							else {
+								System.out.println("고양이가 좋아합니다.\n"
+										+ "피로 -30\n");
+								str -= 30;
+							}
+						}
+						
+						else if(numM == 3) {
+							
+							if(gold > 10000) {
+								System.out.println(NO_MONEY);
+							}
+							else {
+								System.out.println("밥을 먹어 기운이 납니다.\n"
+										+ "체력 +40");
+								hp += 40;
+							}
+						}
+						
+						else if(numM == 4) {
+							
+							if(gold > 20000) {
+								System.out.println(NO_MONEY);
+							}
+							else {
+								System.out.println("지식이 늘었습니다.\n"
+										+ "능력 + 0.5\n");
+								stat += 0.5;
+							}
+						}
+						
+						else if(numM == 5) {
+							System.out.println(GO_MENU);
+							break;
+						}
+					}
 					
 				} // 4번 마지막
 				

@@ -19,6 +19,7 @@ public class IfEx007 {
 		int num1 , num2 = 0;
 		double result = 0;
 		char ch = '\u0000';
+		String result2 ="";
 		//String st = "%d %s %d = %.0f";
 		
 		
@@ -33,6 +34,7 @@ public class IfEx007 {
 		System.out.println("연산자를 입력해주세요 (+,-,*,/) > ");
 		ch = sc.next().charAt(0);
 		
+		
 		if(ch == '+') {
 			result = (num1 + num2);
 		}
@@ -43,15 +45,31 @@ public class IfEx007 {
 		else if(ch == '*') {
 			result = num1 * num2;
 		}
-		else if(ch == '/') {
+		else if(ch == '/' && num2 != 0) {
 			result = ((double)num1 / num2);
 			//st = "%d %s %d = %.2f";
+		}
+		
+		result2 = "" + num1 + ch + num2 + "=" ;
+		
+		if(ch == '+') {
+			result2 += (num1 + num2);
+		}
+		
+		else if(ch == '-') {
+			result2 += (num1 - num2);
+		}
+		else if(ch == '*') {
+			result2 += (num1 * num2);
+		}
+		else if(ch == '/' && num2 != 0) {
+			result2 += String.format("%.2f", num1/(double)num2);
 			
 		}
 		
-		
-		System.out.printf(ch == '/' ? "%d %s %d = %.2f" :
-									  "%d %s %d = %.0f", num1, ch, num2, result);
+		// %c = char   %s = String
+		System.out.println(result2);
+		System.out.printf("%d %s %d = " + (ch == '/' ? "%.2f" : "%.0f" ), num1, ch, num2, result);
 
 		//System.out.printf(st,num1,ch,num2,result);
 		//System.out.println((int)ch);
@@ -62,7 +80,7 @@ public class IfEx007 {
 //			   (ch == '*' ? result = num1 * num2 :
 //			   (ch == '/' ? result = ((double)num1 / num2) : ""
 //				   ))));
-		
+
 	}
 	
 }

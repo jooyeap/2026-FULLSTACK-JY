@@ -1,0 +1,111 @@
+package the.com703.v001;
+
+import java.util.Scanner;
+
+public class BackProjectV1 {
+
+	public static void main(String[] args) {
+		
+		int num = 0;
+		int age = 0;
+		int money = 0;
+		int id = 0;
+		int id_ck = 0;
+		int pw = 0;
+		int pw_ck = 0;
+		Scanner sc = new Scanner(System.in);
+		
+		while(true) {
+			System.out.println("💲💲  WELCOME TO BANK SYSTEM  💲💲");
+			System.out.print("==============================\n"
+							+"[1] ➕ 계좌 추가\n"
+							+"[2] 🔍 계좌 조회\n"
+							+"[3] 📈 입금하기\n"
+							+"[4] 📉 출금하기\n"
+							+"[5] ❌ 계좌 삭제\n"
+							+"[9] ‼ 종료 ‼\n"
+							+"=============================\n"
+							+"번호 입력 > ");
+			
+			num = sc.nextInt();
+			System.out.println();
+			
+			if(num == 1) {
+				System.out.println("1. 계좌 추가\n");
+				
+				System.out.println("아이디를 입력해주세요 > ");
+				id = sc.nextInt();
+				
+				System.out.println("비밀번호를 입력해주세요 > ");
+				pw = sc.nextInt();
+				
+				System.out.println("나이를 입력해주세요 > ");
+				age = sc.nextInt();
+				
+				System.out.println("잔액 입력 > ");
+				money = sc.nextInt();
+				
+			} // 계좌 추가 문단 끝
+			else if(num == 2) {
+				System.out.println("2. 계좌 조회\n");
+				
+				System.out.println("아이디를 입력해주세요 > ");
+				id_ck = sc.nextInt();
+				
+				System.out.println("비밀번호를 입력해주세요 > ");
+				pw_ck = sc.nextInt();
+				
+				if(id == id_ck && pw == pw_ck) {
+				
+					System.out.println("\n아이디	 : " + id
+									+"\n비밀번호	 : " + pw
+									+"\n나이	 : " + age + " 세"
+									+"\n잔액 	 : " + money + " 원 \n");
+					
+				}
+				else {System.out.println("아이디 또는 비밀번호가 일치하지 않습니다.\n");}
+			} // 계좌 조회 문단 끝
+			else if(num == 3) {
+				System.out.println("3. 입금하기\n");
+			} // 입금 문단 끝
+			else if(num == 4) {
+				System.out.println("4. 출금하기\n");
+			} // 출금 문단 끝
+			else if(num == 5) {
+				System.out.println("5. 계좌 삭제\n");
+			} // 삭제 문단 끝
+			
+			else if(num == 9) {
+				System.out.println("종료");
+				break;
+				} // 종료 문단 끝
+			
+			else {
+				System.out.println("정상적인 값을 입력하세요.");
+			}
+			
+			
+		}
+		
+		/*
+		Q1. 메뉴판나오게 만들고 사용자가 메뉴 선택시
+			1을 입력하면 추가기능입니다. 출력구문까지만
+			2를 입력하면 조회기능입니다. 출력구문까지만
+			3을 입력하면 입금기능입니다. 출력구문까지만
+			4를 입력하면 출금기능입니다. 출력구문까지만
+			5를 입력하면 삭제기능입니다. 출력구문까지만
+			9를 입력하면 종료합니다.	 출력구문까지만
+			
+			
+		Q2. 무한반복으로 메뉴나오게, 9나오면 종료	
+			■ 힌트
+	   for(;;) { 
+	      System.out.println("숫자1을 입력하세요.");
+	      int a = scanner.nextInt();
+	      if(a == 1) { break;}
+   		}
+		 */
+		
+	}
+
+}
