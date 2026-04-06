@@ -1,2 +1,2 @@
-module bankproject {
+module bankproject_real {
 }

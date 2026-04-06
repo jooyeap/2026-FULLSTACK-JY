@@ -1,0 +1,68 @@
+package com.the703.basic005_ex;
+
+import java.util.Scanner;
+
+public class SwitchEx002 {
+
+	public static void main(String[] args) {
+		
+		int a = 0;
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("숫자 입력 > ");
+		a = sc.nextInt();
+		
+//		a = (a >= 3 && a <= 5 ? 1 :
+//			(a >= 6 && a <= 8 ? 2 :
+//			(a >= 9 && a <= 11 ? 3 :
+//			(a == 12 || a == 1 || a == 2 ? 4 : 5))));
+//		
+//		switch(a) {
+//		
+//		case 1: System.out.println("봄"); break;
+//		case 2: System.out.println("여름"); break;
+//		case 3: System.out.println("가을"); break;
+//		case 4: System.out.println("겨울"); break;
+//		default : 
+//		}
+		
+//		switch(a) {
+//			case 3: 
+//			case 4: 
+//			case 5: System.out.println("봄"); break;
+//			
+//			case 6: case 7: case 8: System.out.println("여름"); break;
+//			
+//			case 9: 
+//			case 10:
+//			case 11: System.out.println("가을"); break;
+//			
+//			case 12: 
+//			case 1: 
+//			case 2: System.out.println("겨울"); break;
+//			
+//		}
+		
+		switch(a/3) {
+		case 1: System.out.println("봄"); break;
+		case 2: System.out.println("여름"); break;
+		case 3: System.out.println("가을"); break;
+		case 4: case 0: System.out.println("겨울"); break;
+		}
+		
+		
+/*		
+		연습문제2)  
+	패키지명 : com.company.java004_ex
+	클래스명 :  SwitchEx002
+	출력내용 :   switch 이용
+	     숫자한개 입력받아
+	     3,4,5이면 봄
+	     6,7,8이면 여름
+	     9,10,11이면 가을
+	     12,1,2이면 겨울
+*/
+
+	}
+
+}

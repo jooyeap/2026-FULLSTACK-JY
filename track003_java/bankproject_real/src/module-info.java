@@ -1,2 +1,0 @@
-module bankproject_real {
-}

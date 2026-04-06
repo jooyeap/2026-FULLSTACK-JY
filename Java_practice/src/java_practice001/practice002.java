@@ -6,19 +6,22 @@ public class practice002 {
 
 	public static void main(String[] args) {
 		
+		// 0406 메뉴 숫자 선택할때 if말고 switch로 변경해야할거같음
+		
 		Scanner sc = new Scanner(System.in);
 		int hp = 60;
 		int time = 8;
 		int str = 0;
-		int days = 0;
+		int days = 1;
 		int gold = 0;
 		double stat = 1.0;
 		
-		String OVER_STR = "행동을 하기에 너무 많은 스트레스가 쌓여있습니다.";
-		String OVER_TIME = "행동하기에 시간이 모자랍니다.";
-		String GO_MENU = "초기메뉴로 돌아갑니다.";
-		String ERR_MSG = "정상적인 값을 입력해주세요";
-		String NO_MONEY = "잔액이 부족합니다.";
+		String LOW_HP = "행동하기에 체력이 모자랍니다.\n";
+		String OVER_STR = "행동을 하기에 너무 많은 스트레스가 쌓여있습니다.\n";
+		String OVER_TIME = "행동하기에 시간이 모자랍니다.\n";
+		String GO_MENU = "초기메뉴로 돌아갑니다.\n";
+		String ERR_MSG = "정상적인 값을 입력해주세요.\n";
+		String NO_MONEY = "잔액이 부족합니다.\n";
 		
 		
 		while(true) {
@@ -45,7 +48,7 @@ public class practice002 {
 			
 			System.out.println();
 			System.out.print( "================\n"
-					    	+ " 집 마련 프로젝트\n"
+					    	+ "고양이 집 마련 프로젝트\n"
 							+ "================\n"
 							+ "현재 시각 " + time + ":00\n"
 							+ days + " 일 째\n"
@@ -57,25 +60,18 @@ public class practice002 {
 							+ "5. 종료\n"
 							+ "================\n"
 							+ "숫자 입력 -> ");
-//			System.out.println(NOW_TIME);
-//			System.out.println( days + " 일 째");
-//			System.out.println("================");
-//			System.out.println("1. 상태 확인");
-//			System.out.println("2. 행동 하기");
-//			System.out.println("3. 설명");
-//			System.out.println("4. 돈 쓰기");
-//			System.out.println("5. 종료");
-//			System.out.println("================");
-//			System.out.print("숫자 입력 -> ");
+
 			
 			int numM = sc.nextInt();
 			
-			if(numM > 0 && numM < 6) {
+			//if(numM > 0 && numM < 6) {
+			switch(numM) {	
 				
 				//System.out.println("정상값 입력 확인");
 				
 				// 1. 상태
-				if(numM == 1) {
+				//if(numM == 1) {
+				case 1:  {
 					
 					System.out.print  ("\n"
 						              +"현재 체력 : " + hp + "/100\n"
@@ -86,7 +82,8 @@ public class practice002 {
 				} // 1번 마지막
 				
 				// 2. 행동
-				else if(numM == 2) {
+				//else if(numM == 2) {
+				case 2:  {
 					
 					while(true) {
 						System.out.println();
@@ -124,14 +121,15 @@ public class practice002 {
 						} // 하루 시간제한 if 문 끝
 						
 						if(numM == 1) {
-							
-								if(str >= 80) {
-									System.out.println(OVER_STR);
-								}
+								
+								if(hp >= 10) { System.out.println(LOW_HP); break;}
+								else if(str >= 80) { System.out.println(OVER_STR); break; }
 								else {
 									System.out.println("공부를 합니다.\n"
 											+ "능력 +0.5\n"
-											+ "피로 -10\n");
+											+ "피로 -10\n"
+											+ "체력 -10\n");
+									hp -= 10;
 									stat += 0.5;
 									str += 10;
 									time += 2;
@@ -142,7 +140,9 @@ public class practice002 {
 						else if(numM == 2) {
 							
 							System.out.println("놀기");
-							if(str >= 0) {
+							
+							if(hp >= 10) {System.out.println(LOW_HP); break;}
+							else if(str >= 0) {
 								str -= 20;
 								System.out.println("피로 -20\n");
 								if(str <= 0 ) {
@@ -150,10 +150,12 @@ public class practice002 {
 									str = 0;
 									}
 								}
+							hp -= 10;
 							time += 2;
 							break;
 						}
 						else if(numM == 3) {
+							
 							
 							System.out.println("잠을 잡니다\n"
 									+ "체력 +30\n"
@@ -180,14 +182,9 @@ public class practice002 {
 						}
 						else if(numM == 4) {
 							
-							if(str >= 70) {
-								System.out.println(OVER_STR);
-								
-							}
-							else if(time >= 16) {
-								System.out.println("시간이 너무 늦어 일을 할수가 없습니다.\n"
-												  +"이전 선택지로 돌아갑니다.");
-							}
+							if(str >= 70) { System.out.println(OVER_STR); break; }
+							else if(time >= 16) { System.out.println("시간이 너무 늦어 일을 할수가 없습니다.\n" ); break; }
+							else if(hp >= 30) { System.out.println(LOW_HP); break;}
 							else {
 								System.out.println("일을 합니다");
 								System.out.println((10000 * stat) + "+ 원\n"
@@ -212,7 +209,8 @@ public class practice002 {
 				} // 2번 마지막
 				
 				// 3. 설명
-				else if(numM == 3) {
+				//else if(numM == 3) {
+				case 3:  {
 					
 					System.out.print("3. 설명\n"
 									+"체력은 모든 행동을 할때 10씩 소모됩니다.\n"
@@ -224,26 +222,29 @@ public class practice002 {
 					
 				} // 3번 마지막
 				
-				else if(numM == 4) {
+				// 4. 상점
+				//else if(numM == 4) {
+				case 4:  {
 					
 					while(true) {
 						
 						System.out.print("4. 돈 쓰기\n"
 										+"------------\n"
-										+"1. ☆★집★☆\n"
-										+"2. 츄르\n"
-										+"3. 밥\n"
-										+"4. 책\n"
+										+"1. ☆★집★☆\t 100,000\n"
+										+"2. 츄르\t 30,000\n"
+										+"3. 밥\t 10,000\n"
+										+"4. 책\t 20,000\n"
 										+"5. 나가기\n");
 						numM = sc.nextInt();
 						
 						if(numM == 1) {
 							
-							if(gold > 1000000) {
+							if(gold > 100000) {
 								System.out.println(NO_MONEY);
 							}
 							else {
 								System.out.println("드디어 고양이 집을 마련했습니다.");
+								System.exit(0);
 							}
 						}
 						
@@ -256,6 +257,7 @@ public class practice002 {
 								System.out.println("고양이가 좋아합니다.\n"
 										+ "피로 -30\n");
 								str -= 30;
+								gold -= 30000;
 							}
 						}
 						
@@ -268,6 +270,7 @@ public class practice002 {
 								System.out.println("밥을 먹어 기운이 납니다.\n"
 										+ "체력 +40");
 								hp += 40;
+								gold -= 10000;
 							}
 						}
 						
@@ -280,6 +283,7 @@ public class practice002 {
 								System.out.println("지식이 늘었습니다.\n"
 										+ "능력 + 0.5\n");
 								stat += 0.5;
+								gold -= 20000;
 							}
 						}
 						
@@ -287,11 +291,14 @@ public class practice002 {
 							System.out.println(GO_MENU);
 							break;
 						}
+						else {System.out.println(ERR_MSG);}
 					}
 					
 				} // 4번 마지막
 				
-				else if(numM == 5) {
+				//5. 종료
+				//else if(numM == 5) {
+				case 5:  {
 					
 					while(true) {
 					System.out.print("\n"
@@ -314,8 +321,8 @@ public class practice002 {
 				  }
 					
 				} // 5번 마지막
+				default: { System.out.println(ERR_MSG); }
 			}// 맨처음 if문 끝
-			else { System.out.println(ERR_MSG); }
 		}
 	}
 }

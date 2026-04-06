@@ -9,13 +9,15 @@ public class BackProjectV1 {
 		int num = 0;
 		int age = 0;
 		int money = 0;
+		int send = 0;
 		int id = 0;
 		int id_ck = 0;
 		int pw = 0;
 		int pw_ck = 0;
+		char sl = '\u0000';
 		Scanner sc = new Scanner(System.in);
 		
-		while(true) {
+		for(;;) {
 			System.out.println("💲💲  WELCOME TO BANK SYSTEM  💲💲");
 			System.out.print("==============================\n"
 							+"[1] ➕ 계좌 추가\n"
@@ -31,7 +33,6 @@ public class BackProjectV1 {
 			System.out.println();
 			
 			if(num == 1) {
-				System.out.println("1. 계좌 추가\n");
 				
 				System.out.println("아이디를 입력해주세요 > ");
 				id = sc.nextInt();
@@ -47,7 +48,6 @@ public class BackProjectV1 {
 				
 			} // 계좌 추가 문단 끝
 			else if(num == 2) {
-				System.out.println("2. 계좌 조회\n");
 				
 				System.out.println("아이디를 입력해주세요 > ");
 				id_ck = sc.nextInt();
@@ -64,15 +64,78 @@ public class BackProjectV1 {
 					
 				}
 				else {System.out.println("아이디 또는 비밀번호가 일치하지 않습니다.\n");}
+				
 			} // 계좌 조회 문단 끝
 			else if(num == 3) {
-				System.out.println("3. 입금하기\n");
+				
+				System.out.println("아이디를 입력해주세요 > ");
+				id_ck = sc.nextInt();
+				
+				System.out.println("비밀번호를 입력해주세요 > ");
+				pw_ck = sc.nextInt();
+				
+				if(id == id_ck && pw == pw_ck) {
+					System.out.println("\n입금하실 금액 > ");
+					num = sc.nextInt();
+					
+					money += num;
+					
+					System.out.println(num + " 원 입금\n"
+									  +"==========================\n"
+						              +"현재 잔액 : " + money + " 원\n" );
+				}
+				else {System.out.println("아이디 또는 비밀번호가 일치하지 않습니다.\n");}
 			} // 입금 문단 끝
-			else if(num == 4) {
-				System.out.println("4. 출금하기\n");
+			
+			else if(num == 4) {		
+			
+				System.out.println("아이디를 입력해주세요 > ");
+				id_ck = sc.nextInt();
+				
+				System.out.println("비밀번호를 입력해주세요 > ");
+				pw_ck = sc.nextInt();
+				
+				if(id == id_ck && pw == pw_ck) {
+					System.out.println("\n출금하실 금액 > ");
+					num = sc.nextInt();
+				
+					money -= num;
+					
+					System.out.println(num + " 원 출금\n"
+									  +"==========================\n"
+						              +"현재 잔액 : " + money + " 원\n" );
+				}
+				else {System.out.println("아이디 또는 비밀번호가 일치하지 않습니다.\n");}
 			} // 출금 문단 끝
+			
 			else if(num == 5) {
 				System.out.println("5. 계좌 삭제\n");
+				
+				System.out.println("아이디를 입력해주세요 > ");
+				id_ck = sc.nextInt();
+				
+				System.out.println("비밀번호를 입력해주세요 > ");
+				pw_ck = sc.nextInt();
+				
+				if(id == id_ck && pw == pw_ck) {
+					System.out.println("계좌를 삭제하시겠습니까?\n"
+									  + " Y/N ");
+					sl = sc.next().charAt(0);
+					
+					if(sl == 'Y' || sl == 'y') {
+						id = 0;
+						pw = 0;
+						money = 0;
+						age = 0;
+						System.out.println("계좌를 삭제합니다.");
+					}
+					else if (sl == 'N' || sl == 'n') {
+						System.out.println("취소 합니다.");
+					}
+					else {System.out.println("정확한 값을 적어주세요.\n");}
+				}
+				else {System.out.println("아이디 또는 비밀번호가 일치하지 않습니다.\n");}
+				
 			} // 삭제 문단 끝
 			
 			else if(num == 9) {
