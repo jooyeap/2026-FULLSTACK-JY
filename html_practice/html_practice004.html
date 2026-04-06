@@ -16,31 +16,66 @@
             margin: 20px 0 20px;
         }
         
+        .div h2{
+            margin: 0 auto 15px;
+        }
+
+        h3{
+            margin: 20px;
+            text-align: left; 
+            margin-left: 0;
+        }
+
         .div{
+            background: linear-gradient(200deg, #9dff41, #ffffff);
             width: 300px;
             margin: 20px auto;
-            padding: 40px;
+            padding: 20px 40px 40px;
             border: 2px solid black;
-            box-shadow: 0 4 12 rgba(0,0,0,0.3s);
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 
         }
 
-        .div:hover{}
+        .div:hover{
+            box-shadow: 0 4px 18px 8px rgba(0,0,0,0.7);
+            transform: translateY(1.5px);
+            transition: all 0.7s;
+        }
+
+        ul{
+            text-align: left;
+        }
+
 
     </style>
 </head>
 <body>
     <h1>제목</h1>
     <div class="div c1">
-        <p>
-
-        문항 1</p>
+        <h2>문항 1 제목</h2>
+        <p>문항 1</p>
+        <p>문항 1</p>
+        <p>문항 1</p>
+        <h3>리스트 제목</h3>
+        <ul>
+            <li>리스트 1</li>
+            <li>리스트 2</li>
+            <li>리스트 3</li>
+        </ul>
     </div>
     
     <div class="div c2">
-        <p>
-
-        문항 2</p>
+        <h2>문항 2 제목</h2>
+        <p>문항 2</p>
+        <p>문항 2</p>
+        <p>문항 2</p>
+        <h3>리스트 제목</h3>
+        <ul>
+            <li>리스트 1</li>
+            <li>리스트 2</li>
+            <li>리스트 3</li>
+        </ul>
     </div>
 
 </body>
