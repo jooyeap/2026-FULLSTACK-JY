@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css 연습 1</title>
+    <style>
+        *{margin: 0; padding: 0;}
+        body{
+            background-color: beige;
+            margin-top: 20px;
+            
+        }
+        h1{
+            text-align: center;
+            margin: 0 0 10px;
+        }
+
+        .pr1{
+            margin: auto;
+            padding: 20px;
+            background-color: gray;
+            border: 2px solid black;
+            border-radius: 5%;
+            width: 350px;
+            overflow: hidden;
+        }
+
+        img{
+        
+            margin: 0 20px 10px;
+            width: 150px;
+            height: 150px;
+            float: left;
+
+        }
+
+        p{
+            float: left;
+            margin-left: 12px;
+            text-align: left;
+        }
+
+        /*---------------------------------------*/
+
+        .pr2{
+            width: 450px;
+            margin: 0 auto;
+            margin-top: 30px;
+            background-color: aquamarine;
+            border: 2px solid black;
+            border-radius: 5px;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .sidebar{
+            margin-left: 15px;
+            background-color: burlywood;
+            width: 25%;
+            float: left;
+        }
+
+        .content{
+            margin-left: 15px;
+            background-color: thistle;
+            width: 65%;
+            padding-bottom: auto;
+            float: left;
+        }
+
+        .clear{
+            margin: 10px 20px;
+            background-color: azure;
+            clear: both;
+            
+        }
+
+    </style>
+</head>
+<body>
+    <div class="pr1">
+        <h1>연습문제 1</h1>
+        <img src="./book.png" alt="책사진">
+        <p>문장 : 가나다라마바사</p>
+        <p>문장 : 가나다라마바사</p>
+        <p>문장 : 가나다라마바사</p>
+        <p>문장 : 가나다라마바사</p>
+        <p>문장 : 가나다라마바사</p>
+        <p>문장 : 가나다라마바사</p>
+        <p>문장 : 가나다라마바사</p>
+        <p>문장 : 가나다라마바사</p>
+        <p>문장 : 가나다라마바사</p>
+        <p>문장 : 가나다라마바사</p>
+    </div>
+
+    <div class="pr2">
+        <h1>연습문제 2</h1>
+        <div class="c1 sidebar">  
+            <h2>문제 2-1 / sidebar</h2>
+            <p>내용 -------</p>
+            <p>내용 -------</p>
+            <p>내용 -------</p>
+            <p>내용 -------</p>
+            <p>내용 -------</p>
+        </div>
+
+        <div class="c1 content">
+            <h2>문제 2-2 / content</h2>
+            <p>내용 -------</p>
+            <p>내용 -------</p>
+            <p>내용 -------</p>
+            <p>내용 -------</p>
+            <p>내용 -------</p>
+        </div>
+
+        <div class="c1 clear">
+            <h2>문제 2-3 / clear</h2>
+            <p>내용 ---------</p>
+            <p>내용 ---------</p>
+        </div>
+
+    </div>
+</body>
+</html>
