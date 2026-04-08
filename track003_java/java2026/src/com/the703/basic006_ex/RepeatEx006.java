@@ -8,12 +8,10 @@ public class RepeatEx006 {
 		
 		// 1. 문자열 입력받기
 		// 2. 토마토 tomato 기러기 apple
-		// 3. 
 		int leng = 0;
 		String word = "";
 		Scanner sc = new Scanner(System.in);
 		
-		// 앞뒤 문자를 조건문으로 받을수 있나?
 		
 		System.out.print("단어 입력 > ");
 		word = sc.next();
@@ -27,6 +25,11 @@ public class RepeatEx006 {
 		else {
 			System.out.println("앞뒤 틀림");
 		}
+		
+		// 문자열 입력 programming
+		// 문자열 빈도수 p:1 r:2 o:1 g:2 a:1 ~~~ >
+		// 가장 많이 나온 문자: 'r' (2번)
+		
 		
 
 	}
