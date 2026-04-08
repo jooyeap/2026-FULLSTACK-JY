@@ -20,17 +20,6 @@ public class RepeatEx005 {
 		System.out.print("숫자 2 입력 : ");
 		b = sc.nextInt();
 		
-		for(;(a<b ? a<=b : a>=b);) {
-			
-			System.out.print((a == a_ck ? "":"+")+a);
-			result += a;
-			if(a==b) {break;}
-			else if(a<=b){ a++; }
-			else{ a--; }
-			
-		}
-		
-		System.out.print("="+result);
 		
 //		if(a < b) {
 //			for(;a <= b; a++) {
@@ -46,6 +35,19 @@ public class RepeatEx005 {
 //		}
 		
 
+		for(;(a<b ? a<=b : a>=b);) {
+			
+			System.out.print((a == a_ck ? "":"+")+a);
+			result += a;
+			if(a==b) {break;}
+			else if(a<=b){ a++; }
+			else{ a--; }
+
+		}
+		
+		
+		
+		System.out.print("="+result);
 
 	}
 
