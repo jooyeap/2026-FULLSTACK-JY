@@ -35,6 +35,8 @@ public class ForEx006 {
 			}
 		}
 		
+		
+		
 		System.out.print("="+result);
 	}
 
