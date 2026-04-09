@@ -10,6 +10,7 @@ public class RepeatEx006 {
 		// 2. 토마토 tomato 기러기 apple
 		int leng = 0;
 		String word = "";
+		
 		Scanner sc = new Scanner(System.in);
 		
 		
