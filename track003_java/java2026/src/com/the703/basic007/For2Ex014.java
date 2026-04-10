@@ -13,6 +13,7 @@ public class For2Ex014 {
         int num3 = 4;
         int a = 1;
         int b = 1;
+        int count = 1;
 
         for(a=1; a<4; a++){
             for(b=1;b < 4; b++){
@@ -33,6 +34,28 @@ public class For2Ex014 {
             num3 +=3;
             System.out.println();
         }
+        
+        num1 = 2; 
+        
+        for(a=1; a<10; a++){
+        	
+        	num1 = 2;
+        	if(a>3 && a<7) { num1 = 5; }
+        	else if(a>6 && a<10) { num1 = 8;}
+        	
+            for(b=1;b < 4; b++){
+                if(num1 != 10){
+                	System.out.print(num1 + "*" + count + "=" + (num1*count) + "\t");
+                	num1++;
+                }
+            }
+            switch(count) {
+            case 1: count = 2; break;
+            case 2: count = 3; break;
+            case 3: count = 1; System.out.println(); break;
+            }
+            System.out.println();
+        }
 		
 		// 2 1 2    3 1 3   4 1 4
         // 2 2 4    3 2 6   4 2 8
@@ -40,19 +63,19 @@ public class For2Ex014 {
 
         
 //        int num = 2;
-//        int count = 0;
+//        int count1 = 0;
 //
-//        for(int a=1; a<4; a++){
+//        for(int x=1; x<4; x++){
 //        	
-//            for(int b=1;b<4;b++){
+//            for(int y=1;y<4;y++){
 //            	count++;
 //                for(int c=1; c<4; c++) {
 //                	if(num < 8) {
-//	            		System.out.print(num+"*"+b+"="+(num*b)+"\t");
+//	            		System.out.print(num+"*"+y+"="+(num*y)+"\t");
 //	                	num++;}
 //                	else {
-//                		System.out.print(num+"*"+b+"="+(num*b)+"\t");
-//                		System.out.print((num+1)+"*"+b+"="+((num+1)*b)+"\t"); break;}
+//                		System.out.print(num+"*"+y+"="+(num*y)+"\t");
+//                		System.out.print((num+1)+"*"+y+"="+((num+1)*y)+"\t"); break;}
 //                }
 //                if(count < 3) {num = 2;}
 //                else if(count < 6) { num = 5; }
@@ -62,30 +85,10 @@ public class For2Ex014 {
 //
 //            }
 //            System.out.println();
-
-//        int a = 0;
-//        int b = 0;
-//        int c = 2;
-//        int d = 4;
-//        int count = 0;
 //
-//        for(a=1; a<4; a++){
-//        	
-//            for(b=1;b<4;b++){
-//            	c = 2;
-//            	if(count == 3) {c = 5; d += 2;}
-//            	else if(count == 6) {c = 7; d +=2;}
-//	                for(; c<=d; c++) {
-//	                System.out.print(c+"*"+b+"="+(c*b)+"\t");
-//	                }
-//                System.out.println();
-//                count++;
-//                System.out.println(count);
-//
-//            }
-
 //        }
-        
+
+       
 
 	}
 
