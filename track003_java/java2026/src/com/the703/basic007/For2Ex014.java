@@ -38,6 +38,7 @@ public class For2Ex014 {
         // 2 2 4    3 2 6   4 2 8
         // 2 3 6    3 3 9   4 3 12
 
+<<<<<<< HEAD
         
 //        int num = 2;
 //        int count = 0;
@@ -62,6 +63,28 @@ public class For2Ex014 {
 //
 //            }
 //            System.out.println();
+=======
+//        int a = 0;
+//        int b = 0;
+//        int c = 2;
+//        int d = 4;
+//        int count = 0;
+//
+//        for(a=1; a<4; a++){
+//        	
+//            for(b=1;b<4;b++){
+//            	c = 2;
+//            	if(count == 3) {c = 5; d += 2;}
+//            	else if(count == 6) {c = 7; d +=2;}
+//	                for(; c<=d; c++) {
+//	                System.out.print(c+"*"+b+"="+(c*b)+"\t");
+//	                }
+//                System.out.println();
+//                count++;
+//                System.out.println(count);
+//
+//            }
+>>>>>>> 55ddf3c3158e4365fee655aff8dbdf547bd76844
 //        }
         
 
