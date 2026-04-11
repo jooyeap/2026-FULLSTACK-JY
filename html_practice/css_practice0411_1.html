@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04 11 CSS 복습</title>
+    <style>
+        *{margin: 0; padding: 0;}
+
+        body{
+            margin-top: 40px;
+            background-color: #D6EAE7;
+        }
+
+        .card{
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            width: 44%;
+            margin: 10px auto;
+            padding: 5px 20px 20px;
+            background-color: #fff;
+            border: 1px solid #BDD1CF;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        p{
+            margin: 10px auto;
+        }
+
+        img{
+            display: block;
+            margin: 0 auto;
+            padding: 0;
+            width: 100%;
+            border: #BDD1CF;
+            border-radius: 15px;
+        }
+        
+        h1{
+            color: #1A365D;
+            font-size: 20px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        p{
+            color: #718096;
+            font-size: 16px;
+        }
+
+        .btn{
+            /* position: absolute; */
+            align-self: flex-end;
+            display: block;
+            bottom: 15px;
+            right: 20px;
+            margin-top: 50px;
+            padding: 5px;
+            font-size: 12px;
+            background-color: #2c7a7b;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="card">
+            <p><img src="./img/Gemini_Generated_Image_8u7hbi8u7hbi8u7h.png" alt="예제 이미지"></p>
+            <h1>TITLE: PRODUCT NAME</h1>
+            <p>DESCRIPTION: Small paragraph about the product... Persony exaolution.</p>
+            <a class="btn" href="#">BUTTON: LEARN MORE</a>
+        </div>
+    </div>
+    
+</body>
+</html>
