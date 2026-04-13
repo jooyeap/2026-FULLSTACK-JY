@@ -22,20 +22,11 @@ public class Practice005_List {
 			if(ch[i] == a) {System.out.println(ch[i]); break;}
 		}
 		
-//		String [] ch2 = new String[5];
-//		System.out.println("단어 입력 > ");
-//		st = sc.next();
-//		
-//		ch2 = st.split("");
-//		
-//		System.out.println(Arrays.toString(ch2));
-		
 		char [] ch2 = new char[5];
-		System.out.println("단어 입력 > ");
 		st = sc.next();
 		
-		for(int i=4; i>ch.length; i--) {
-			ch2[i] = st.charAt(i);
+		for(int i=0; i<ch2.length; i++) {
+			ch2[i] = st.charAt(4-i);
 		}
 		
 		System.out.println(Arrays.toString(ch2));
