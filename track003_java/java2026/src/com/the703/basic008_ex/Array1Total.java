@@ -1,7 +1,5 @@
 package com.the703.basic008_ex;
 
-import java.util.Arrays;
-
 public class Array1Total {
 
 	public static void main(String[] args) {

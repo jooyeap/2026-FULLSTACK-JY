@@ -1,7 +1,5 @@
 package com.the703.basic008_ex;
 
-import java.util.Arrays;
-
 public class Array3Total {
 
 	public static void main(String[] args) {
@@ -14,7 +12,6 @@ public class Array3Total {
 	    int[] avg = new int[5];
 	    String[] pass = new String[5];
 	    String[] jang = new String[5];
-	    int count = 1;
 	    int same = 0;
 	    
 	    for(int i=0; i<name.length; i++) {avg[i] = (kor[i]+ eng[i] + mat[i])/3;}

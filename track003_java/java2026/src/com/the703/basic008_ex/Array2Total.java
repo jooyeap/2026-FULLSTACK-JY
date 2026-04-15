@@ -13,7 +13,6 @@ public class Array2Total {
 	    int[] aver=new int[5];
 	    int[] rank = new int[5];
 	    int count = 5;
-	    int x = 0;
 	    String[] pass = new String[5];
 	    String[] jang = new String[5];
 

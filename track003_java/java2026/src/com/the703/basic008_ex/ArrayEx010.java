@@ -1,6 +1,6 @@
 package com.the703.basic008_ex;
 
-import java.util.Scanner;
+//import java.util.Scanner;
 
 public class ArrayEx010 {
 

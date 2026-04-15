@@ -8,7 +8,6 @@ public class ArrayEx013 {
 		
 		int [] datas = {1,3,1,1,4,4,3,1,4,1,2};
 		int [] stars = new int[4];
-		int a = 0;
 
 		//    1  →  datas[0]  → starts[1-1]++  → stars[datas[0]-1]++ →  starts[0]++
 		//    3  →  datas[1]  → starts[3-1]++  → stars[datas[1]-1]++ →  starts[2]++
