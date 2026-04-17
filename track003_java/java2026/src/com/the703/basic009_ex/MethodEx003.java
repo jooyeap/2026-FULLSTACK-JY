@@ -23,23 +23,33 @@ public class MethodEx003 {
 	
 //	5. 10+20= 30
 	public static int myadd(int a, int b) {return a+b;}
+	// 변수 / int result = 0;
+	// 입력 x
+	// 처리 result = a+b; /  
+	// 출력 return result; / return a+b;
 	
 //	6. 반(노랑조/주황조)= 나는 노랑조
 	public static String myban(char ch) {
 		if (ch == 'A') { return "노랑조";}
-		else{ return "주황조";}
+		else if(ch == 'B'){ return "주황조";}
+		else {return "";}
+		//return ch=='A' ? "노랑조" : ch=='B' ? "주황조" : "";
+		
 	}
 	
 //	7. 당신의 학번은? G1111
 	public static String stdId(int num) {return "G"+num;}
 	
 //	8. 당신의 평균은? B
-//	90점이상이면 A ,  80점이상이면 B ,  70점이상이면 C , 아니라면  D
+
 	public static char stdAvg(int num) {
 		if(num >= 90) { return 'A';}
 		else if(num >= 80) {return 'B';}
 		else if(num >= 70) {return 'C';}
 		else {return 'D';}
+//		return num<70 ? 'D' :
+//			   num<80 ? 'C' :
+//			   num<90 ? 'B' : 'A';
 	}
 
 	public static void main(String[] args) {
@@ -51,7 +61,7 @@ public class MethodEx003 {
 		System.out.println("5. 10+20= " + myadd(10,20));       // 두숫자를 더한값을 결과값으로 줌  
 		System.out.println("6. 반(노랑조/주황조)= " + myban('A'));  // A이면 노랑조 ,  B이면 주황조
 		System.out.println("7. 당신의 학번은? " + stdId(1111));   // G하고 넣어준 학번 나오게
-		System.out.println("8. 당신의 평균은? " + stdAvg(88)); 
+		System.out.println("8. 당신의 평균은? " + stdAvg(88));    // 90점이상이면 A ,  80점이상이면 B ,  70점이상이면 C , 아니라면  D
 
 	}
 
