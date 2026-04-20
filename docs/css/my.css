@@ -65,3 +65,15 @@ header{position: fixed; width: 100%; z-index: 10;}
     top: 3px;
     left: -29px;
 }
+
+.skill img{
+    width: 100px;
+    height: 100px;
+    display: block;
+}
+
+.skill p{
+    padding: 12px;
+    border: 4px solid #000;
+    border-radius: 50%;
+}
