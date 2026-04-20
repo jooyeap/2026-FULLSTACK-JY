@@ -2,6 +2,7 @@
 
 body{
     background-color: #f8f9fa;
+    color: #212529;
 }
 
 .hide{
@@ -16,10 +17,51 @@ body{
     clip:rect(0,0,0,0);
 }
 .aboutme{display: flex;}
+.aboutme ul{
+    display: flex; align-items: baseline;
+    justify-content: center; flex-direction: column;
+}
+.aboutme li{list-style: none; font-size: 20px; margin: 12px 0;} 
 header{position: fixed; width: 100%; z-index: 10;}
 
 .project{
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
     gap: 20px;
+}
+
+.timeline{
+    position: relative;
+    overflow: hidden;
+}
+
+.timeline ul{
+    padding-left: 34px;
+}
+
+.timeline::before{
+    content: "";
+    position: absolute;
+    border: 3px solid #000;
+    height: 100%;
+    left: 64px;
+    top: 174px;
+}
+
+.item{
+    position: relative;
+    margin-left: 40px;
+    margin-bottom: 60px;
+}
+
+.item::before{
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-color: #0056B3;
+    border-radius: 50%;
+    top: 3px;
+    left: -29px;
 }

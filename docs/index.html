@@ -9,14 +9,15 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <link href="./css/my.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" >
 </head>
 <body>
-    <header>
+    <header class="bg-dark">
         <h1 class="hide">헤더</h1>
-        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-sm navbar-dark">
         <div class="container-fluid">
             <h2 class="hide">네비게이션 바</h2>
-            <a class="navbar-brand" href="javascript:void(0)">메인로고 이름뭐할지</a>
+            <a class="navbar-brand" href="javascript:void(0)">이 네비게이션바 자바스크립트 배우면 내렸을때 나오게</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
             <span class="navbar-toggler-icon"></span>
             </button>
@@ -26,10 +27,10 @@
                 <a class="nav-link" href="javascript:void(0)">About Me</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">Link</a>
+                <a class="nav-link" href="javascript:void(0)">Skills</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">Link</a>
+                <a class="nav-link" href="javascript:void(0)">Portfolio</a>
                 </li>
             </ul>
             </div>
@@ -37,25 +38,28 @@
         </nav>
     </header>
 
-    <section class="container p-5 border border-1">
+    <section class="container p-5 border border-1 d-flex justify-content-center
+        align-items-center vh-100">
         <h3 class="hide">간단한 한줄 자기소개</h3>
-        <p class="text-center m-3">여기에 간단하게 한줄 자기소개 지나가면서 살짝나오게</p>
+        <p class="m-3 p-5">여기에 간단하게 한줄 자기소개 지나가면서 살짝나오게</p>
     </section>
 
-    <section class="container p-5 border border-1">
-        <h3 class="mb-4 p-4 text-center">About Me</h3>
+    <section class="container p-4 ps-5 border border-1 mb-3 mt-3 card">
+        <h3 class="mb-3 mt-2 p-2 ps-2 text-left">About Me</h3>
         <div class="aboutme">
-            <img src="./img/ddd.png" alt="내 사진" style="width: 200px; height: 200px;">
-            <ul class="m-4 mt-0">
-                <li>이름</li>
-                <li>연락처</li>
-                <li>간단한 자기소개?</li>
-                <li></li>
+            <img src="./img/ddd.png" alt="내 사진"
+                style="display: block; width: 200px; height: 200px;"
+                class="border border-3 rounded-pill">
+            <ul class="m-4 mt-0 ps-3">
+                <li><i class="fa-solid fa-user me-2 text-primary pe-2"></i>이름 | 김주엽</li>
+                <li><i class="fa-solid fa-phone me-2 text-primary pe-2"></i>연락처 | 000-0000-0000</li>
+                <li><i class="fa-solid fa-book me-2 text-primary pe-2"></i>학습 목표 | 어쩌구저쩌구</li>
+                <li><i class="fa-solid fa-fire me-2 text-primary pe-2"></i>강점 | 찾아야함 ㅋㅋ</li>
             </ul>
         </div>
     </section>
 
-    <section class="container p-5 border border-1">
+    <section class="container p-5 border border-1 mb-3 mt-3">
         <h3 class="mb-4 p-4 text-center">기술 스택</h3>
         <div class="row">
             <div class="col-sm-4">
@@ -87,7 +91,7 @@
         </div>
     </section>
 
-    <section class="container p-5 border border-1">
+    <section class="container p-5 border border-1 mb-3 mt-3">
         <h3 class="mb-4 p-4 text-center">프로젝트</h3>
         <div class="project">
             <div class="card" style="width:280px ;">
@@ -133,14 +137,60 @@
 
     </section>
 
-    <section class="container p-5 border border-1">
-        <h3 class="mb-4 p-4 text-center">교육 및 자격증</h3>
+    <section class="container p-5 border border-1 timeline mb-3 mt-3">
+        <h3 class="mb-5 p-5 text-center">교육 및 자격증</h3>
+        <div class="item">
+            <pre>00.00.00
+                이번 국취제 시작날짜든 ㅇㅇ</pre>
+            <img src="./img/ddd.png" alt="날짜 사진"
+                    style="width: 120px; height: 120px;
+                     display: inline-block; margin-left: 120px;">
+            
+        </div>
+        <div class="item">
+            <pre>00.00.00
+                자격증 준비같은거나 그거에 맞는 이미지도 넣던지</pre>
+            <img src="./img/ddd.png" alt="날짜 사진"
+                    style="width: 120px; height: 120px;
+                     display: inline-block; margin-left: 120px;">
+        </div>
+        <div class="item">
+            <pre>00.00.00
+                포트폴리오 같은거 한거
+                이런데다가는 포폴 링크같은거 넣어도 괜찮을지 고려해봐도</pre>
+            <img src="./img/ddd.png" alt="날짜 사진"
+                    style="width: 120px; height: 120px;
+                     display: inline-block; margin-left: 120px;">
+        </div>
+        <div class="item">
+            <pre>00.00.00
+                일단 적어놓고 시기맞춰서 하나씩 수정</pre>
+            <img src="./img/ddd.png" alt="날짜 사진"
+                    style="width: 120px; height: 120px;
+                     display: inline-block; margin-left: 120px;">
+        </div>
+        <div class="item">
+            <pre>00.00.00
+                하다가 더 늘거같으면 마진줄이든 더 늘리든 해서맞추고</pre>
+            <img src="./img/ddd.png" alt="날짜 사진"
+                    style="width: 120px; height: 120px;
+                     display: inline-block; margin-left: 120px;">
+        </div>
+
+        <!-- <ul class="d-flex flex-wrap gap-2 m-0 p-0" style="list-style: none;">
+            <li><span class="badge rounded-pill bg-info">자격증 이름 자리</span></li>
+            <li><span class="badge rounded-pill bg-info">자격증 이름 자리</span></li>
+            <li><span class="badge rounded-pill bg-info">자격증 이름 자리</span></li>
+            <li><span class="badge rounded-pill bg-info">자격증 이름 자리</span></li>
+            <li><span class="badge rounded-pill bg-info">자격증 이름 자리</span></li>
+            <li><span class="badge rounded-pill bg-info">자격증 이름 자리</span></li>
+        </ul> -->
     </section>
 
-    <section class="container p-5 border border-1">
+    <section class="container p-5 border border-1 mb-3 mt-3">
         <h3 class="mb-4 p-4 text-center">깃허브 링크랑 이메일주소등</h3>
     </section>
-    <footer class="container p-3 border border-1">
+    <footer class="container p-3 border border-1 mb-3 mt-3">
         <p>copyrights 문구</p>
     </footer>
 </body>
