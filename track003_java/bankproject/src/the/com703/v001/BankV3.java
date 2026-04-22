@@ -99,6 +99,20 @@ public class BankV3 {
 	    //8. 삭제기능
 		static void delete() {
 			System.out.println("\n계좌를 삭제하시겠습니까?\n Y/N ");
+			char ch = sc.next().charAt(0);
+			
+			if(ch == 'Y' || ch == 'y') {
+				id[id_count] = null;
+				pass[id_count] = null;
+				balance[id_count] = 0;
+				id_count = -1;
+				login = false;
+				System.out.println("계좌를 삭제합니다.");
+			}
+			else if(ch == 'N' || ch == 'n') {
+				System.out.println("취소");
+			}
+			else {System.out.println("정확한 값을 입력해주세요");}
 		}
 		////////////////////////////////////////////////////
 		
@@ -124,8 +138,8 @@ public class BankV3 {
 			else if(menu == 2) {info();}
 			else if(menu == 3) {input();}
 			else if(menu == 4) {output();}
-			else if(menu == 5) {}
-			else if(menu == 9) {}
+			else if(menu == 5) {delete();}
+			else if(menu == 9) {System.out.println("종료"); break;}
 		}
 
 	}

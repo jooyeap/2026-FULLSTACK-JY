@@ -1,0 +1,103 @@
+@charset "UTF-8";
+
+body{
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+.hide{
+    position: absolute;
+    left: -999px;
+    width: 1px; height: 1px;
+    overflow: hidden;
+    border: 0;
+    white-space: nowrap;
+    /* 요소를 잘라서 시각적으로 완전히 숨김
+     - 구형브라우저 호환 */
+    clip:rect(0,0,0,0);
+}
+.aboutme{display: flex;}
+.aboutme ul{
+    display: flex; align-items: baseline;
+    justify-content: center; flex-direction: column;
+}
+.aboutme li{list-style: none; font-size: 20px; margin: 12px 0;} 
+header{position: fixed; width: 100%; z-index: 10;}
+
+.project{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.timeline{
+    position: relative;
+    overflow: hidden;
+}
+
+.timeline ul{
+    padding-left: 34px;
+}
+
+.timeline::before{
+    content: "";
+    position: absolute;
+    border: 3px solid #000;
+    height: 100%;
+    left: 64px;
+    top: 174px;
+}
+
+.item{
+    position: relative;
+    margin-left: 40px;
+    margin-bottom: 60px;
+}
+
+.item pre{
+    margin-left: 20%;
+}
+
+.item::before{
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-color: #0056B3;
+    border-radius: 50%;
+    top: 6px;
+    left: -29px;
+}
+
+.skill img{
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.skill p{
+    width: 22%;
+    padding: 12px;
+    border: 4px solid #000;
+    border-radius: 50%;
+}
+
+.sub button{
+    width: 20%;
+}
+
+.tools button{
+    width: 17%;
+    font-size: 12px;
+}
+
+.area{
+    border: 3px solid #000;
+    background-color: gray;
+}
+
+.balance{
+    max-width: 936px;
+    min-height: 360px;
+}
