@@ -79,7 +79,7 @@ public class BankProjectV2 {
 				
 				balance[count] += menu;
 				
-				System.out.println(balance[count] + " 원 입금\n"
+				System.out.println(menu + " 원 입금\n"
 								  +"==========================\n"
 					              +"현재 잔액 : " + balance[count] + " 원\n" );
 			}
