@@ -3,6 +3,8 @@
 body{
     background-color: #f8f9fa;
     color: #212529;
+    display: flex;
+    flex-direction: column;
 }
 
 .hide{
@@ -16,11 +18,10 @@ body{
      - 구형브라우저 호환 */
     clip:rect(0,0,0,0);
 }
-.aboutme{display: flex;}
-.aboutme ul{
+/* .aboutme ul{
     display: flex; align-items: baseline;
     justify-content: center; flex-direction: column;
-}
+} */
 .aboutme li{list-style: none; font-size: 20px; margin: 12px 0;} 
 header{position: fixed; width: 100%; z-index: 10;}
 
@@ -94,10 +95,20 @@ header{position: fixed; width: 100%; z-index: 10;}
 
 .area{
     border: 3px solid #000;
-    background-color: gray;
 }
 
 .balance{
-    max-width: 936px;
+    min-width: 600px;
     min-height: 360px;
+    
+}
+
+.sub{
+    width: 23%;
+    
+}
+
+.tools{
+    width: 96px;
+    height: 28px;
 }

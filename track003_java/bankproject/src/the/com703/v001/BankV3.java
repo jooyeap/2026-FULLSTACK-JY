@@ -12,7 +12,6 @@ public class BankV3 {
 	   static Scanner sc = new Scanner(System.in);
 	   static int tempbalance = -1;
 	   static boolean login = false;
-	   static int id_count = -1;
 	   static String id_ck = "";
 	   static String pass_ck = "";
 		////////////////////////////////////////////////////
@@ -33,15 +32,14 @@ public class BankV3 {
 	    }
 	    
 	    //2. 유저 빈칸찾기 기능
-	    static int bankCheak() {
-	    	id_count = -1;
+	    static int bankCheak(int id_count) {
 	    	for(int i=0; i<balance.length; i++) {
 	    		if(balance[i] == 0) { id_count = i; break;}
 	    	}
 	    	return id_count;
 	    }
 	    //3. 사용자인증기능 (아이디와 비밀번호가 같은지 찾기)
-	    static int userCheak(String user_id, String user_pass) {
+	    static int userCheak(String user_id, String user_pass, int id_count) {
 	    	for(int i=0; i< id.length; i++) {
 	    		if(id[i] != null && pass[i] != null && id[i].equals(user_id) && pass[i].equals(user_pass)) {
 	    			System.out.println(id[i]+"님 로그인");
@@ -55,7 +53,7 @@ public class BankV3 {
 	    	return -1;
 	    }
 	    //4. 계좌추가기능
-		static void makeId(int id_count) {
+		static int makeId(int id_count) {
 			System.out.println("아이디를 입력해주세요 > ");
 			id[id_count] = sc.next();
 			
@@ -64,15 +62,17 @@ public class BankV3 {
 			
 			System.out.println("잔액 입력 > ");
 			balance[id_count] = sc.nextInt();
+			
+			return id_count;
 		}
 	    //5. 조회기능
-		static void info() {
+		static void info(int id_count) {
 			System.out.println("\n아이디	 : " + id[id_count]
 						      +"\n비밀번호	 : " + pass[id_count]
 							  +"\n잔액 	 : " + balance[id_count] + " 원 \n");
 		}
 	    //6. 입금기능
-		static void input() {
+		static void input(int id_count) {
 			System.out.print("\n입금하실 금액 > ");
 			int temp = sc.nextInt();
 			balance[id_count] += temp;
@@ -82,7 +82,7 @@ public class BankV3 {
 			System.out.println("현재 잔액 : " + balance[id_count]);
 		}
 	    //7. 출금기능
-		static void output() {
+		static void output(int id_count) {
 			System.out.print("\n출금하실 금액 > ");
 			int temp = sc.nextInt();
 			
@@ -97,7 +97,7 @@ public class BankV3 {
 			
 		}
 	    //8. 삭제기능
-		static void delete() {
+		static void delete(int id_count) {
 			System.out.println("\n계좌를 삭제하시겠습니까?\n Y/N ");
 			char ch = sc.next().charAt(0);
 			
@@ -118,13 +118,14 @@ public class BankV3 {
 		
 	public static void main(String[] args) {
 		int num = -1;
-		int menu=-1;  
+		int menu = -1;
+		int id_count = -1;
 		
 		while(true) {
 			
 			menu = mainMenu();
 			
-			if(menu == 1) {makeId(bankCheak());}
+			if(menu == 1) {id_count = makeId(bankCheak(id_count));}
 			else if(login == false && menu != 9) {
 				
 				System.out.print("아이디 입력 > ");
@@ -133,12 +134,12 @@ public class BankV3 {
 				System.out.print("\n비밀번호 입력 > ");
 				pass_ck = sc.next();
 				
-				num = userCheak(id_ck,pass_ck);
+				num = userCheak(id_ck,pass_ck,id_count);
 				}
-			else if(menu == 2) {info();}
-			else if(menu == 3) {input();}
-			else if(menu == 4) {output();}
-			else if(menu == 5) {delete();}
+			else if(menu == 2) {info(id_count);}
+			else if(menu == 3) {input(id_count);}
+			else if(menu == 4) {output(id_count);}
+			else if(menu == 5) {delete(id_count);}
 			else if(menu == 9) {System.out.println("종료"); break;}
 		}
 
