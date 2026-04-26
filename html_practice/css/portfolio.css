@@ -112,3 +112,11 @@ header{position: fixed; width: 100%; z-index: 10;}
     width: 96px;
     height: 28px;
 }
+
+.project{
+    height: 500px;
+}
+.carousel-item h4{
+    text-align: left;
+    margin-bottom: 12px;
+}

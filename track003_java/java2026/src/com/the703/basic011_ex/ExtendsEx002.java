@@ -59,7 +59,7 @@ class MobileNote9 extends MobileNote8{
 	public int getBattery() { return battery; }
 	public void setBattery(int battery) { this.battery = battery; }
 	
-	@Override void newShow() { 
+	@Override void newShow() { // 함수명이 같아야 위로 올라가면서 추가된다고 이해..?
 		super.newShow();
 		System.out.println("NOTE9 객체 기능(Overriding) 추가");
 		System.out.println("battery 예쁘게 사용하기!");

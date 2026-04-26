@@ -127,6 +127,31 @@
     </pre>    
     <input type="button" value="네비게이터"  id="fn_css"  title="버튼을 클릭하세요" class="btn btn-outline-primary"      />
      <script>
+      window.addEventListener("load" , function(){
+        let btn = document.getElementById("fn_css");
+        let count = 0;
+        console.log(btn);
+        // function success(){
+        //   if(count == 0){ btn.classList.add("btn-success"); count++;}
+        //   else if(count == 1){ btn.classList.remove("btn-success"); count--;}
+        // }
+        // btn.onclick=function(){success();}
+
+        // toggle
+        // 인수가 하나일때 ("a")괄호 안에 선언한 클래스가 
+        // 존재한다면 제거하고 false를 반환
+        // 존재하지 않으면 클래스를 추가하고 true를 반환
+        // btn.onclick=function(){btn.classList.toggle("btn-success");}
+
+        // 인수가 두개일때 ("a" , i < 5)
+        // 두번째 인수가 true면 클래스 값을 추가하고
+        // false 면 제거함
+        btn.onclick=function(){
+          let boolean = btn.classList.toggle("btn-success" , count == 0)
+          if(boolean) {count++;}
+          else if(boolean == false) {count--;}
+        }
+      });
      </script>
     </div><!-- end card-body  -->
   <!--     -->
@@ -140,6 +165,14 @@
     </pre>
     <input type="button" value="SUCCESS-DANGER TOGGLE"  id="fn_css_test"  title="버튼을 클릭하세요" class="btn btn-outline-success"      />
     <script>
+      window.addEventListener("load" , function(){
+        let btn = document.querySelector("#fn_css_test");
+        console.log(btn)
+        btn.onclick=function(){
+          btn.classList.toggle("btn-outline-success");
+          btn.classList.toggle("btn-outline-danger");
+        };
+      });
     </script>
   </div><!-- end card-body  -->
 </div><!-- end container  -->
@@ -161,6 +194,14 @@
     </pre>    
     <p><img src="https://picsum.photos/200/200?random=1"  alt="attribute 테스트1"   id="attr_basic"  style="width:200px"/></p>
     <script>
+      window.addEventListener("load" , function(){
+        let img = document.getElementById("attr_basic");
+        img.onclick=function(){
+          alert(img.src); // 밸류값 바꾸는거라고 생각하면되는거같음
+          img.src = "https://picsum.photos/200/200?random=2";
+          console.log(img.src);
+        }
+      });
     </script>
   </div><!-- end card-body  -->
   <!--     -->
@@ -172,8 +213,30 @@
     1.  #fn_css_test 버튼에  클릭 시  btn-outline-success 가 있다면 btn-outline-danger로
     2.  #fn_css_test 버튼에  클릭 시  btn-outline-danger  가 있다면 btn-outline-success로
     </pre>
-    <a href="https://www.daum.net"    title="네이버포털사이트로 바로가기"  target="_blank" class="btn btn-success  gonaver">네이버</a>
+    <a href="https://www.daum.net"    title="네이버포털사이트로 바로가기"  target="_blank" class="btn btn-success btn-outline-success gonaver">네이버</a>
     <script>
+      // window.addEventListener("load" , function(){
+      //   let btn = document.querySelector("#gonaver");
+      //   console.log(btn);
+      //   btn.addEventListener("click" , function(e){
+      //     e.preventDefault();
+      //     btn.classList.toggle("btn-outline-success");
+      //     btn.classList.toggle("btn-outline-danger");
+      //   });
+      //   btn.onclick=function(){};
+      // });
+
+      // window.onload = function() {
+      //   const btn = document.querySelector("#gonaver");
+      //   console.log(btn);
+      //   btn.addEventListener("click", function(){
+      //     btn.classList.toggle("btn-outline-success");
+      //     btn.classList.toggle("btn-outline-danger");
+      //   });
+      // }
+
+      // defer ? onload??
+      // 웹 브라우저 읽기 방식때문인거같음
     </script>
   </div><!-- end card-body  -->
 </div><!-- end container  -->
