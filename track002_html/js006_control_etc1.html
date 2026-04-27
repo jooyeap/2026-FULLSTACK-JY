@@ -504,8 +504,16 @@
           while(chk == false){
             let age = prompt("나이를 0~5 사이로 입력하세요")
             if(age >= 0 && age < 6){ alert("정상값 입력"); chk = true;}
-            
           }
+
+          // while() 조건 안에 따로 변수 선언안하고 바로 조건박는것도 괜찮을거같음
+          // let result = "정상적인 값을 입력해주세요"
+          // let age = -1;
+          // while(!(age >= 0 && age < 6)){
+          //   age = prompt("0~5 나이 입력")
+          //   if( age >= 0 && age < 6){ result = "나이는 " + age}
+          //   alert(result);
+          // }
         }
       });
     </script>
@@ -592,12 +600,15 @@
               count++;
             }// 숫자 2 if문 끝
 
+            
             else if(count == 3){
+              let result = 0;
               switch(abc.value){
                 case '+': result1.value = Number(num1.value) + Number(num2.value); break;
-                case '-': result1.value = num1.value - num2.value; break;
-                case '*': result1.value = num1.value * num2.value; break;
-                case '/': result1.value = num1.value / num2.value; break;
+                case '-': result1.value = Number(num1.value) - Number(num2.value); break;
+                case '*': result1.value = Number(num1.value) * Number(num2.value); break;
+                case '/': result = Number(num1.value) / Number(num2.value);
+                result1.value =  result.toFixed(2); break;
               }
               console.log(num1,num1.value);
               console.log(num2,num2.value);
