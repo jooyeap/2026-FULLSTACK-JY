@@ -1,0 +1,140 @@
+package com.the703.basic013_ex;
+
+import java.util.ArrayList;
+ 
+class Papa{
+	int money=10;
+
+	public Papa() { super(); }
+	public Papa(int money) { super(); this.money = money; }
+	@Override public String toString() { return "Papa [money=" + money + "]"; }
+}
+class Son extends Papa{
+	int money=150;
+	int car=2;
+	
+	public Son() { super(); }
+	public Son(int money) { super(money); }
+	public Son(int money, int car) { super(); this.money = money; this.car = car; }
+	@Override public String toString() { return "Son [money=" + money + ", car=" + car + "]"; }
+}
+ 
+
+
+public class Repeat003_oop {
+	public static void main(String[] args) {
+		// Q3. Papa p1 = new Papa(); 실행 시 메모리 구조와 출력 결과를 설명하시오.
+		// System.out.println(p1);의 결과는 무엇인가? -> [money= 10]
+		// 메모리 구조 : heap 영역에 new 생성자로 생성 -> Papa() 값 초기화 -> 주소값 생성 -> p1 참조
+		// Papa p1	{money=10} = 1번지 new {money=10}
+		Papa p1 = new Papa();   
+		System.out.println(p1); 
+		
+		// Q4. Son s2 = new Son(); 실행 시 메모리 구조와 출력 결과를 설명하시오.
+		// System.out.println(s2);의 결과는 무엇인가? -> [money= 150, car=2]
+		// 메모리 구조 :  heap 영역,
+		// Son s2(2번지) =     {money=150,car=2} - {money=10}
+		//				  2번지{money=150,car=2} - {money=10}
+		// Son-{money = 150, car=2, #1 -> Papa {money = 10 #2 -> Object { #3
+		// Son-{money = 150, car=2, }#6 -> Papa {money = 10 }#5 -> Object { }#4
+		Son s2 = new Son();   
+		System.out.println(s2);   
+		
+		// Q5.Son s3 = (Son) new Papa(); 실행 시 어떤 문제가 발생하는가?
+		// Papa는 Son의 자식 클래스로 Son의 생성자로 초기화가 되어있지않아 사용 불가능
+		// Son s3(3번지) = 	 {money=150,car2}-{money=10}
+		//				 3번지				  {money=10}
+		//Son s3 = (Son) new Papa();  
+		
+		// Q6. Papa p4 = new Son(); 실행 시 메모리 구조와 출력 결과를 설명하시오.
+		// System.out.println(p4);의 결과는 무엇인가? -> [money= 10, car=0] -> 타입캐스팅 해야 150에 2가 출력
+		// System.out.println(p4.money);의 결과는 무엇인가? 10
+		// Papa p4 (4번지) = 						{money=10}
+		//			  	   4번지{money=150,car2}-{money=10} -> 업캐스팅
+		Papa p4 = new Son();                               
+		System.out.println(p4); 
+		System.out.println(p4.money); 
+
+		// Q7. p4에서 Son의 moeny를 사용하는 방법은? 
+		// 타입캐스팅 > ( (Son) p4).money)
+		System.out.println(((Son)p4).money);
+		
+		// Q8 오버로딩/오버라이딩이란?
+		
+//		오버로딩 > 클래스에서 생성자에서 파라미터의 자료형과 갯수가 같을때 일어남
+//		ㄴ 메서드의 이름을 같게, 알규먼트 자료형과 갯수를 다르게 구분
+//		
+//		오버라이딩 > 상속시 자식클래스에서 부모클래스의 메서드를 재정의 @Override
+//		ㄴ 상속시 부모의 메서드를 자식에게 맞게 수정해서 사용
+	}
+}
+
+
+/* 
+
+	
+## 📝 문제: OOP 다형성
+
+다음 코드를 보고 질문에 답하시오.
+
+Q1. 상속도를 그리시오.
+Q2. 상속도에서 각 객체에서 사용할 수 있는 멤버변수와 멤버함수를 적으시오.
+
+	Object
+	↑
+	Papa	{int money = 10}
+	↑
+	Son		{int money = 150, int car = 2} - {Papa 의 멤버변수,함수}
+
+```
+class Papa{
+	int money=10;
+
+	public Papa() { super(); }
+	public Papa(int money) { super(); this.money = money; }
+	@Override public String toString() { return "Papa [money=" + money + "]"; }
+}
+class Son extends Papa{
+	int money=150;
+	int car=2;
+	
+	public Son() { super(); }
+	public Son(int money) { super(money); }
+	public Son(int money, int car) { super(); this.money = money; this.car = car; }
+	@Override public String toString() { return "Son [money=" + money + ", car=" + car + "]"; }
+}
+```
+
+
+public class Repeat002_oop {
+	public static void main(String[] args) {
+		// Q3. Papa p1 = new Papa(); 실행 시 메모리 구조와 출력 결과를 설명하시오.
+		// System.out.println(p1);의 결과는 무엇인가?
+		Papa p1 = new Papa();   
+		System.out.println(p1); 
+		
+		// Q4. Son s2 = new Son(); 실행 시 메모리 구조와 출력 결과를 설명하시오.
+		// System.out.println(s2);의 결과는 무엇인가?
+		Son s2 = new Son();   
+		System.out.println(s2);   
+		
+		// Q5.Son s3 = (Son) new Papa(); 실행 시 어떤 문제가 발생하는가?
+		Son s3 = (Son) new Papa();  
+		
+		// Q6. Papa p4 = new Son(); 실행 시 메모리 구조와 출력 결과를 설명하시오.
+		// System.out.println(p4);의 결과는 무엇인가?
+		// System.out.println(p4.money);의 결과는 무엇인가?
+		Papa p4 = new Son();                               
+		System.out.println(p4); 
+		System.out.println(p4.money); 
+
+		// Q7. p4에서 Son의 moeny를 사용하는 방법은? 
+		 
+	}
+}
+
+
+Q8 오버로딩/오버라이딩이란?
+
+ 
+*/
