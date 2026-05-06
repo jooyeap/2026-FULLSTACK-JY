@@ -86,6 +86,7 @@ public class MapEx003_A {
 
         if (library.containsKey(branchInput)) {
             BookDTO result = library.get(branchInput).get(isbnInput);
+            System.out.println(result);
             if (result != null) {
                 System.out.println("📖 선택한 도서 정보: " + result.getTitle() + " / 저자: " + result.getAuthor());
             } else {
