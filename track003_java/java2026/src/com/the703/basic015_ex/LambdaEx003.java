@@ -23,8 +23,8 @@ public class LambdaEx003 {
         lp2.printAll(foods);
 
         //메서드 참조(::)로 동일한 기능 구현하기 (System.out::println 활용)
-//        ListPrinter lp3 = 
-//        lp3.printAll(foods);
+        ListPrinter lp3 = list -> list.forEach(System.out::println);
+        lp3.printAll(foods);
 
 
         // 문제 2: 리스트 정렬
