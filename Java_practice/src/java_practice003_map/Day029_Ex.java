@@ -91,7 +91,24 @@ public class Day029_Ex {
 			Player p = players.get(i);
 			System.out.println((i+1) +" "+ p.getName() +" "+ p.getScore());
 		}
-
+		
+		System.out.println("==============");
+		
+		players.sort( (a,b) -> Integer.compare(b.getScore(), a.getScore()) );
+		
+		for(int i=0; i<players.size(); i++) {
+			Player p = players.get(i);
+			System.out.println((i+1) +" "+ p.getName() +" "+ p.getScore());
+		}
+		
+		System.out.println("==============");
+		
+		players.sort( Comparator.comparing(Player::getScore) );
+		
+		for(int i=0; i<players.size(); i++) {
+			Player p = players.get(i);
+			System.out.println((i+1) +" "+ p.getName() +" "+ p.getScore());
+		};
 	}
 }
 /*
