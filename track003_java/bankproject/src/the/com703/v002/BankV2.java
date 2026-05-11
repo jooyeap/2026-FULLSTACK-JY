@@ -85,6 +85,7 @@ class Bank extends BankDto{
 	
 	// 유저 로그인 
 	public int userCheak() {
+		// 배열에서 몇번째 배열값으로 작동할건지 변수하나 지정해서 뱉어주고 그거로 작동
 		Scanner sc = new Scanner(System.in);
 		System.out.println("--- 로그인 필요 ---");
 		System.out.print("\n아이디를 입력해주세요 > ");
@@ -167,6 +168,8 @@ class Bank extends BankDto{
 					System.out.println(id + "님의 계좌 삭제완료");
 					users.remove(index);
 					break;
+					// 인덱스나 다른것도 초기화 해주긴해야함
+					// 아니면 로그인 메서드랑 동일하게 인덱스-1뱉으면 조건문 걸어서 맞으면 main에서 초기화?
 				}
 				else { System.out.println("취소합니다. 메인으로 돌아갑니다."); break; }
 			}
@@ -189,7 +192,7 @@ class Bank extends BankDto{
 			return index;
 		}
 		
-	}
+	}// 종료 메서드 끝
 }
 	
 public class BankV2 {

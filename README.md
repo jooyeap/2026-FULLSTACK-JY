@@ -18,9 +18,9 @@
 
 |||
 |-|-|
-|NAME|홍길동|
-|EMAIL|sally03915@gmail.com|
-|GITHUB|https://github.com/sally03915/fullstack_20250825|
+|NAME|김주엽|
+|EMAIL|eyoung071212@gmail.com|
+|GITHUB|https://github.com/jooyeap/2026-FULLSTACK-JY|
 
 ---
 
