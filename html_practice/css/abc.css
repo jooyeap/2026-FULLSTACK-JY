@@ -1,0 +1,34 @@
+@charset "UTF-8";
+*{margin: 0; padding: 0;}
+
+body{
+    background-color: gray;
+}
+
+.hide{
+    position: absolute;
+    left: -999px;
+    width: 1px; height: 1px;
+    overflow: hidden;
+    border: 0;
+    white-space: nowrap;
+    /* 요소를 잘라서 시각적으로 완전히 숨김
+     - 구형브라우저 호환 */
+    clip:rect(0,0,0,0);
+}
+
+section{
+    background-color: #fff;
+    border: 2px solid #000;
+}
+
+#first{
+    width: auto;
+    height: 400px;
+}
+
+#second{
+    width: auto;
+    height: 400px;
+}
+
