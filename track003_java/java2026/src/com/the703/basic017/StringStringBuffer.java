@@ -11,7 +11,6 @@ public class StringStringBuffer {
 		
 		// 1. str의 주소 > ABC 1134712904
 		// 2. str의 주소 > ABCD 1020923989
-
 		// 값을 더하면 새로운 주소값이 부여됨 / 새로운 메모리에 할당 O
 		
 		// #2. StringBuffer
@@ -24,7 +23,6 @@ public class StringStringBuffer {
 		
 		// 3. sb의 주소 > ABC 127618319
 		// 4. sb의 주소 > ABCD 127618319
-		
 		// 값을 더해도 같은 주소값이 부여됨 / 새로운 메모리에 할당 X
 	}
 }

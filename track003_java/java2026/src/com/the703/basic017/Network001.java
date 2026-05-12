@@ -36,7 +36,7 @@ public class Network001 {
 			br.close(); conn.disconnect();
 			
 		} catch (MalformedURLException e) { e.printStackTrace();
-		} catch (IOException e) {  e.printStackTrace();
+		} catch (IOException e) { e.printStackTrace();
 		}
 	}
 }
@@ -44,7 +44,7 @@ public class Network001 {
 
 	Network
 	
-	1) web (http 통신)
+	1) web (http 통신) -> Jsp (java + html) -> Spring
 	2) socket
 
 */

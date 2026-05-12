@@ -40,7 +40,7 @@ class BankDto {
 	
 }
 
-class Bank extends BankDto{
+class Bank{
 	List<BankDto> users = new ArrayList<>();
 
 	public Bank(List<BankDto> users) { super(); this.users = users; }
@@ -48,7 +48,7 @@ class Bank extends BankDto{
 	
 	public int menu() {
 		Scanner sc = new Scanner(System.in);
-		System.out.print("💲💲  WELCOME TO BANK SYSTEM  💲💲\n"
+		System.out.print("\n💲💲  WELCOME TO BANK SYSTEM  💲💲\n"
 				+"==============================\n"
 				+"[1] ➕ 계좌 추가\n"
 				+"[2] 🔍 계좌 조회\n"
@@ -85,7 +85,7 @@ class Bank extends BankDto{
 	
 	// 유저 로그인 
 	public int userCheak() {
-		// 배열에서 몇번째 배열값으로 작동할건지 변수하나 지정해서 뱉어주고 그거로 작동
+		// 배열에서 몇번째 배열값으로 작동할건지 변수하나 지정해서 뱉어주고 그거로 작동 -> index 변수 하나 만들어서 그걸로 처리
 		Scanner sc = new Scanner(System.in);
 		System.out.println("--- 로그인 필요 ---");
 		System.out.print("\n아이디를 입력해주세요 > ");
@@ -148,8 +148,7 @@ class Bank extends BankDto{
 	}// 출금 메서드 끝
 	
 	// 계좌 삭제
-	public void deleteUser() { 
-		// 계좌 삭제하고 로그아웃 처리하게 할라면 리턴값 boolean으로 바꾸고 삭제완료됐을때 리턴 반환해서 다시 로그인하게 유도
+	public boolean deleteUser() { 
 		Scanner sc = new Scanner(System.in);
 		System.out.println("삭제 하시려는 계좌 정보를 입력해주세요.");
 		System.out.println("아이디 > ");
@@ -167,14 +166,13 @@ class Bank extends BankDto{
 				if(temp == 'Y' || temp == 'y') {
 					System.out.println(id + "님의 계좌 삭제완료");
 					users.remove(index);
-					break;
-					// 인덱스나 다른것도 초기화 해주긴해야함
-					// 아니면 로그인 메서드랑 동일하게 인덱스-1뱉으면 조건문 걸어서 맞으면 main에서 초기화?
+					return true;
 				}
-				else { System.out.println("취소합니다. 메인으로 돌아갑니다."); break; }
+				else { System.out.println("취소합니다. 메인으로 돌아갑니다."); return false; }
 			}
 		}
 		System.out.println("일치하는 계좌 정보가 없습니다");
+		return false;
 	}// 계좌 삭제 메서드 끝
 	
 	// 종료
@@ -198,12 +196,13 @@ class Bank extends BankDto{
 public class BankV2 {
 	public static void main(String[] args) {
 		boolean login = false;
+		boolean delete = false;
 		int index = -1;
 		int num = -1;
 		Bank b = new Bank();
 		
 		while(num != 0) {
-			System.out.println("index " + index + "/login " + login + "/num" + num);
+			System.out.println("index " + index + "/login " + login + "/num" + num + "/delete" + delete);
 			num = b.menu();
 			
 			if(num == 1) { b.addUser();}
@@ -214,7 +213,15 @@ public class BankV2 {
 			else if(num == 2) {b.userInfo(index);}
 			else if(num == 3) {b.deposit(index);}
 			else if(num == 4) {b.withdrawal(index);}
-			else if(num == 5) {b.deleteUser();}
+			else if(num == 5) {
+				delete = b.deleteUser();
+				if (delete) {
+					index = -1;
+					num = -1;
+					login = false;
+					delete = false;
+				}
+			}
 			else if(num == 9) {b.exit(index);}
 			else {System.out.println("값을 다시 입력해주세요");}
 			
