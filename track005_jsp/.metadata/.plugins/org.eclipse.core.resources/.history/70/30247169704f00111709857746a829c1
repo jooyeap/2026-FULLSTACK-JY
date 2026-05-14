@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>WS (Web Server) | 정적페이지</title>
+</head>
+<body>
+	<div class="container card my-5 bg-secondary text-white">
+		<h3 class="card-header"> Web Server : 정적 페이지 </h3>
+		<p>오후 4시 8분</p>
+	</div>
+</body>
+</html>
+
+<!-- 정렬 : ctrl + shift + f -->
+<!-- 실행 : ctrl + f11 -->
