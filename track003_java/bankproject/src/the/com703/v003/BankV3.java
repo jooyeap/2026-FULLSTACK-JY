@@ -39,16 +39,15 @@ class BankDto {
 	}
 	
 	
+	
 }
 
 class Bank{
-	//List<BankDto> users = new ArrayList<>();
 	Map<String,BankDto> users = new HashMap<>();
+	BankDto loginUser;	
 
-	
-	public Bank(Map<String, BankDto> users) { super(); this.users = users; }
 	public Bank() { super();  }
-	
+	public Bank(Map<String, BankDto> users) { super(); this.users = users;}
 	public int menu() {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("\n💲💲  WELCOME TO BANK SYSTEM  💲💲\n"
@@ -65,17 +64,26 @@ class Bank{
 	}
 	// 계좌추가
 	public void addUser() {
-		String newName = "";
 		String newId = "";
 		String newPw = "";
+		String newName = "";
 		double newBalance = 0;
 		
 		Scanner sc = new Scanner(System.in);
-		System.out.print("이름을 입력해주세요 > ");
+
+		System.out.print("이름을 입력해주세요 >");
 		newName = sc.next();
 		
-		System.out.print("\n아이디를 입력해주세요 > ");
+		System.out.print("아이디를 입력해주세요 > ");
 		newId = sc.next();
+		
+		// 아이디 중복 검사
+		for(Entry<String,BankDto> b : users.entrySet()) {
+			if(b.getValue().getId().equals(newId)) {
+				System.out.println("이미 존재하는 아이디입니다.");
+				return;
+			}
+		}
 		
 		System.out.print("\n비밀번호를 입력해주세요 > ");
 		newPw = sc.next();
@@ -91,36 +99,29 @@ class Bank{
 	}// 계좌 추가 메서드 끝
 	
 	// 유저 로그인 
-	public int userCheak() {
-		// 배열에서 몇번째 배열값으로 작동할건지 변수하나 지정해서 뱉어주고 그거로 작동 -> index 변수 하나 만들어서 그걸로 처리
-		
+	public BankDto userCheak() {
 		Scanner sc = new Scanner(System.in);
-		boolean check = false;
 		System.out.println("--- 로그인 필요 ---");
-		System.out.print("가입하신 이름을 입력해주세요 > ");
-		
 		System.out.print("\n아이디를 입력해주세요 > ");
 		String uid = sc.next();
 		System.out.print("\n비밀번호를 입력해주세요 > ");
 		String upw = sc.next();
-		int index = -1;
-//		for(BankDto u : users) {
-//			++index;
-//			if(uid.equals(u.getId()) && upw.equals(u.getPw())) {
-//				System.out.println(uid + " 님 확인");
-//				return index;
-//			}
-//		}
-		for(Entry<String,BankDto> e : users.entrySet()) {
-			++index;
+		
+		for(Entry<String,BankDto> u : users.entrySet()) {
+			if(uid.equals(u.getValue().getId()) && upw.equals(u.getValue().getPw())) {
+				System.out.println(uid + " 님 확인");
+				this.loginUser = u.getValue();
+				return u.getValue();
+			}
 		}
 		System.out.println("입력하신 정보와 일치하는 계좌가 없습니다.");
-		return -1;
+		return null;
 	}// 로그인 메서드 끝
 	
 	// 유저 계좌 정보
-	public void userInfo(int index) {
-		BankDto user = users.get(index);
+	public void userInfo(BankDto user) {
+//		BankDto user = users.get(index);
+		
 		System.out.println(user.getId() + " 님의 정보");
 		System.out.println("\nID = " + user.getId()
 				  +"\nPW = " + user.getPw()
@@ -128,8 +129,8 @@ class Bank{
 	}// 계좌 정보 메서드 끝
 	
 	// 입금
-	public void deposit(int index) {
-		BankDto user = users.get(index);
+	public void deposit(BankDto user) {
+//		BankDto user = users.get(index);
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.print("입금하실 금액을 입력해주세요 > ");
@@ -142,8 +143,8 @@ class Bank{
 	}// 입금 메서드 끝
 	
 	// 출금
-	public void withdrawal(int index) {
-		BankDto user = users.get(index);
+	public void withdrawal(BankDto user) {
+//		BankDto user = users.get(index);
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("출금 가능 잔액 : " + user.getBalance());
@@ -162,46 +163,51 @@ class Bank{
 	}// 출금 메서드 끝
 	
 	// 계좌 삭제
-	public boolean deleteUser() { 
+	public void deleteUser() { 
 		Scanner sc = new Scanner(System.in);
 		System.out.println("삭제 하시려는 계좌 정보를 입력해주세요.");
 		System.out.println("아이디 > ");
 		String id = sc.next();
+		
 		System.out.println("비밀번호 > ");
 		String pw = sc.next();
-		int index = -1;
 		
-//		for(BankDto b : users) {
+//		int index = -1;
+		boolean msg = false;
+		
+		for(Entry<String,BankDto> b : users.entrySet()) {
 //			++index;
-//			if(b.getId().equals(id) && b.getPw().equals(pw)) {
-//				System.out.println(id + "님의 계좌를 삭제하시겠습니까?");
-//				System.out.println("Y -> 종료 / 외 다른 입력 취소");
-//				char temp = sc.next().charAt(0);
-//				if(temp == 'Y' || temp == 'y') {
-//					System.out.println(id + "님의 계좌 삭제완료");
-//					users.remove(index);
-//					return true;
-//				}
-//				else { System.out.println("취소합니다. 메인으로 돌아갑니다."); return false; }
-//			}
-//		}
-		System.out.println("일치하는 계좌 정보가 없습니다");
-		return false;
+			if(b.getValue().getId().equals(id) && b.getValue().getPw().equals(pw)) {
+				System.out.println(id + "님의 계좌를 삭제하시겠습니까?");
+				System.out.println("Y -> 종료 / 외 다른 입력 취소");
+				char temp = sc.next().charAt(0);
+				if(temp == 'Y' || temp == 'y') {
+					System.out.println(b.getKey() + "님의 계좌 삭제완료");
+					users.remove(b.getKey());
+					this.loginUser = null;
+					msg = true;
+					break;
+				}
+				else { System.out.println("취소합니다. 메인으로 돌아갑니다.");}
+			}
+		}
+		if(msg) {System.out.println("입력하신 정보와 일치하는 계좌가 없습니다.");}
+		
+		
 	}// 계좌 삭제 메서드 끝
 	
 	// 종료
-	public int exit(int index) {
+	public void exit() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("종료하시겠습니까?");
 		System.out.println("Y -> 종료 / 외 다른 입력 취소");
 		char temp = sc.next().charAt(0);
 		if(temp == 'Y' || temp == 'y') {
 			System.out.println("종료합니다.");
-			return 0;
+			System.exit(0);
 		}
 		else{
 			System.out.println("메인으로 돌아갑니다.");
-			return index;
 		}
 		
 	}// 종료 메서드 끝
@@ -209,35 +215,50 @@ class Bank{
 	
 public class BankV3 {
 	public static void main(String[] args) {
-		boolean login = false;
-		boolean delete = false;
-		int index = -1;
+		
+		// 아래 변수들 최대한 main에서 치우기 
+//		boolean login = false; 
+//		boolean delete = false;
+//		int index = -1;
+//		BankDto key = null;
+	
 		int num = -1;
 		Bank b = new Bank();
 		
-		while(num != 0) {
-			System.out.println("index " + index + "/login " + login + "/num" + num + "/delete" + delete);
+		while(num != 9) {
+//			System.out.println("index " + index + "/login " + login + "/num" + num + "/delete" + delete);
+			
+			// if 문 사용 
+//			num = b.menu();
+			
+//			if(num == 1) { b.addUser();}
+//			else if(b.loginUser == null) {
+//				b.loginUser = b.userCheak();
+////				if(b.loginUser != null) { b.loginUser = true; }
+//			}
+//			else if(b.loginUser != null && num == 2) {b.userInfo(b.loginUser);}
+//			else if(b.loginUser != null && num == 3) {b.deposit(b.loginUser);}
+//			else if(b.loginUser != null && num == 4) {b.withdrawal(b.loginUser);}
+//			else if(b.loginUser != null && num == 5) {b.deleteUser();}
+////				delete = b.deleteUser();
+////				if (delete) { b.loginUser = null; }
+//			else if(num == 9) {b.exit();}
+//			else {System.out.println("값을 다시 입력해주세요");}
+			
+			// switch 사용
 			num = b.menu();
 			
-			if(num == 1) { b.addUser();}
-			else if(login == false) {
-				index = b.userCheak();
-				if(index != -1) { login = true; }
+			if(b.loginUser == null && num != 1) { b.loginUser = b.userCheak(); continue; }
+			
+			switch(num) {
+			case 1: b.addUser(); break;
+			case 2: b.userInfo(b.loginUser); break;
+			case 3: b.deposit(b.loginUser); break;
+			case 4: b.withdrawal(b.loginUser); break;
+			case 5: b.deleteUser(); break;
+			case 9: b.exit(); break;
+			default: System.out.println("값을 다시 입력해주세요");
 			}
-			else if(num == 2) {b.userInfo(index);}
-			else if(num == 3) {b.deposit(index);}
-			else if(num == 4) {b.withdrawal(index);}
-			else if(num == 5) {
-				delete = b.deleteUser();
-				if (delete) {
-					index = -1;
-					num = -1;
-					login = false;
-					delete = false;
-				}
-			}
-			else if(num == 9) {b.exit(index);}
-			else {System.out.println("값을 다시 입력해주세요");}
 			
 		}
 	}

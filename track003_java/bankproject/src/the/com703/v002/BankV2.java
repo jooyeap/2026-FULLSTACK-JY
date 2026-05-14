@@ -67,8 +67,6 @@ class Bank{
 		String newId = "";
 		String newPw = "";
 		double newBalance = 0;
-		boolean idCheak = false;
-		int count = 0;
 		
 		Scanner sc = new Scanner(System.in);
 		System.out.print("아이디를 입력해주세요 > ");
@@ -164,8 +162,10 @@ class Bank{
 		System.out.println("삭제 하시려는 계좌 정보를 입력해주세요.");
 		System.out.println("아이디 > ");
 		String id = sc.next();
+		
 		System.out.println("비밀번호 > ");
 		String pw = sc.next();
+		
 		int index = -1;
 		boolean msg = false;
 		

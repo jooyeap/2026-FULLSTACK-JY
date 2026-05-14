@@ -99,3 +99,93 @@ create database mbasic;
 show databases;
 9. 데이터베이스 db703을 삭제하는 SQL 명령어를 작성하시오.
 drop database db703;
+
+
+#### 3. 테이블
+
+1. RDBMS (Relational DataBase Management System)
+- 관계형 데이터 베이스
+- 테이블의 관계
+- 속성(필드) 연결
+
+2. 테이블 만들기 (집안의 방, 가방 안의 분류표)
+DDL (정의 : create, alter, drop) , DML(조작 :) , DCL(제어 :)
+-----------------------------------------------
+CREATE TABLE table명 (
+    필드1 자료형 옵션,
+    필드2 자료형 옵션
+);
+-----------------------------------------------
+자료형 : 
+    1. 숫자 : int(정수 / 1,2,3), double(실수 / 1.23, 3.14)
+    2. 문자 : char(고정, 남/여) , varchar(가변, abc,adcb,adcbe)
+    3. 날짜 : date, datetime
+옵션 :
+    필수입력 - not null (비어있으면 안됨)
+    숫자자동증가 - auto_increment
+    기본키 - primary key
+
+[실습1]
+create table t1(
+    name varchar(100) not null,
+    age int
+);
+
+show tables; -> 테이블목록확인
+desc t1; -> 구조확인
+
+create table t11(
+    no int not null,
+    name varchar(30) not null
+);
+
+create talbe t12(
+    bookid int not null,
+    title varchar(100) not null
+);
+
+show tables;
+desc t12;
+
+ERROR 1046 (3D000): No database selected
+use db명
+
+mysql> show databases;
+
+mysql> use mbasic;
+Database changed
+mysql> status
+
+mysql> show tables;
+
+※ 참고사항
+not null 필수입력
+mysql> insert into t1 (age) values (1); >> name not null 필수입력이므로 오류
+mysql> insert into t1 (name, age) values ('aaa',1);
+mysql> insert into t1 (name) values ('bbb'); >> 위두개는 오류 X
+
+[실습2] auto_increment (숫자 자동증가) , primary key (기본키)
+
+create table t2(
+    jumin int not null auto_increment primary key,
+    name varchar(100) not null,
+    age int 
+);
+
+※ 참고사항
+auto_increment 자동증가
+insert into t2 (name, age) values ('aaa' , 1);
+insert into t2 (name) values ('bbb');
+
+insert into t2 (jumin, name, age) values (1, 'ccc', 1);
+ERROR 1062 (23000): Duplicate entry '1' for key 't2.PRIMARY'
+>> 키값(jumin)이 중복되어 오류남
+
+select * from t2;
++-------+------+------+
+| jumin | name | age  |
++-------+------+------+
+|     1 | aaa  |    1 | insert into t2 (name, age) values ('aaa' , 1);
+|     2 | bbb  | NULL | insert into t2 (name) values ('bbb');
++-------+------+------+
+2 rows in set (0.00 sec)
