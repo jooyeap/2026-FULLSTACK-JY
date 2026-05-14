@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Copy element &apos;jsp002_was.jsp&apos; to &apos;jsp002_was.jsp&apos;&#x0D;&#x0A;- Original project: &apos;jsp2026&apos;&#x0D;&#x0A;- Destination element: &apos;jsp002_was.jsp&apos;&#x0D;&#x0A;- Original element: &apos;jsp002_was.jsp&apos;" description="Copy file" element1="src/main/webapp/jsp002_was.jsp" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1778748258960" target="/jsp2026/src/main/webapp/jsp002_was.jsp" units="0" version="1.0"/>
-</session>

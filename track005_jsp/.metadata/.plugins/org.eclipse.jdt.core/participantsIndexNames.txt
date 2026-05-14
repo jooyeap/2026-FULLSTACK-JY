@@ -1,3 +1,0 @@
-INDEX VERSION 1.134
-D:\jy\2026-FULLSTACK-JY\track005_jsp\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3514600239.index
-\jsp2026\src\main\java
