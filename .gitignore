@@ -17,4 +17,3 @@ track005_jsp/tomcat9.0/
 # OS별 임시파일
 *.DS_Store
 Thumbs.db
-/.metadata/
