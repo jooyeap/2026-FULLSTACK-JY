@@ -175,7 +175,7 @@ insert into emp value(7654, 'MARTIN', 'SALESMAN', 7698, '1981-09-28', 1250, 1400
 insert into emp value(7698, 'BLAKE', 'MANAGER', 7839, '1981-05-01', 2850, NULL, 30);
 insert into emp value(7782, 'CLARK', 'MANAGER', 7839, '1981-06-09', 2450, NULL, 10);
 insert into emp value(7788, 'SCOTT', 'ANALYST', 7566, '1987-04-19', 3000, NULL, 20);
-insert into emp value(7839, 'KING', 'PRESIDENT', NULL, '1981-11-17', 5000, NULL, 1);
+insert into emp value(7839, 'KING', 'PRESIDENT', NULL, '1981-11-17', 5000, NULL, 10);
 insert into emp value(7844, 'TURNER', 'SALESMAN', 7698, '1981-09-08', 1500, 0, 30);
 insert into emp value(7876, 'ADAMS', 'CLERK', 7788, '1987-05-23', 1100, NULL, 20);
 insert into emp value(7900, 'JAMES', 'CLERK', 7698, '1981-12-03', 950, NULL, 30);
@@ -376,52 +376,61 @@ update score set sjava=90, sjsp=90, sspring=90 where sname='ccc';
 -- [002]  모든학생의 semail의 값을 admin@gamil.com으로 수정하시오
 update score set semail='admin@gamil.com';
  
-
 -- [003]  성적의 총합(sstotal)을 계산해서 넣기   sjava+sjsp+sspring+sproject
 update score set sstotal = (sjava+sjsp+sspring+sproject);
 
 -- [004]  성적의 평균을 계산해서 넣기 , ssavg = sstotal/4	
+-- 아래 소수점 문제 자료형 변경으로 해결
 alter table score modify ssavg double;
 update score set ssavg = (sstotal/4);
  
-
 -- [005]  성적의 평균이 ssavg 100점인 학생의 email을 first@gmail.com으로 수정하시오
 update score set semail='first@gmail.com' where ssavg=100;
  
- 
-select * from score;
 -- [006]  이름이 bbb인 학생의 sjava 점수를 92 , sjsp점수를 78로 , 총점, 평균을  수정하시오
 update score set sjava=92, sjsp=78, sstotal = (sjava+sjsp+sspring+sproject), ssavg=(sstotal/4.0) where sname='bbb';
  
 -- [007]  성적의 평균이 ssavg 89.5점인 학생의 semail을 second@gmail.com로 , sname을 second로 수정하시오
+-- 처음 table 세팅할때 ssavg는 int형으로 되어있었으니 자료형 double로 바꿔야함
 update score set semail='second@gamil.com', sname='second' where ssavg=89.5;
  
-
 -- [008]   sname이 ccc인 학생의 semail을  ccc@gmail.com으로 수정하시오
 update score set semail='ccc@gmail.com' where sname='ccc';
 
 -- [009]   sproject점수가 80점미만인 학생의 semail을 blackstdudent@gmail.com으로 수정하시오
-update score set sproject=if(sproject<80, 'blackstudent@gmail.com', sproject);
+update score set semail='blackstudent@gmail.com' where sproject<80;
+-- if ( 조건문 , true일때 값, false일때 값 )
+update score set semail=if((sproject<80), 'blackstudent@gmail.com', semail);
  
 -- [010]   ssavg이89.5이고 sproject가 98인 학생의 semail을  hello@gmail.com으로 수정하시오
- update score set semail='hello@gmail.com' where ssavg=89.5 and sproject=98;
+ update score set semail='hello@gmail.com' where ssavg=89.5 and sproject=98; -- 얘도 해당하는 자료 없음
 
-
+select * from score;
 
 -- ■ 진행   5. CRUD (DELETE)
 -- >  3. 삭제 (delete)
+-- ------------------------------------------
 -- = DELETE  FROM  tbl_name  WHERE condition;
+-- ------------------------------------------
 
 -- >  #  userinfo 테이블복사해서
 --         delete_userinfo 테이블 만들기  ( 구조 + 데이터 )
- 
+
+create table userinfo2 select * from userinfo; -- 구조 + 데이터
+-- no에 primary key, auto_increment 추가
+alter table userinfo2 modify no int not null primary key auto_increment;
+select * from userinfo2; -- primary key, auto_increment
+
+desc userinfo2;
+
+delete from userinfo2 where no=4 and age=44 and name='fourth';
 
 --     #1.  나이가 11살인 유저 데이터 삭제 
-
+delete from userinfo2 where age=11;
 --     #2. 이름이 second이고 나이가 22살인 유저의 데이터 삭제 
-
+delete from userinfo2 where name='second' and age=22;
 --     #3. 전체데이터 삭제 
-
+delete from userinfo2;
 
 
 
@@ -432,6 +441,8 @@ update score set sproject=if(sproject<80, 'blackstudent@gmail.com', sproject);
 --    create table delete_emp  select * from emp;
 --    alter table delete_emp modify empno int not null  auto_increment primary key;
 
+create table delete_emp select * from emp;
+desc delete_emp;
 -- [000-1]  다음과 같이 DB와 테이블을 만드시오      >> emp
 -- mysql> desc emp;
 -- +----------+-------------+------+-----+---------+----------------+
@@ -472,12 +483,14 @@ update score set sproject=if(sproject<80, 'blackstudent@gmail.com', sproject);
 -- +-------+--------+-----------+------+------------+------+------+------+
 -- 14 rows in set (0.00 sec)
 
--- mysql>
 
+-- mysql>
+select * from delete_emp;
 
 -- [001] [TABLE : delete_emp] (직책(JOB)이  'SALESMAN'인 데이터를 삭제하시오.  ) 
-
+delete from delete_emp where job='SALESMAN';
 -- [002] [TABLE : delete_emp] (직책(JOB)이  'MANAGER'이고  이름(ENAME)이 'JONES'인 데이터를 삭제하시오.  ) 
-
+delete from delete_emp where job='MANAGER' and ename='JONES';
 -- [003] [TABLE : delete_emp] (delete_emp 테이블의 모든 데이터를 삭제하시오. )
+delete from delete_emp;
  
