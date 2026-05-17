@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Scanner;
 
+
 // 전체적으로 정보는 정보 처리는 처리 확실하게 구분
 
 // 각 코인들 어떻게 만들고 설정 할건지?
@@ -86,6 +87,10 @@ class UserDto {
 // 시장 클래스 / 사고 팔고, 변동성 메서드 구현
 class Market{
 	Map<String,CryptoDto> coins = new HashMap<>();
+	
+	
+	public Map<String, CryptoDto> getCoins() { return coins; }
+	public void setCoins(Map<String, CryptoDto> coins) { this.coins = coins; }
 
 	// 코인 추가
 	public Market() { // name symbol price
@@ -94,26 +99,26 @@ class Market{
 		coins.put("CCC", new CryptoDto("C코인", "CCC", 500000));
 	}
 	
-	// 구매
-	public void Buy(UserDto user, String symbol, double amount){
-		CryptoDto coin = coins.get(symbol);
-		double price = coin.getPrice() * amount;
-		if(price > user.getBalance()) {
-			System.out.println("지갑에 보유한 잔고가 부족합니다.");
-		}
-		else {
-			user.setBalance(user.getBalance() - price);
-			user.addCrypto(symbol, amount);
-			System.out.println(user.getId()+"님 거래 성공");
-			System.out.println("코인이름 : " + coin.getName());
-			System.out.println("심볼명 : " + coin.getSymbol());
-			System.out.println("수량 : " + amount);
-			System.out.println("구매 금액 : " + coin.getPrice()*amount);
-			System.out.println("남은 금액 : " + user.getBalance());
-			// 총자산 계산하는 메서드 완성하고 조정
-	//		System.out.println("보유 자산 : " + (user.getBalance() ));
-		}
-	}
+	// 구매 -> Bank 클래스에서 구현
+//	public void Buy(UserDto user, String symbol, double amount){
+//		CryptoDto coin = coins.get(symbol);
+//		double price = coin.getPrice() * amount;
+//		if(price > user.getBalance()) {
+//			System.out.println("지갑에 보유한 잔고가 부족합니다.");
+//		}
+//		else {
+//			user.setBalance(user.getBalance() - price);
+//			user.addCrypto(symbol, amount);
+//			System.out.println(user.getId()+"님 거래 성공");
+//			System.out.println("코인이름 : " + coin.getName());
+//			System.out.println("심볼명 : " + coin.getSymbol());
+//			System.out.println("수량 : " + amount);
+//			System.out.println("구매 금액 : " + coin.getPrice()*amount);
+//			System.out.println("남은 금액 : " + user.getBalance());
+//			// 총자산 계산하는 메서드 완성하고 조정
+//	//		System.out.println("보유 자산 : " + (user.getBalance() ));
+//		}
+//	}
 	
 	// 판매
 	public void Sell(UserDto user, String symbol, double amount) {
@@ -162,23 +167,132 @@ class Bank{
 
 	public Bank() { super();  }
 	public Bank(Map<String, UserDto> users) { super(); this.users = users;}
-	public int menu() {
+	
+	public int menu() { // 메인 메뉴
 		Scanner sc = new Scanner(System.in);
+		// 완료
 		// 여기도 전체적으로 구문 수정
-		System.out.print("\n💲💲  WELCOME TO BANK SYSTEM  💲💲\n"
-				+"==============================\n"
-				+"[1] ➕ 계좌 추가\n"
-				+"[2] 🔍 계좌 조회\n"
-				+"[3] 📈 입금하기\n"
-				+"[4] 📉 출금하기\n"
-				+"[5] ❌ 계좌 삭제\n"
-				+"[9] ‼ 종료 ‼\n"
-				+"=============================\n"
-				+"번호 입력 > ");
+		System.out.println("\n===============================================");
+		System.err.println("\tCRYPTO TRADING & BANKING SYSTEM\t");
+		System.out.println("===============================================");
+		System.out.println("[1] 계좌 등록 \t\t [2] 정보 조회");
+		System.out.println("[3] 현금 입금 \t\t [4] 현금 출금");
+		System.out.println("-----------------------------------------------");
+		System.out.println("[5] 거래소 \t\t [6] 내 총 자산 리포트");
+		System.out.println("-----------------------------------------------");
+		System.out.println("[9] 계좌 삭제 \t\t [0] 프로그램 종료");
+		System.out.println("===============================================");
+		System.out.print("번호 입력 > ");
 		return sc.nextInt();
+	} // 메인 메뉴 끝
+	
+	public int coinMenu() { // 거래소 메뉴
+		Scanner sc = new Scanner(System.in);
+		System.out.println("\n===============================================");
+		System.err.println("\tCRYPTO TRADING & BANKING SYSTEM\t");
+		System.out.println("\t      거래소에 오신것을 환영합니다.");
+		System.out.println("===============================================");
+		System.out.println("[1] 시세 조회");
+		System.out.println("[2] 코인 매수 (Buy)");
+		System.out.println("[3] 코인 매도 (Sell)");
+		System.out.println("[9] 뒤로가기");
+		System.out.println("===============================================");
+		System.out.print("번호 입력 > ");
+		return sc.nextInt();
+		
+	} // 거래소 메뉴 끝
+	
+	public void coinList(Market market) { // 코인 목록
+		//시간 되면 리스트 정렬해서 오름차 내림차순으로 정렬하는거
+		System.out.println("\n===============================================");
+		System.err.println("\tCRYPTO TRADING & BANKING SYSTEM\t");
+		System.out.println("\t           실시간 코인 시세");
+		System.out.println("===============================================");
+		System.out.printf("%-10s | %-12s | %-18s\n","심볼(Symbol)","코인명(Name)","현재가(Price)");
+		
+		// 정상 작동
+//		for(CryptoDto c : market.coins.values()) {
+//			System.out.println("테스트용 --");
+//			System.out.println(c.getName() + "," + c.getSymbol() + "," + c.getPrice());
+//		}
+		
+		// printf
+		// %-as >> - 왼쪽 정렬, a 칸 만큼 자리확보 
+		// %,a.2f >> , 3자리마다 쉼표 찍기, a 칸만큼 자리확보
+		for(CryptoDto c : market.coins.values()) {
+			System.out.printf(" %-10s | %-12s | %,15.2f\n"
+					,c.getSymbol(),c.getName(),c.getPrice());
+		}
+		System.out.println("===============================================");
+		
+
+	} // 코인 목록 끝
+	
+	public void coinBuy(Market market, UserDto user) {
+		CryptoDto coin = new CryptoDto();
+		Scanner sc = new Scanner(System.in);
+		String sb_input = "";
+		double am_input = -1;
+		boolean msg = false;
+		// 순서 없으니까 숫자가 아니고 심볼명이나 코인이름으로 값 받아와서 찾아와야함
+		// 심볼값이랑 수량만 가져가서 wallet에 처리하면될거같음
+		System.out.println("\n===============================================");
+		System.err.println("\tCRYPTO TRADING & BANKING SYSTEM\t");
+		System.out.println("\t           실시간 코인 시세");
+		System.out.println("===============================================");
+		System.out.printf("%-10s | %-12s | %-18s\n","심볼(Symbol)","코인명(Name)","현재가(Price)");
+		for(CryptoDto c : market.coins.values()) {
+			System.out.printf(" %-10s | %-12s | %,15.2f\n"
+					,c.getSymbol(),c.getName(),c.getPrice());
+		}
+		System.out.println("===============================================");
+		// 원하는 심볼명 물어보고
+		System.out.println("구매를 원하는 코인의 심볼명을 입력해주세요");
+		System.out.print("> ");
+		sb_input = sc.next();
+		// 일치하는거 있는지 1차적으로 확인
+		for(CryptoDto c : market.coins.values()) {
+			if(c.getSymbol().equals(sb_input.toUpperCase())) {
+//				System.out.println("테스트 문자열 확인됨");
+				System.out.println("===============================================");
+				System.out.println(c.getSymbol() +"의 현재 시세");
+				System.out.printf("\n %-10s | %-12s | %,15.2f\n"
+						,c.getSymbol(),c.getName(),c.getPrice());
+				coin = c;
+				msg = true;
+				break;
+			}
+		}
+		System.out.println("===============================================");
+		System.out.println(coin.getSymbol()+"의 현재 가격 : "  + coin.getPrice());
+		System.out.printf("%s 님의 구매 가능 금액 : %,.2f" ,user.getId() , user.getBalance());
+		System.out.printf("\n구매 가능한 총 수량 : %,.2f\n", (user.getBalance()/coin.getPrice()));
+		if(!msg) {System.out.println("일치하는 심볼명이 존재하지 않습니다.");}
+		// 몇개 구매할건지 물어보고
+		System.out.print("총 수량을 입력해주세요 > ");
+		am_input = sc.nextDouble();
+		// 구매 할 수 있는 충분한 잔고가 있는지 확인
+		if(user.getBalance() > coin.getPrice()*am_input) {
+			// 전부 조건 충족하면 해당 user의 wallet에 처리
+//			System.out.println("정상 수량 if문 진입 확인");
+			user.wallet.put(coin.getSymbol(), am_input);
+			user.setBalance(user.getBalance()-(am_input*coin.getPrice()));
+//			System.out.println(user.wallet); -> 정상 입력 확인
+			System.out.println("===============================================");
+			System.out.println(user.getId()+"님 거래 성공");
+			System.out.printf("%-10s | %-12s | %-18s\n","심볼(Symbol)","코인명(Name)","현재가(Price)");
+			System.out.printf("%-11s | %-12s | %,15.2f\n"
+					,coin.getSymbol(),coin.getName(),coin.getPrice());
+			System.out.println("-----------------------------------------------");
+			System.out.printf("%-10s | %-12s | %-18s\n","구매 수량","구매 금액","남은 잔고");
+			System.out.printf(" %,-10.2f | %,-12.2f | %,15.2f\n"
+					,am_input,(coin.getPrice()*am_input),user.getBalance());
+		}
+		else {System.out.println("잔고가 모자랍니다.");}
 	}
-	// 계좌추가
-	public void addUser() {
+	
+
+	public void addUser() {	// 계좌추가
 		String newId = "";
 		String newPw = "";
 		String newName = "";
@@ -213,8 +327,7 @@ class Bank{
 						  +"\n잔액 = " + newBalance);	
 	}// 계좌 추가 메서드 끝
 	
-	// 유저 로그인 
-	public UserDto userCheak() {
+	public UserDto userCheak() {	// 유저 로그인 
 		Scanner sc = new Scanner(System.in);
 		System.out.println("--- 로그인 필요 ---");
 		System.out.print("\n아이디를 입력해주세요 > ");
@@ -233,18 +346,32 @@ class Bank{
 		return null;
 	}// 로그인 메서드 끝
 	
-	// 유저 계좌 정보
-	public void userInfo(UserDto user) {
+	public void userInfo(UserDto user, Market market) {	// 유저 계좌 정보
 //		BankDto user = users.get(index);
+		System.out.println("\n===============================================");
+		System.out.println(user.getId() + " 님의 상세 정보");
+		System.out.println("===============================================");
+		System.out.printf("%-10s | %-12s | %-18s\n","아이디","비밀번호","보유 현금");
+		System.out.printf("%-10s | %-12s | %,-18.2f\n",user.getId(),user.getPw(),user.getBalance());
+		System.out.println("-----------------------------------------------");
+		if(!user.getWallet().isEmpty()) { // 보유 자산 없을때 처리
+//			System.out.println("조건문 들어옴");
+			System.out.printf("%-10s | %-12s | %-18s\n","심볼(Symbol)","코인명(Name)","현재가(Price)");
+			for(Entry<String,Double> e : user.wallet.entrySet()) {
+				String symbol = e.getKey();
+				double amount = e.getValue();
+				CryptoDto coin = market.getCoins().get(symbol);
+				System.out.printf("%-10s | %-12s | %-18s\n"
+						,symbol,coin,amount);
+				// 총 평가 금액 추가해야함
+			}
+		}
+		else {System.out.println("보유 하신 코인 자산이 없습니다.");}
 		
-		System.out.println(user.getId() + " 님의 정보");
-		System.out.println("\nID = " + user.getId()
-				  +"\nPW = " + user.getPw()
-				  +"\n잔액 = " + user.getBalance());
+		
 	}// 계좌 정보 메서드 끝
 	
-	// 입금
-	public void deposit(UserDto user) {
+	public void deposit(UserDto user) {	// 입금
 //		BankDto user = users.get(index);
 		Scanner sc = new Scanner(System.in);
 		
@@ -257,8 +384,7 @@ class Bank{
 		System.out.println("총 잔고 : " + user.getBalance());
 	}// 입금 메서드 끝
 	
-	// 출금
-	public void withdrawal(UserDto user) {
+	public void withdrawal(UserDto user) {	// 출금
 //		BankDto user = users.get(index);
 		Scanner sc = new Scanner(System.in);
 		
@@ -277,8 +403,7 @@ class Bank{
 		}
 	}// 출금 메서드 끝
 	
-	// 계좌 삭제
-	public void deleteUser() { 
+	public void deleteUser() { 	// 계좌 삭제
 		Scanner sc = new Scanner(System.in);
 		System.out.println("삭제 하시려는 계좌 정보를 입력해주세요.");
 		System.out.println("아이디 > ");
@@ -311,8 +436,7 @@ class Bank{
 		
 	}// 계좌 삭제 메서드 끝
 	
-	// 종료
-	public void exit() {
+	public void exit() { // 종료
 		Scanner sc = new Scanner(System.in);
 		System.out.println("종료하시겠습니까?");
 		System.out.println("Y -> 종료 / 외 다른 입력 취소");
@@ -331,24 +455,40 @@ class Bank{
 	
 public class BankV3 {
 	public static void main(String[] args) {
-		
+
 		
 		int num = -1;
 		Bank b = new Bank();
+		Market m = new Market();
 		
-		while(num != 9) {
+		//테스트용
+		UserDto test = new UserDto("qqq","qqq",100000000);
+		b.loginUser = test;
+		
+		while(num != 0) {
 
 			num = b.menu();
 			
-			if(b.loginUser == null && num != 1) { b.loginUser = b.userCheak(); continue; }
+			//if(b.loginUser == null && num != 1) { b.loginUser = b.userCheak(); continue; }
 			
+			// 메뉴 전체적으로 완성되면 해당 메뉴 메서드 수정
 			switch(num) {
 			case 1: b.addUser(); break;
-			case 2: b.userInfo(b.loginUser); break;
-			case 3: b.deposit(b.loginUser); break;
-			case 4: b.withdrawal(b.loginUser); break;
-			case 5: b.deleteUser(); break;
-			case 9: b.exit(); break;
+			case 2: b.userInfo(test, m); break;
+			case 3: break;
+			case 4: break;
+			case 5: 
+				while(num != 9) {
+					num = b.coinMenu();
+					switch(num) {
+					case 1: b.coinList(m); break;
+					case 2: b.coinBuy(m,b.loginUser); break;
+					case 3: break;
+					case 9: System.out.println("메인 메뉴로 돌아갑니다."); break;
+					default :  System.out.println("값을 다시 입력해주세요");
+					}
+				} break;
+			case 0: b.exit(); break;
 			default: System.out.println("값을 다시 입력해주세요");
 			}
 			

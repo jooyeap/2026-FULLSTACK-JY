@@ -1,3 +1,5 @@
-2026/04/16-17:07:47.520 7a0 Reusing MANIFEST D:\jy\2026-FULLSTACK-JY\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Site Characteristics Database/MANIFEST-000001
-2026/04/16-17:07:47.536 7a0 Recovering log #3
-2026/04/16-17:07:47.536 7a0 Reusing old log D:\jy\2026-FULLSTACK-JY\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Site Characteristics Database/000003.log 
+2026/05/17-19:34:01.085 3894 Log #3: 1 ops saved to Table #4 OK
+2026/05/17-19:34:01.092 3894 Archiving C:\jy\2026-FULLSTACK-JY\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Site Characteristics Database/000003.log: OK
+2026/05/17-19:34:01.092 3894 Table #4: 1 entries OK
+2026/05/17-19:34:01.093 3894 Archiving C:\jy\2026-FULLSTACK-JY\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Site Characteristics Database/MANIFEST-000001: OK
+2026/05/17-19:34:01.101 3894 **** Repaired leveldb C:\jy\2026-FULLSTACK-JY\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Site Characteristics Database; recovered 1 files; 130 bytes. Some data may have been lost. ****
