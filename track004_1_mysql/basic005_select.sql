@@ -960,3 +960,8 @@ select * from emp where comm is null and mgr is not null and job in('MANAGER','C
 -- 5 rows in set (0.00 sec)
 
 --  
+
+use mbasic;
+show tables;
+select * from userinfo;
+delete from userinfo where no>=15;
