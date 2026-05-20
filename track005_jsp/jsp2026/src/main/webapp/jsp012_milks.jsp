@@ -21,10 +21,10 @@
 	<!-- header -->
 	
 	<!-- 메뉴판 테이블 -->
-    <div class="container card my-5 pb-5 ps-0 pe-0">
+    <div class="container card my-5 pb-5 ps-0 pe-0 shadow">
       <h2 class="card-header bg-primary mb-4 p-3 text-light">Milk Menu</h2>
       <div class="ms-4 me-4">
-	      <table class="table table-bordered table-info table-striped">
+	      <table class="table table-bordered table-success table-striped">
 	      	  <caption>우유메뉴</caption>
 		      <thead>
 		      	<tr>
@@ -75,10 +75,11 @@
     <!-- 메뉴판 테이블 -->
     
     <!-- 주문현황표 -->
-   <div class="container card my-5 pb-4 ps-0 pe-0">
+   <div class="container card my-5 pb-4 ps-0 pe-0 shadow">
    	<h2 class="card-header bg-primary mb-4 p-3 text-light">MILK ORDER</h2>
    	<div class="ms-4 me-4">
-   	<table class="table table-bordered table-striped table-info">
+   	<table class="table table-bordered table-striped table-success">
+   	<caption>주문현황표</caption>
    		<thead>
    			<tr>
    				<th>NO</th>
@@ -88,6 +89,28 @@
    			</tr>
    		</thead>
    		<tbody>
+   		<%
+   		try{
+   			Class.forName("com.mysql.cj.jdbc.Driver");
+   			Connection conn = null;
+   			PreparedStatement pstmt = null;
+   			ResultSet rset = null;
+   			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mbasic"
+   					,"root","1234");
+   			
+   			pstmt = conn.prepareStatement("select * from milk_order order by ono desc");
+   			rset = pstmt.executeQuery(); // 표 query(select) / update(insert,update,delete)
+   			while(rset.next()){ // 줄
+   				out.println("<tr><td>"+rset.getInt("ono")
+   				+"</td><td>"+rset.getString("oname")
+   				+"</td><td>"+rset.getInt("onum")
+   				+"</td><td>"+rset.getString("odate")+"</td></tr>");
+   			}
+   			if(rset != null){rset.close();}
+   			if(pstmt != null){pstmt.close();}
+   			if(conn != null){conn.close();}
+   		}catch(Exception e){e.printStackTrace();}
+   		%>
    		</tbody>
    	</table>
    	</div>
@@ -95,69 +118,150 @@
    <!-- 주문현황표 -->
    
    <!-- 주문삽입, 수정, 삭제 -->
-   <div class="container card my-5 pb-4 ps-0 pe-0" id="accordion">
-   	<h3 class="card-header bg-primary mb-4 p-3 text-light">MILK 주문하러가기</h3>
-   	<div class="card mb-3">
-    <div class="card-header bg-primary">
-      <a class="btn fw-bold text-light" data-bs-toggle="collapse" href="#collapseOne">
-        주문하기
-      </a>
-    </div>
-    <div id="collapseOne" class="collapse show" data-bs-parent="#accordion">
-      <div class="card-body">
-        <form>
-        	<div class="mb-3 mt-3">
-        		<label for="mname" class="form-label">주문할 우유이름</label>
-        		<input type="text" class="form-control" placeholder="주문할 우유이름을 적어주세요"
-        		id="mname">
-        	</div>
-        	<div class="mb-3 mt-3">
-        		<label for="mnum" class="form-label">주문할 우유갯수</label>
-        		<input type="text" class="form-control" placeholder="우유갯수를 적어주세요"
-        		id="mnum">
-        	</div>
-        	<button type="submit" class="btn btn-primary">주문하기</button>
-        </form>
-      </div>
-    </div>
+   <div class="container card my-5 pb-4 ps-0 pe-0 shadow" id="accordion">
+     <h3 class="card-header bg-primary mb-4 p-3 text-light">MILK 주문, 수정, 삭제</h3>
+     <div class="ms-3 me-3">
+   	
+	   	<div class="card mb-3">
+	    <div class="card-header bg-primary">
+	      <a class="btn fw-bold text-light" data-bs-toggle="collapse" href="#collapseOne">
+	        주문하기
+	      </a>
+	    </div>
+	    
+	    <div id="collapseOne" class="collapse show" data-bs-parent="#accordion">
+	      <div class="card-body">
+	        <form action="jsp012_insert.jsp" method="post" onsubmit="return order()">
+	        
+	        	<div class="mb-3 mt-3">
+	        		<label for="oname" class="form-label">주문할 우유이름</label>
+	        		<input type="text" class="form-control" placeholder="주문할 우유이름을 적어주세요"
+	        		id="oname" name="oname">
+	        	</div>
+	        	
+	        	<div class="mb-3 mt-3">
+	        		<label for="onum" class="form-label">주문할 우유갯수</label>
+	        		<input type="text" class="form-control" placeholder="우유갯수를 적어주세요"
+	        		id="onum" name="onum">
+	        	</div>
+	        	
+	        	<button type="submit" class="btn btn-primary">주문하기</button>
+	        </form>
+	        
+	        <script>
+	        function order(){
+	        	let oname = document.querySelector("#oname");
+	        	let onum = document.querySelector("#onum");
+	        	if(oname.value.trim() == ""){
+	        		alert("주문할 우유 이름 입력");
+	        		oname.focus();
+	        		return false;
+	        	}
+	        	if(onum.value.trim() == ""){
+	        		alter("주문할 우유 개수 입력");
+	        		onum.focus();
+	        		return false;
+	        	}
+	        	return true;
+	        }
+	        </script>
+	      </div>
+	    </div>
+	  </div>
+	
+	  <div class="card mb-3">
+	    <div class="card-header bg-primary">
+	      <a class="collapsed btn fw-bold text-light" data-bs-toggle="collapse" href="#collapseTwo">
+	        주문수정
+	      </a>
+	    </div>
+	    <div id="collapseTwo" class="collapse" data-bs-parent="#accordion">
+	      <div class="card-body">
+	        <form action="jsp012_update.jsp" method="post" onsubmit="return update()">
+	        
+	        	<div class="mb-3 mt-3">
+	        		<label for="uno" class="form-label">수정할 주문번호</label>
+	        		<input type="text" class="form-control" placeholder="수정하실 번호 입력"
+	        		id="uno" name="ono">
+	        	</div>
+	        	
+	        	<div class="mb-3 mt-3">
+	        		<label for="uname" class="form-label">수정할 우유이름</label>
+	        		<input type="text" class="form-control" placeholder="우유갯수를 적어주세요"
+	        		id="uname" name="oname">
+	        	</div>
+	        	
+	        	<div class="mb-3 mt-3">
+	        		<label for="unum" class="form-label">수정할 우유갯수</label>
+	        		<input type="text" class="form-control" placeholder="우유갯수를 적어주세요"
+	        		id="unum" name="onum">
+	        	</div>
+	        	
+	        	<button type="submit" class="btn btn-primary">수정하기</button>
+	        </form>
+	        
+	        <script>
+	        function update(){
+	        	let ono = document.querySelector("#uno"); 
+	        	let oname = document.querySelector("#uname");
+	        	let onum = document.querySelector("#unum");
+	        	if(ono.value.trim() == ""){
+	        		alert("수정할 번호 입력");
+	        		ono.focus();
+	        		return false;
+	        	}
+	        	if(oname.value.trim() == ""){
+	        		alert("수정할 우유 이름 입력");
+	        		oname.focus();
+	        		return false;
+	        	}
+	        	if(onum.value.trim() == ""){
+	        		alert("수정할 우유 개수 입력");
+	        		onum.focus();
+	        		return false;
+	        	}
+	        	return true;
+	        }
+	        </script>
+	      </div>
+	    </div>
+	  </div>
+	
+	  <div class="card mb-3">
+	    <div class="card-header bg-primary">
+	      <a class="collapsed btn fw-bold text-light" data-bs-toggle="collapse" href="#collapseThree">
+	        주문삭제
+	      </a>
+	    </div>
+	    <div id="collapseThree" class="collapse" data-bs-parent="#accordion">
+	      <div class="card-body">
+	       <form action="jsp012_delete.jsp" method="post" onsubmit="return delete()">
+	        
+	        	<div class="mb-3 mt-3">
+	        		<label for="dno" class="form-label">수정할 주문번호</label>
+	        		<input type="text" class="form-control" placeholder="삭제하실 번호 입력"
+	        		id="dno" name="ono">
+	        	</div>
+	        	
+	        	<button type="submit" class="btn btn-primary">삭제하기</button>
+	        </form>
+	        
+	        <script>
+	        function delete(){
+	        	let ono = document.querySelector("#dno"); 
+	        	if(ono.value.trim() == ""){
+	        		alert("삭제하실 번호(no) 입력");
+	        		ono.focus();
+	        		return false;
+	        	}
+	        	return true;
+	        }
+	        </script>
+	      </div>
+	    </div>
+	  </div>
   </div>
-
-  <div class="card mb-3">
-    <div class="card-header bg-primary">
-      <a class="collapsed btn fw-bold text-light" data-bs-toggle="collapse" href="#collapseTwo">
-        주문수정
-      </a>
-    </div>
-    <div id="collapseTwo" class="collapse" data-bs-parent="#accordion">
-      <div class="card-body">
-        <form>
-        	<div>
-        		<label for="" class="form-label">123</label>
-        		<input type="" class="form-control" placeholder="">
-        	</div>
-        </form>
-      </div>
-    </div>
   </div>
-
-  <div class="card mb-3">
-    <div class="card-header bg-primary">
-      <a class="collapsed btn fw-bold text-light" data-bs-toggle="collapse" href="#collapseThree">
-        주문삭제
-      </a>
-    </div>
-    <div id="collapseThree" class="collapse" data-bs-parent="#accordion">
-      <div class="card-body">
-        <form>
-        	<div>
-        		<label for="" class="form-label">123</label>
-        		<input type="" class="form-control" placeholder="">
-        	</div>
-        </form>
-      </div>
-    </div>
-  </div>
-   </div>
    <!-- 주문삽입, 수정, 삭제 -->
 </body>
 </html>

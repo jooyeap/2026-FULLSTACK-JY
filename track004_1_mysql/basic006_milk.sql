@@ -43,8 +43,6 @@ select * from milk_order;
 -- -- Q4.  milk_order 해당번호의 이름과 갯수 수정
 update milk_order set oname='', onum=0 where ono=0;
 -- -- Q5.  milk_order 해당번호의 데이터 삭제
-delete from milk_order where ono=0;
+delete from milk_order where ono=4;
 
-
-
---  -->
+alter table milk_order auto_increment=2;
