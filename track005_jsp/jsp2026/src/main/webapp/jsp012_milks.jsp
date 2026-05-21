@@ -235,7 +235,7 @@
 	    </div>
 	    <div id="collapseThree" class="collapse" data-bs-parent="#accordion">
 	      <div class="card-body">
-	       <form action="jsp012_delete.jsp" method="post" onsubmit="return delete()">
+	       <form action="jsp012_delete.jsp" method="get" onsubmit="return delete()">
 	        
 	        	<div class="mb-3 mt-3">
 	        		<label for="dno" class="form-label">수정할 주문번호</label>

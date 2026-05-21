@@ -104,7 +104,24 @@
      아니면 페이지처럼 한개씩 돌아가게 할건지-->
     <section class="container p-5 border border-1 mb-3 mt-3">
         <h3 class="mb-4 p-4 text-center">프로젝트</h3>
-        <div class="project container-fluid">
+
+        <!-- 메인 div-->
+        <!-- <div class="project container-fluid"> -->
+        <div id="projectsection" class="carousel slide" data-bs-ride="carousel">
+
+            <!--여기 혹시라도 포트폴리오 추가되면 하단 버튼도 추가-->
+            <!-- 하단 인디케이터 -->
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#projectsection"
+                        data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#projectsection"
+                        data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#projectsection"
+                        data-bs-slide-to="2"></button>
+                <button type="button" data-bs-targer="#projectsection"
+                        data-bs-slide-to="3"></button>
+            </div>
+
             <div class="card" style="">
                 <img class="card-img-top" src="./img/ddd.png" alt="포트폴리오 이미지">
                 <div class="card-body">
