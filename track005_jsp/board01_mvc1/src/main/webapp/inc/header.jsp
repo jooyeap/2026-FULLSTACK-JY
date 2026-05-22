@@ -1,9 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>   
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>MVC1-BOARD</title>
     <!-- Latest compiled and minified CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Latest compiled JavaScript -->
@@ -11,15 +13,13 @@
     <link href="./css/board.css" rel="stylesheet">
 </head>
 <body>
-    <!-- header -->
-    <!-- Q1. HEADER - NAVBAR 배경색상-->
+    <!--  header  -->
     <header>
-        <h1 class="myhidden">로고상호명</h1>
         <div class="p-5 bg-primary text-white text-center myvisual">
             <h1>First Template</h1>
-            <p>bababababababa</p>
-        </div>
-         <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+            <p>MVC1 JSP PROJECT</p>
+        </div> 
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
             <h2  class="myhidden">주메뉴</h2>
             <div class="container-fluid">
                 <a class="navbar-brand" href="javascript:void(0)">Logo</a>
@@ -42,41 +42,8 @@
             </div>
         </nav>
     </header>
-
-     <section class="container  my-5">
-        <h3> MultiBoard </h3>
-        <table  class="table  table-striped  table-bordered table-hover">
-            <caption> BOARD 목록 </caption>
-            <thead>
-                <tr>
-                    <th scope="col">NO</th>
-                    <th scope="col">TITLE</th>
-                    <th scope="col">WRITER</th>
-                    <th scope="col">DATE</th>
-                    <th scope="col">HIT</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>첫번째 글쓰기</td>
-                    <td>FIRST</td>
-                    <td>2026.05</td>
-                    <td><span class="badge rounded-pill bg-dark">1</span></td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div  class="text-end">
-           <a href="#"  title="글쓰기 폼"  class="btn btn-primary" >글쓰기</a>
-        </div>
-
-    </section>
-
-    <!-- footer -->
-    <!-- Q2. FOOTER - copyrights 넣고 배경색상 중앙정렬-->
-    <footer class="bg-dark text-light text-center p-5">
-        <p class="mb-0">© copyrights 개발자JY 2026 all. rights reserved</p>
-    </footer>
-</body>
-</html>
+    <!--  header -->
+    <!--  header -->
+    <!--  header -->
+    <!--  header -->
+    <!--  jsp014_header.jsp -->

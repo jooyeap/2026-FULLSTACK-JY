@@ -63,9 +63,9 @@
 		      		+"</td><td>"+rset.getInt("mprice")+"</td></tr>");
 		      	}
 		      	// 4. JDBC 연동 해제
-		      	if(rset != null){rset.close();}
+		      	if(rset != null) {rset.close();}
 		      	if(pstmt != null){pstmt.close();}
-		      	if(conn != null){conn.close();}
+		      	if(conn != null){ conn.close();}
 		      } catch(Exception e){e.printStackTrace();}
 		      %>
 		      </tbody>
