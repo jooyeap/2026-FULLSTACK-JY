@@ -12,12 +12,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" >
 </head>
 <body>
-    <header class="bg-dark">
+    <header class="bg-dark border-bottom border-secondary">
         <h1 class="visually-hidden">헤더</h1>
-        <nav class="navbar navbar-expand-sm navbar-dark">
+        <nav class="navbar navbar-expand-sm navbar-dark container">
         <div class="container-fluid">
-            <h2 class="hide">네비게이션 바</h2>
-            <a class="navbar-brand" href="javascript:void(0)">KJY</a>
+            <h2 class="visually-hidden">네비게이션 바</h2>
+            <a class="navbar-brand fw-bold text-info" href="javascript:void(0)">KJY/수정해야함</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
             <span class="navbar-toggler-icon"></span>
             </button>
@@ -38,29 +38,43 @@
         </nav>
     </header>
 
-    <section class="container p-5 border border-1 d-flex justify-content-center
-        align-items-center vh-100">
-        <h3 class="hide">간단한 한줄 자기소개</h3>
-        <p class="m-3 p-5">여기에 간단하게 한줄 자기소개 지나가면서 살짝나오게</p>
+    <section class="container p-5 vh-100 d-flex justify-content-center
+                    align-items-center text-center">
+        <h3 class="visually-hidden">간단한 한줄 자기소개</h3>
+        <div class="p-5">
+            <p class="display-5 fw-bold m-3">안녕하세요, 끈기있게 성장하는 개발자
+                 <span class="text-info">김주엽</span>입니다.</p>
+            <p class="text-muted-custom lead">여기에 간단하게 한줄 자기소개 지나가면서 살짝나오게</p>
+        </div>
     </section>
 
-    <section class="container p-4 ps-5 border border-1 mb-3 mt-3 card">
-        <h3 class="mb-3 mt-2 p-2 ps-2 text-left">About Me</h3>
-        <div class="aboutme">
-            <img src="./img/ddd.png" alt="내 사진"
-                style="display: block; width: 200px; height: 200px;"
-                class="border border-3 rounded-pill">
-            <ul class="m-4 mt-0 ps-3">
-                <li><i class="fa-solid fa-user me-2 text-primary pe-2"></i>이름 | 김주엽</li>
-                <li><i class="fa-solid fa-phone me-2 text-primary pe-2"></i>연락처 | 000-0000-0000</li>
-                <li><i class="fa-solid fa-book me-2 text-primary pe-2"></i>학습 목표 | ~~~~~~~~</li>
-                <li><i class="fa-solid fa-fire me-2 text-primary pe-2"></i>강점 | ~~~~~~~</li>
-            </ul>
+    <section class="container p-4 ps-5 mb-4 card custom-section" id="aboutme">
+        <h3 class="mb-4 mt-2 p-2 ps-0 text-left fw-bold border-bottom-custom pb-3">
+            <i class="fa-solid fa-user me-2 text-info"></i>About Me
+        </h3>
+        <div class="row align-items-center">
+            <div class="col-md-3 text-center mb-3 mb-md-0">
+                <img src="./img/ddd.png" alt="내 사진"
+                    style="width: 180px; height: 180px; object-fit: cover;"
+                    class="border border-2 border-secondary rounded-circle shadow">
+            </div>
+            <div class="col-md-9">
+                <ul class="list-unstyled lh-lg fs-5 m-0 ps-2 ms-4">
+                    <li class="mb-2"><i class="fa-solid fa-user text-primary me-2"></i>
+                        <strong class="text-info d-inline-block" style="width: 100px;">이름</strong>|  김주엽</li>
+                    <li class="mb-2"><i class="fa-solid fa-phone text-primary me-2"></i>
+                        <strong class="text-info d-inline-block" style="width: 100px;">연락처</strong>|  010-6865-5469</li>
+                    <li class="mb-2"><i class="fa-solid fa-book text-primary me-2"></i>
+                        <strong class="text-info d-inline-block" style="width: 100px;">학습 목표</strong>|  ~~~~~~~~</li>
+                    <li class="mb-2"><i class="fa-solid fa-fire text-primary me-2"></i>
+                        <strong class="text-info d-inline-block" style="width: 100px;">강점</strong>|  ~~~~~~~</li>
+                </ul>
+            </div>
         </div>
     </section>
 
     <section class="container p-5 border border-1 mb-3 mt-3">
-        <h3 class="mb-4 ps-2 pt-0 text-left">Tech Skills</h3>
+        <h3 class="mb-4 ps-2 pt-0 text-left">Tech Skills/수정해야함</h3>
         <div class="d-flex flex-column">
             <div class="skill d-flex align-items-center mb-3 justify-content-between">
                 <h4>Main<i class="fa-solid fa-angle-right ms-4"></i></h4>
@@ -102,73 +116,107 @@
 
     <!-- 여기 따로 스크롤바 만들어서 1개가 가로축 전체 다 차지하게끔 만들던지
      아니면 페이지처럼 한개씩 돌아가게 할건지-->
-    <section class="container p-5 border border-1 mb-3 mt-3">
-        <h3 class="mb-4 p-4 text-center">프로젝트</h3>
+    <section class="container p-5 mb-4 custom-section">
+        <h3 class="mb-5 text-center fw-bold">
+            <i class="fa-solid fa-folder-open me-2 text-info"></i>
+            Projects</h3>
 
         <!-- 메인 div-->
         <!-- <div class="project container-fluid"> -->
-        <div id="projectsection" class="carousel slide" data-bs-ride="carousel">
+        <div id="projectsection" class="carousel carousel-light slide" data-bs-ride="false">
 
             <!--여기 혹시라도 포트폴리오 추가되면 하단 버튼도 추가-->
             <!-- 하단 인디케이터 -->
-            <div class="carousel-indicators">
+            <div class="carousel-indicators" style="bottom: -30px;">
                 <button type="button" data-bs-target="#projectsection"
                         data-bs-slide-to="0" class="active"></button>
                 <button type="button" data-bs-target="#projectsection"
                         data-bs-slide-to="1"></button>
                 <button type="button" data-bs-target="#projectsection"
                         data-bs-slide-to="2"></button>
-                <button type="button" data-bs-targer="#projectsection"
+                <button type="button" data-bs-target="#projectsection"
                         data-bs-slide-to="3"></button>
             </div>
 
-            <div class="carousel-inner">
+            <div class="carousel-inner px-md-5">
+
                 <div class="carousel-item active">
-                    <img class="card-img-top" src="./img/ddd.png" alt="포트폴리오 이미지">
-                    <div class="">
-                        <h4 class="card-title">프로젝트 이름</h4>
-                        <p class="card-text">프로젝트 간단하게 설명</p>
-                        <p class="card-text">사용한 기술 스택</p>
-                        <a href="#" class="btn btn-primary">프로젝트 링크?</a>
+                    <div class="card bg-dark text-light border-secondary m-auto shadow-sm" style="max-width: 600px;">
+                        <img class="card-img-top border-bottom border-secondary" src="./img/bankV1.png" alt="포트폴리오 이미지">
+                        <div class="card-body p-4">
+                            <h4 class="card-title fw-bold text-info">OOP 기반 가상자산 모의 거래소 v1</h4>
+                            <p class="card-text text-muted-custom">자바의 객체지향 원칙과 다차원 맵구조를
+                                이해하고 활용하기 위해 개발한 콘솔 거래소 엔진입니다.
+                                시장과 은행, 사용자 객체간의 데이터 의존성 주입을 통해 독립적인
+                                데이터 처리를 분리했습니다. 유저희 실시간 지갑 상태와
+                                시장시세를 연쇄적으로 매칭하여 콘솔 printf 으로 보유 자산평가 리포트 화면을 구현했습니다.
+                            </p>
+                            <p class="card-text">
+                                <span class="badge bg-secondary me-1">Java 11</span>
+                                <span class="badge bg-secondary me-1">Collection Framework</span>
+                                <span class="badge bg-secondary me-1">OOP</span>
+                            </p>
+                            <a href="https://www.youtube.com/shorts/R5FJvj9bAHA" target="_blank" class="btn btn-info w-100 fw-bold">프로젝트 링크</a>
+                        </div>
                     </div>
                 </div>
 
                 <div class="carousel-item">
-                    <img class="card-img-top" src="./img/ddd.png" alt="포트폴리오 이미지">
-                    <div class="">
-                        <h4 class="card-title">프로젝트 이름</h4>
-                        <p class="card-text">프로젝트 간단하게 설명</p>
-                        <p class="card-text">사용한 기술 스택</p>
-                        <a href="#" class="btn btn-primary">프로젝트 링크?</a>
+                    <div class="card bg-dark text-light border-secondary m-auto shadow-sm" style="max-width: 600px;">
+                        <img class="card-img-top border-bottom border-secondary" src="./img/ddd.png" alt="포트폴리오 이미지">
+                        <div class="card-body p-4">
+                            <h4 class="card-title fw-bold text-info">프로젝트 이름</h4>
+                            <p class="card-text text-muted-custom">프로젝트 간단하게 설명</p>
+                            <p class="card-text">
+                            <span class="badge bg-secondary me-1">사용한 기술 스택</span></p>
+                            <a href="#" class="btn btn-info w-100 fw-bold">프로젝트 링크</a>
+                        </div>
                     </div>
                 </div>
 
                 <div class="carousel-item">
-                    <img class="card-img-top" src="./img/ddd.png" alt="포트폴리오 이미지">
-                    <div class="">
-                        <h4 class="card-title">프로젝트 이름</h4>
-                        <p class="card-text">프로젝트 간단하게 설명</p>
-                        <p class="card-text">사용한 기술 스택</p>
-                        <a href="#" class="btn btn-primary">프로젝트 링크?</a>
+                    <div class="card bg-dark text-light border-secondary m-auto shadow-sm" style="max-width: 600px;">
+                        <img class="card-img-top border-bottom border-secondary" src="./img/ddd.png" alt="포트폴리오 이미지">
+                        <div class="card-body p-4">
+                            <h4 class="card-title fw-bold text-info">프로젝트 이름</h4>
+                            <p class="card-text text-muted-custom">프로젝트 간단하게 설명</p>
+                            <p class="card-text">
+                            <span class="badge bg-secondary me-1">사용한 기술 스택</span></p>
+                            <a href="#" class="btn btn-info w-100 fw-bold">프로젝트 링크</a>
+                        </div>
                     </div>
                 </div>
 
                 <div class="carousel-item">
-                    <img class="card-img-top" src="./img/ddd.png" alt="포트폴리오 이미지">
-                    <div class="">
-                        <h4 class="card-title">프로젝트 이름</h4>
-                        <p class="card-text">프로젝트 간단하게 설명</p>
-                        <p class="card-text">사용한 기술 스택</p>
-                        <a href="#" class="btn btn-primary">프로젝트 링크?</a>
+                    <div class="card bg-dark text-light border-secondary m-auto shadow-sm" style="max-width: 600px;">
+                        <img class="card-img-top border-bottom border-secondary" src="./img/ddd.png" alt="포트폴리오 이미지">
+                        <div class="card-body p-4">
+                            <h4 class="card-title fw-bold text-info">프로젝트 이름</h4>
+                            <p class="card-text text-muted-custom">프로젝트 간단하게 설명</p>
+                            <p class="card-text">
+                            <span class="badge bg-secondary me-1">사용한 기술 스택</span></p>
+                            <a href="#" class="btn btn-info w-100 fw-bold">프로젝트 링크</a>
+                        </div>
                     </div>
                 </div>
+
+                <button class="carousel-control-prev" type="button"
+                        data-bs-target="#projectsection" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button"
+                        data-bs-target="#projectsection" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
         </div>
 
     </section>
 
     <section class="container p-5 border border-1 timeline mb-3 mt-3">
-        <h3 class="mb-5 p-5 text-center">교육 및 자격증</h3>
+        <h3 class="mb-5 p-5 text-center">교육 및 자격증/수정해야함</h3>
         <div class="item">
             <h4>00.00.날짜</h4>
                 <p>내용</p>
@@ -229,7 +277,7 @@
                     <i class="fa-regular fa-envelope me-2"></i>Email
                 </button>
             </a>    
-        <p class="m-0 p-0 pt-3 text-center">copyrights 문구</p>
+        <p class="m-0 p-0 pt-3 text-center">copyrights 문구/수정해야함</p>
     </footer>
 </body>
 </html>

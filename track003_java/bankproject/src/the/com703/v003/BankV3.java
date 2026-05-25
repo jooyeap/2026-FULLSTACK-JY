@@ -264,8 +264,7 @@ class Bank{
 		}
 		System.out.println("===============================================");
 		// 원하는 심볼명 물어보고
-		System.out.println("판매를 원하는 코인의 심볼명을 입력해주세요");
-		System.out.print("> ");
+		System.out.print("판매를 원하는 코인의 심볼명을 입력해주세요 > ");
 		sb_input = sc.next();
 		// 일치하는거 있는지 1차적으로 확인
 		for(Entry<String,Double> e : user.wallet.entrySet()) {
@@ -279,10 +278,14 @@ class Bank{
 		System.out.println("===============================================");
 		System.out.printf("%s 님의 판매 가능 수량 : %,.2f" ,user.getId() , user.wallet.get(coin.getSymbol()));
 		// 몇개 판매할건지 물어보고
-		System.out.println("\n판매하려는 총 수량을 입력해주세요 > ");
+		System.out.print("\n판매하려는 총 수량을 입력해주세요 > ");
 		am_input = sc.nextDouble();
 //			System.out.println("정상 수량 if문 진입 확인");
-		if(user.wallet.get(coin.getSymbol()) == am_input) { // 전체 수량 매도
+		if(user.wallet.get(coin.getSymbol()) < am_input ) { // 보유 수량 초과
+			System.out.println("보유하신 수량이 모자랍니다.");
+			return;
+		}
+		else if(user.wallet.get(coin.getSymbol()) == am_input) { // 전체 수량 매도
 //			System.out.println("전량 매도 if문");
 //			System.out.println(user.wallet.get(coin.getSymbol()));
 			user.setBalance(user.getBalance() + (coin.getPrice()*am_input));
@@ -314,7 +317,7 @@ class Bank{
 		
 		Scanner sc = new Scanner(System.in);
 
-		System.out.print("닉네임을 입력해주세요 >");
+		System.out.print("닉네임을 입력해주세요 > ");
 		newName = sc.next();
 		for(Entry<String,UserDto> e : users.entrySet()) {
 			if(e.getKey().equals(newName)) {
@@ -334,10 +337,10 @@ class Bank{
 			}
 		}
 		
-		System.out.print("\n비밀번호를 입력해주세요 > ");
+		System.out.print("비밀번호를 입력해주세요 > ");
 		newPw = sc.next();
 		
-		System.out.print("\n잔액을 입력해주세요 > ");
+		System.out.print("잔액을 입력해주세요 > ");
 		newBalance = sc.nextDouble();
 		
 		users.put(newName , new UserDto(newId,newPw,newBalance));
@@ -371,7 +374,7 @@ class Bank{
 		double total = 0;
 		System.out.println("\n===============================================");
 		System.out.println("\tCRYPTO TRADING & BANKING SYSTEM\t");
-		System.out.println(user.getId() + " 님의 총 자산 리포트");
+		System.out.println("\t\t"+user.getId() + " 님의 총 자산 리포트");
 		System.out.println("===============================================");
 		System.out.printf("%-10s | %-12s | %-18s\n","아이디","비밀번호","보유 현금");
 		System.out.printf("%-10s | %-12s | %,-18.2f\n",user.getId(),user.getPw(),user.getBalance());
@@ -397,7 +400,7 @@ class Bank{
 	public void userInfo_2(UserDto user) { // 기본 정보
 		System.out.println("\n===============================================");
 		System.out.println("\tCRYPTO TRADING & BANKING SYSTEM\t");
-		System.out.println(user.getId() + " 님의 기본 정보");
+		System.out.println("\t\t"+user.getId() + " 님의 기본 정보");
 		System.out.println("===============================================");
 		System.out.printf("%-10s | %-12s | %-18s\n","아이디","비밀번호","보유 현금");
 		System.out.printf("%-10s | %-12s | %,-18.2f\n",user.getId(),user.getPw(),user.getBalance());
@@ -456,10 +459,10 @@ class Bank{
 		System.out.println("\t           계좌 삭제");
 		System.out.println("===============================================");
 		System.out.println("삭제 하시려는 계좌 정보를 입력해주세요.");
-		System.out.println("아이디 > ");
+		System.out.print("아이디 > ");
 		String id = sc.next();
 		
-		System.out.println("비밀번호 > ");
+		System.out.print("비밀번호 > ");
 		String pw = sc.next();
 		
 		boolean msg = false;
@@ -484,7 +487,7 @@ class Bank{
 		
 	}// 계좌 삭제 메서드 끝
 	
-	public void exit() { // 종료
+	public int exit() { // 종료
 		Scanner sc = new Scanner(System.in);
 		System.out.println("종료하시겠습니까?");
 		System.out.println("Y -> 종료 / 외 다른 입력 취소");
@@ -492,9 +495,11 @@ class Bank{
 		if(temp == 'Y' || temp == 'y') {
 			System.out.println("종료합니다.");
 			System.exit(0);
+			return 0;
 		}
 		else{
 			System.out.println("메인으로 돌아갑니다.");
+			return -1;
 		}
 		
 	}// 종료 메서드 끝
@@ -517,7 +522,7 @@ public class BankV3 {
 			m.updatePrice(m);
 			num = b.menu();
 			
-			if(b.loginUser == null && num != 1) { b.loginUser = b.userCheak(); continue; }
+			if(b.loginUser == null && num != 1 && num != 9 && num != 0) { b.loginUser = b.userCheak(); continue; }
 			
 			// 메뉴 전체적으로 완성되면 해당 메뉴 메서드 수정 아래 test도 b로 바꿔야함
 			switch(num) {
@@ -538,10 +543,9 @@ public class BankV3 {
 				} break;
 			case 6: b.userInfo(b.loginUser, m); break;
 			case 9: b.deleteUser(); break;
-			case 0: b.exit(); break;
+			case 0: num = b.exit(); break;
 			default: System.out.println("값을 다시 입력해주세요");
 			}
-			
 		}
 	}
 }
