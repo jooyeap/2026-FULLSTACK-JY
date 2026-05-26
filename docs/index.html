@@ -12,29 +12,30 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" >
 </head>
 <body>
-    <header class="bg-dark border-bottom border-secondary">
+    <!--  헤더, 네비게이션바 -->
+    <header class="bg-dark sticky-top">
         <h1 class="visually-hidden">헤더</h1>
         <nav class="navbar navbar-expand-sm navbar-dark container">
-        <div class="container-fluid">
-            <h2 class="visually-hidden">네비게이션 바</h2>
-            <a class="navbar-brand fw-bold text-info" href="javascript:void(0)">KJY/수정해야함</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="mynavbar">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">About Me</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">Skills</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">Portfolio</a>
-                </li>
-            </ul>
+            <div class="container-fluid">
+                <h2 class="visually-hidden">네비게이션 바</h2>
+                <a class="navbar-brand fw-bold text-info" href="javascript:void(0)">KJY</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mynavbar">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0)">About Me</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0)">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0)">Portfolio</a>
+                    </li>
+                </ul>
+                </div>
             </div>
-        </div>
         </nav>
     </header>
 
@@ -73,43 +74,70 @@
         </div>
     </section>
 
-    <section class="container p-5 border border-1 mb-3 mt-3">
-        <h3 class="mb-4 ps-2 pt-0 text-left">Tech Skills/수정해야함</h3>
-        <div class="d-flex flex-column">
-            <div class="skill d-flex align-items-center mb-3 justify-content-between">
-                <h4>Main<i class="fa-solid fa-angle-right ms-4"></i></h4>
-                    <p><img src="./img/java.svg" alt="자바 로고 사진"></p>
-                    <p><img src="./img/spring.svg" alt="스프링 로고 사진"></p>
-                    <p><img src="./img/mysql.svg" alt="sql 로고 사진"></p>
+    <section class="container p-5 mb-4 custom-section">
+        <h3 class="mb-4 ps-0 pt-0 text-left fw-bold border-bottom pb-3">
+            <i class="fa-solid fa-laptop-code me-2 text-info"></i>Tech Skills
+        </h3>
+        <div class="d-flex flex-column gap-4">
+           
+            <div class="row align-items-center">
+                <div class="col-md-2">
+                    <h4 class="fw-bold m-0 text-info">
+                        Main<i class="fa-solid fa-angle-right ms-2 fs-5"></i>
+                    </h4>
                 </div>
-                <span class="border border-bottom"></span>
-            <div class="skill sub d-flex justify-content-center align-items-center mb-3 mt-3 justify-content-between  p-2">
-                <h4>Sub<i class="fa-solid fa-angle-right ms-4"></i></h4>
-                    <button class="btn btn-secondary">
-                        <i class="fa-brands fa-html5 me-2"></i>HTML
-                    </button>
-                    <button class="btn btn-secondary">
-                        <i class="fa-brands fa-css3 me-2"></i>CSS
-                    </button>
-                    <button class="btn btn-secondary">
-                        <i class="fa-brands fa-js me-2"></i>JavaScript
-                    </button>
+                <!-- main -->
+                <div class="col-md-10 d-flex flex-wrap gap-4 align-items-center">
+                    <p><img src="./img/java.svg" alt="자바 로고 사진"
+                        style="height: 35px; filter: drop-shadow(0 0 4px rgba(255,255,255,0.2));"></p>
+                    <p><img src="./img/spring.svg" alt="스프링 로고 사진"
+                        style="height: 35px;"></p>
+                    <p><img src="./img/mysql.svg" alt="sql 로고 사진"
+                        style="height: 35px;">여기 이미지 색상 조정</p>
+                </div>
             </div>
-            <span class="border border-bottom"></span>
-            <div class="skill tools d-flex justify-content-center align-items-center justify-content-between p-2 mt-3">
-                <h4>Tools<i class="fa-solid fa-angle-right ms-4"></i></h4>
-                    <button class="btn btn-light border border-1 border-dark">
-                        <i class="fa-brands fa-git me-2"></i>Git
+            <div class="border-bottom-custom"></div>
+            <!-- sub -->
+            <div class="row align-items-center">
+                <div class="col-md-2">
+                    <h4 class="fw-bold m-0 text-info">Sub
+                        <i class="fa-solid fa-angle-right ms-2 fs-5"></i>
+                    </h4>
+                </div>
+                <div class="col-md-10 d-flex flex-wrap gap-2">
+                    <button class="btn btn-secondary text-light border-secondary">
+                        <i class="fa-brands fa-html5 me-2 text-danger"></i>HTML
                     </button>
-                    <button class="btn btn-light border border-1 border-dark">
+                    <button class="btn btn-secondary text-light border-secondary">
+                        <i class="fa-brands fa-css3 me-2 text-primary"></i>CSS
+                    </button>
+                    <button class="btn btn-secondary text-light border-secondary">
+                        <i class="fa-brands fa-js me-2 text-warning"></i>JavaScript
+                    </button>
+                </div>
+            </div>
+            <div class="border-bottom-custom"></div>
+            <!-- tools -->
+            <div class="row align-items-center">
+                <div class="col-md-2">
+                    <h4 class="fw-bold m-0 text-muted-custom">Tools
+                        <i class="fa-solid fa-angle-right ms-2 fs-5"></i>
+                    </h4>
+                </div>
+                <div class="col-md-10 d-flex flex-wrap gap-2">
+                    <button class="btn btn-dark border-secondary">
+                        <i class="fa-brands fa-git me-2 text-danger"></i>Git
+                    </button>
+                    <button class="btn btn-dark border-secondary">
                         <i class="fa-brands fa-github me-2"></i>GitHub
                     </button>
-                    <button class="btn btn-light border border-1 border-dark">
-                        <i class="fa-solid fa-code me-2"></i>VSCode
+                    <button class="btn btn-dark border-secondary">
+                        <i class="fa-solid fa-code me-2 text-info"></i>VSCode
                     </button>
-                    <button class="btn btn-light border border-1 border-dark">
+                    <button class="btn btn-dark border-secondary">
                         Eclipse
                     </button>
+                </div>
             </div>
         </div>
     </section>
