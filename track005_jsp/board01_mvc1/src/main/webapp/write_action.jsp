@@ -27,6 +27,7 @@
         	pstmt.setString(4, bcontent);
         	pstmt.setString(5, InetAddress.getLocalHost().getHostAddress());
         	
+        	
         	int result = pstmt.executeUpdate();
         	if(result > 0){
         		out.println("<script> alert('작성 성공'); location.href='list.jsp'; </script>");

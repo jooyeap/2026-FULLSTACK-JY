@@ -24,6 +24,12 @@
 	    	
 	    	conn = DriverManager.getConnection(url,"root","1234");
 	    	
+	    	// 조회수 처리
+	    	pstmt = conn.prepareStatement("update mvcboard1 set bhit=bhit+1 where bno=?");
+	    	pstmt.setInt(1,bno);
+	    	pstmt.executeUpdate();
+	    	pstmt.close();
+	    	
 	    	pstmt = conn.prepareStatement(sql);
 	    	pstmt.setInt(1,bno);
 	    	
@@ -34,11 +40,6 @@
 	    		btitle = rset.getString("btitle");
 	    		bcontent = rset.getString("bcontent");
 	    	}
-	    	
-	    	// 조회수 처리
-	    	pstmt = conn.prepareStatement("update mvcboard1 set bhit=bhit+1 where bno=?");
-	    	pstmt.setInt(1,bno);
-	    	pstmt.executeUpdate();
 	    	
 	    	if(rset != null){rset.close();}
 	    	if(pstmt != null){pstmt.close();}

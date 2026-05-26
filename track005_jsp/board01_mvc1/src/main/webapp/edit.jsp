@@ -42,7 +42,7 @@
 	        </div>
 	        <div class="my-3">
 	        	<label for="bpass" class="form-label">비밀번호</label>
-	        	<input type="text" class="form-control" placeholder=""
+	        	<input type="password" class="form-control" placeholder=""
 	        		id="bpass" name="bpass">
      		</div>
 	        <div class="my-3">

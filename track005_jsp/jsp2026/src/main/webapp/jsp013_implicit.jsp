@@ -128,10 +128,58 @@ jsp013_implicit.jsp (1) : 나이 입력받는 폼
        </form>
       
       <hr/> 
-      <h4>004. scope</h4>
-       
+      <h4>004. scope (내장객체 유효범위)</h4>
+      <pre class="alert alert-info">
+1. application(웹 애플리케이션이 실행되고 있는 동안 , 서버가 꺼질때 까지 유지)
+	> session (특정브라우저와 연결된 세션, 브라우저 종료시 소멸)
+		> request(요청 : 폼, a 태그 요청)
+			> page (해당 jsp 페이지에서만)
+			
+2. 객체.setAttribute("속성", "값(벨류)") / 객체.getAttribute("속성")
+      </pre>
+      
+      <%
+      	application.setAttribute("name", "D. application - 웹애플리케이션이 실행될때까지");
+     	session.setAttribute("name", "C. session - 브라우저종료 / 로그인 후 아이디 유지");
+     	request.setAttribute("name", "B. request - a.jsp -> b.jsp 요청할때 / 현재페이지에 요청");
+     	pageContext.setAttribute("name", "A. page - 현재 페이지 에서만 유지");
+      %>
+      
+      <table class="table table-striped">
+		<caption>SCOPE- 내장객체 유효범위</caption>
+		<tbody>
+		   <tr><th scope="row">page</th>       <td><%=pageContext.getAttribute("name") %></td></tr>
+		   <tr><th scope="row">request</th>    <td><%=request.getAttribute("name") %></td></tr>
+		   <tr><th scope="row">session</th>     <td><%=session.getAttribute("name") %></td></tr>
+		   <tr><th scope="row">application</th> <td><%=application.getAttribute("name") %></td></tr>         
+		</tbody>
+	  </table>
+		<p><a href="jsp013_5.jsp" class="btn btn-danger">SCOPE2</a></p>
+		      
+      
       <hr/>
       <h4>005. error</h4>
+      <pre class="alert alert-info">
+error
+1. 4xx 에러 : 클라이언트 오류
+	404 (페이지가 없음) / 400 (bad quest, 요청 잘못함)
+2. 5xx 에러 : 서버 오류
+	500 (내부 서버 오류) / 502 (서버 과부화)
+	
+* 해결방안
+1. error 페이지 만들기
+2. [src] - [main] - [WEB-INF] - web.xml 에러처리 설정
+      </pre>
+      
+      <h4 class="card-haeder">1. ERROR 404 </h4>
+      <p><a href="no.jsp" class="btn btn-danger">NO PAGE</a></p>
+      
+      <h4 class="card-haeder">2. ERROR 500 </h4>
+      <pre class="alert alert-warning">
+int i=40/0; 작성시 오류나서 500 오류발생
+      </pre>
+       <%-- <%   int i=40/0;  %>   --%>
+      
    </div>
 </body>
 </html>

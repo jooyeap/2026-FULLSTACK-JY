@@ -20,7 +20,7 @@ try{
 	
 	int result = pstmt.executeUpdate();
 if(result > 0){
-	out.println("<script> alert('삭제완료'); </script>");
+	out.println("<script> alert('삭제완료'); location.href='list.jsp'; </script>");
 	pstmt.close();
 	pstmt = conn.prepareStatement(sql);
 	pstmt.setInt(1,bno);
@@ -28,7 +28,7 @@ if(result > 0){
 	pstmt.executeUpdate();
 }
 else{
-	out.println("<script> alert('삭제실패'); </script>");
+	out.println("<script> alert('삭제실패'); location.href='delete.jsp?bno=" +bno+ "'; </script>");
 }
 out.println("<script> location.href='list.jsp';</script>");
 if(pstmt != null){pstmt.close();}

@@ -25,7 +25,10 @@
 		int result = pstmt.executeUpdate();
 		
 		if(result > 0){
-			out.println("<script> location.href='list.jsp';</script>");
+			out.println("<script> alert('수정 성공'); location.href='edit.jsp?bno=" +bno+ "';</script>");
+		}
+		else{
+			out.println("<script> alert('수정 실패'); location.href='edit.jsp?bno=" +bno+ "';</script>");
 		}
 		if(pstmt != null){pstmt.close();}
 		if(conn != null){conn.close();}
