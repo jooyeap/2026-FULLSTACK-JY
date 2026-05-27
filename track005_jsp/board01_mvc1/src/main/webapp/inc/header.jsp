@@ -29,13 +29,13 @@
                 <div class="collapse navbar-collapse" id="mynavbar">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">Link</a>
+                    <a class="nav-link" href="/board01_mvc1/login.jsp">Login</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">Link</a>
+                    <a class="nav-link" href="/board01_mvc1/join.jsp">join</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="javascript:void(0)">Link</a>
+                    <a class="nav-link" href="/board01_mvc1/mypage.jsp">Mypage</a>
                     </li>
                 </ul> 
                 </div>

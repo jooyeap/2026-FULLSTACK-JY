@@ -50,5 +50,18 @@ try{
 			<tr><th scope="row">가입IP</th> <td><%=bip %></td></tr>
 		</tbody>
 	</table>
+	<form action="leave.jsp" method="post" onsubmit="return confirm_leave()">
+		<div class="my-3 text-end">
+			<a href="/board01_mvc1/edit_user.jsp?uno=<%=uno %>" class="btn btn-outline-primary">수정하기</a>
+			<button type="submit" class="btn btn-danger">회원탈퇴</button>
+		</div>
+	</form>
+	<script>
+	function confirm_leave(){
+		if(confirm("계정삭제?")){ alert("확인"); return true;}
+		else{alert("취소"); return false;}
+	}
+
+	</script>
 </section>
 <%@include file="./inc/footer.jsp"%>
