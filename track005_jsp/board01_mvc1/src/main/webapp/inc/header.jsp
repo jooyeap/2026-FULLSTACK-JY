@@ -35,7 +35,17 @@
                     <a class="nav-link" href="/board01_mvc1/join.jsp">join</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="/board01_mvc1/mypage.jsp">Mypage</a>
+                    <a class="nav-link" href="/board01_mvc1/mypage.jsp"
+                    
+                    <%
+                    if(session.getAttribute("suno") == null && request.getParameter("uno") == null){ %>
+                    style="pointer-events: none"
+                    <%} %>
+                    >Mypage</a>
+                    <div class="bg-light">
+                    세션 : <%=session.getAttribute("suno") %><br>
+                    리퀘스트 : <%=request.getParameter("uno") %>
+                    </div>
                     </li>
                 </ul> 
                 </div>

@@ -8,6 +8,13 @@
 	String email = request.getParameter("email");
 	String bpass = request.getParameter("bpass");
 	
+	String snickname = "";
+	String semail = "";
+	String smobile = "";
+	String sudate = "";
+	String sbip = "";
+	int suno = -1;
+	
 	try{
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection conn = null;
@@ -24,16 +31,27 @@
 		
 		rset = pstmt.executeQuery();
 		
-		if(rset == null){
+		if(rset.next()){
+			uno = rset.getInt("uno");
+			// 헤더에서 마이페이지 넘어갈때 데이터 넘겨줘야함
+			session.setAttribute("snickname", rset.getString("nickname"));
+			session.setAttribute("semail", rset.getString("email"));
+			session.setAttribute("smobile", rset.getString("mobile"));
+			session.setAttribute("sudate", rset.getString("udate"));
+			session.setAttribute("sbip", rset.getString("bip"));
+			session.setAttribute("suno", rset.getInt("uno"));
+			
+			out.print("<script> alert('로그인 성공'); location.href='mypage.jsp?uno="+uno+"' </script>");
+		}
+		else{
 			out.print("<script> alert('로그인 실패'); location.href='login.jsp'; </script>");
 		}
-		while(rset.next()){
-			uno = rset.getInt("uno");
-		}
-		out.print("<script> alert('로그인 성공'); location.href='mypage.jsp?uno="+uno+"' </script>");
 		
 		if(rset != null){rset.close();}
 		if(pstmt != null){pstmt.close();}
 		if(conn != null){conn.close();}
 	}catch(Exception e){e.printStackTrace();}
+	
+	
+	
 %>
