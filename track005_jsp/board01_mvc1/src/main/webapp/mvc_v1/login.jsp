@@ -3,7 +3,7 @@
 <%@include file="./inc/header.jsp"%>
 <section class="container my-5">
 	<h3>로그인</h3>
-	<form action="LoginAction" method="post" onsubmit="return check()">
+	<form action="login_action.jsp" method="post" onsubmit="return check()">
 		<div class="my-3">
 			<label for="email" class="form-label">이메일</label>
 			<input type="text" class="form-control" placeholder="이메일 입력"

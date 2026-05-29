@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>   
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -19,7 +18,6 @@
         <div class="p-5 bg-primary text-white text-center myvisual">
             <h1>First Template</h1>
             <p>MVC1 JSP PROJECT</p>
-            <p>세션 : ${sessionScope.email}</p>
         </div> 
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
             <h2  class="myhidden">주메뉴</h2>
@@ -30,24 +28,25 @@
                 </button>
                 <div class="collapse navbar-collapse" id="mynavbar">
                 <ul class="navbar-nav ms-auto">
-                <!-- 애플리케이션 루트기준 -->
                     <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/LoginAction">Login</a>
+                    <a class="nav-link" href="/board01_mvc1/login.jsp">Login</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/JoinAction">join</a>
+                    <a class="nav-link" href="/board01_mvc1/join.jsp">join</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/Users">Users</a>
+                    <a class="nav-link" href="/board01_mvc1/mypage.jsp"
+                    
+                    <%
+                    if(session.getAttribute("suno") == null && request.getParameter("uno") == null){ %>
+                    style="pointer-events: none"
+                    <%} %>
+                    >Mypage</a>
+                    <div class="bg-light">
+                    세션 : <%=session.getAttribute("suno") %><br>
+                    리퀘스트 : <%=request.getParameter("uno") %>
+                    </div>
                     </li>
-                    <c:if test="${sessionScope.email ne null}">
-                    <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/MyAction">Mypage</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="Logout">Logout</a>
-                    </li>
-                    </c:if>
                 </ul> 
                 </div>
             </div>

@@ -4,7 +4,7 @@
 <section class="container  my-5">
         <h3> 회원가입 </h3>
         
-        <form action="JoinAction" method="post" onsubmit="return check()">
+        <form action="join_action.jsp" method="post" onsubmit="return check()">
 	        <div class="my-3">
 	        	<label for="nickname" class="form-label">닉네임</label>
 	        	<input type="text" class="form-control" placeholder=""
