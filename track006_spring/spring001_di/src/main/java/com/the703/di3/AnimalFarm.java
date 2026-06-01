@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Component("animalFarm") // id °ª
-@Data
+@Data 
 @AllArgsConstructor
 @NoArgsConstructor
 public class AnimalFarm {

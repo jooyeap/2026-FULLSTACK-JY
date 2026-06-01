@@ -19,6 +19,6 @@ public class test3 {
 	@Test
 	public void test() {
 		IceCreamShop ics = (IceCreamShop)context.getBean("iceCreamShop");
-		ics.print();
+		ics.print(); 
 	}
 }
