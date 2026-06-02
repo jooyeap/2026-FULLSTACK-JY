@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class IceCreamShop {
 	@Value("${shopName}")
     private String shopName;

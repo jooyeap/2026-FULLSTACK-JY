@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.the703.dao.TestMapper">
+	<!-- 리턴타입, 메서드명, 파라미터타입 (없으니 생략)-->
+  <select resultType="string" id="now">
+	select now()
+  </select>
+</mapper>
