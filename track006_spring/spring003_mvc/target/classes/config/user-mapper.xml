@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.the703.dao.UserMapper">
+	<insert id="insert" parameterType="UserDto">
+		insert into users (nickname, bpass, email, mobile, udate, bip)
+		values (#{nickname},#{bpass},#{email},#{mobile},now(),#{bip})
+	</insert>
+	
+	<update id="update" parameterType="UserDto">
+		update users set nickname=#{nickname}, bpass=#{bpass},
+		email=#{email}, mobile=#{mobile} where uno=#{uno}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from users where uno=#{uno}
+	</delete>
+	
+	<select id="selectAll" resultType="UserDto">
+		select * from users
+	</select>
+	
+	<select id="select" parameterType="int" resultType="UserDto">
+		select * from users where uno=#{uno}
+	</select>
+</mapper>

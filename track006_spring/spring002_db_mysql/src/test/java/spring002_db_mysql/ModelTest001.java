@@ -36,13 +36,13 @@ public class ModelTest001 {
 	public void test5() {
 		UserInfoDto utest = new UserInfoDto();
 		// 5. 삭제
-		userInfo.delete(3);
+		//userInfo.delete(3);
 		
 		// 4. 수정
-		utest.setNo(2);
-		utest.setEmail("second");
-		utest.setAge(22);
-		userInfo.update(utest);
+//		utest.setNo(2);
+//		utest.setEmail("second");
+//		utest.setAge(22);
+//		userInfo.update(utest);
 		
 		// 3. 한명 검색
 		System.out.println(userInfo.select(2));
