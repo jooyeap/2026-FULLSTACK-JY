@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.the703.dao.BoardMapper;
 import com.the703.dao.TestMapper;
 import com.the703.dto.BoardDto;
+import com.the703.service.BoardServiceImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class) // 1. spring 구동 테스트
 @ContextConfiguration(locations = "classpath:config/root-context.xml") // 2. 설정
@@ -27,6 +28,7 @@ public class BoardTest001 {
 	@Autowired SqlSession sqlSession;
 	@Autowired TestMapper testMapper;
 	@Autowired BoardMapper board;
+	@Autowired BoardServiceImpl service; 
 	
 	@Ignore
 	public void test1() {
@@ -36,7 +38,7 @@ public class BoardTest001 {
 		System.out.println(testMapper.now());
 	}
 	
-	@Test
+	@Ignore
 	public void test2() throws UnknownHostException {
 		BoardDto boardDto = new BoardDto();
 		
@@ -62,5 +64,38 @@ public class BoardTest001 {
 		
 		// selectAll
 		System.out.println(board.selectAll());
+	}
+	
+	@Ignore
+	public void test3() {
+		
+		// 삭제
+//		BoardDto dto = new BoardDto();
+//		dto.setBno(4);
+//		System.out.println(service.delete(dto));
+		
+		// 수정
+//		BoardDto dto = new BoardDto();
+//		dto.setBno(4);
+//		dto.setBname("ccc");
+//		dto.setBpass("ccc");
+//		dto.setBtitle("ddd");
+//		dto.setBcontent("ddd");
+//		System.out.println(service.edit(dto));
+		
+		// 상세보기, 수정폼 / 검색
+//		System.out.println(service.detail(4));
+//		System.out.println(service.editView(4));
+		
+		// 삽입
+//		BoardDto dto = new BoardDto();
+//		dto.setBname("ccc");
+//		dto.setBpass("ccc");
+//		dto.setBtitle("ccc");
+//		dto.setBcontent("ccc");
+//		System.out.println(service.insert(dto));
+		
+		// 전체 리스트
+		service.selectAll();
 	}
 }

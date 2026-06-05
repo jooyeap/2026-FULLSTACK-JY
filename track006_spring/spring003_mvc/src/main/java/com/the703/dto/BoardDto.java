@@ -9,7 +9,7 @@ public class BoardDto {
 	private String bpass;
 	private String btitle;
 	private String bcontent;
-	private String bdata;
+	private String bdate;
 	private int bhit;
 	private String bip;
 }

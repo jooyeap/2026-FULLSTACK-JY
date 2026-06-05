@@ -9,15 +9,23 @@
   </insert>
   
   <update id="update" parameterType="BoardDto">
-  	update mvcboard2 set btitle=#{btitle}, bcontent=#{bcontent} where bno=#{bno}
+  	update mvcboard2 set btitle=#{btitle}, bcontent=#{bcontent} where bno=#{bno} and bpass=#{bpass}
   </update>
   
-  <delete id="delete" parameterType="int">
-  	delete from mvcboard2 where bno=#{bno}
+  <update id="updateBhit" parameterType="BoardDto">
+  	update mvcboard2 set bhit= bhit+1 where bno=#{bno} 
+  </update>
+  
+  <delete id="delete" parameterType="BoardDto">
+  	delete from mvcboard2 where bno=#{bno} and bpass=#{bpass}
   </delete>
   
   <select id="selectAll" resultType="BoardDto">
   	select * from mvcboard2 order by bno desc
+  </select>
+  
+  <select id="passCheck" resultType="int" parameterType="BoardDto">
+  	select count(*) from mvcboard2 where bno=#{bno} and bpass=#{bpass}
   </select>
   
   <select id="select" parameterType="int" resultType="BoardDto">
