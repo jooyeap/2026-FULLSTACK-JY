@@ -57,6 +57,9 @@ udate timestamp not null default current_timestamp,
 bip varchar(50) not null
 );
 
+
 desc users;
 select * from users;
 select * from users where email='aaa@aaa.com' and bpass='aaa';
+
+use mbasic;

@@ -11,4 +11,5 @@ public interface UserMapper {
 	public UserDto select(int no);
 	public int update(UserDto dto);
 	public int delete(int no);
+	public UserDto selectLogin(String nickname);
 }
