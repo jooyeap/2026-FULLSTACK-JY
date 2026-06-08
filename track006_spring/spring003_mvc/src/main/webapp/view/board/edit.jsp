@@ -20,11 +20,13 @@
 
    <div class="container  my-5">
       <h3>글 수정</h3>
-      <form  action ="${pageContext.request.contextPath}/board/edit.do?bno=${dto.bno}"  method="post"   onsubmit="return checkForm()">
+      <form  action ="${pageContext.request.contextPath}/board/edit.do?bno=${dto.bno}"  method="post"
+      		 onsubmit="return checkForm()" enctype="multipart/form-data">
       	<div  class="my-3">
       		<label for="bname"   class="form-label">이름</label>
       		<input type="text"   class="form-control"    id="bname"  name="bname" value="${dto.bname}"  readonly>
       	</div> 
+      	
       	<div  class="my-3">
       		<label for="bpass"   class="form-label">비밀번호</label>
       		<input type="password"   class="form-control"    id="bpass"  name="bpass"/>
@@ -33,10 +35,24 @@
       		<label for="btitle"  class="form-label">제목</label>
       		<input type="text"   class="form-control"    id="btitle"  name="btitle" value="${dto.btitle}" />
       	</div>
+      	
       	<div  class="my-3">
       		<label for="bcontent"  class="form-label">내용</label>
       		<textarea  class="form-control"    id="bcontent"  name="bcontent"  >${dto.bcontent}</textarea>
       	</div>
+      	
+      	<div class="my-3">
+      		<label for="file" class="form-label">기존 이미지</label>
+      		<img class="form-control"
+      			 src="${pageContext.request.contextPath}/upload/${dto.bimg}">
+      		<input type="hidden" name=bimg value="${dto.bimg}">
+      	</div>
+      	
+      	<div class="my-3">
+			<label for="file" class="form-label">파일 업로드</label>
+			<input type="file" id="file" name="file" class="form-control">
+		</div>
+		
       	<div  class="my-3  text-end"> 
       		<button type="reset"   class="btn btn-outline-primary"  title="글수정취소">취소</button>
       		<a href="${pageContext.request.contextPath}/board/list.do"             class="btn btn-outline-success"  title="목록보러가기">목록</a>

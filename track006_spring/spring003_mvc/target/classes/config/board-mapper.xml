@@ -4,16 +4,16 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.the703.dao.BoardMapper">
   <insert id="insert" parameterType="BoardDto">
-	insert into mvcboard2 (bname, bpass, btitle, bcontent, bdate, bip)
-	values(#{bname}, #{bpass}, #{btitle}, #{bcontent}, now(), #{bip})
+	insert into mvcboard2 (bname, bpass, btitle, bcontent, bdate, bip, bimg)
+	values(#{bname}, #{bpass}, #{btitle}, #{bcontent}, now(), #{bip}, #{bimg})
   </insert>
   
   <update id="update" parameterType="BoardDto">
-  	update mvcboard2 set btitle=#{btitle}, bcontent=#{bcontent} where bno=#{bno} and bpass=#{bpass}
+  	update mvcboard2 set btitle=#{btitle}, bcontent=#{bcontent}, bimg=#{bimg} where bno=#{bno} and bpass=#{bpass}
   </update>
   
   <update id="updateBhit" parameterType="BoardDto">
-  	update mvcboard2 set bhit= bhit+1 where bno=#{bno} 
+  	update mvcboard2 set bhit = bhit+1 where bno=#{bno} 
   </update>
   
   <delete id="delete" parameterType="BoardDto">
@@ -30,6 +30,14 @@
   
   <select id="select" parameterType="int" resultType="BoardDto">
   	select * from mvcboard2 where bno=#{bno}
+  </select>
+  
+  <select id="select10" resultType="BoardDto" parameterType="java.util.HashMap">
+  	select * from mvcboard2 order by bno desc limit #{start}, #{end}	
+  </select>
+  
+  <select id="selectCnt" resultType="int">
+  	select count(*) from mvcboard2
   </select>
   
 </mapper>

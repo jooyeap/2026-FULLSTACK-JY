@@ -35,6 +35,18 @@
       		<textarea  class="form-control" id="bcontent" 
       		name="bcontent" readonly>${dto.bcontent}</textarea>
       	</div>
+      	<%-- <c:if test="${not empty dto.bimg}">
+      		<div  class="my-3">
+	      		<label for="file"  class="form-label">이미지</label>
+	      		<img class="img-fluid" src="${pageContext.request.contextPath}/upload/${dto.bimg}">
+      		</div>
+      	</c:if> --%>
+      	
+      	<div class="my-3">
+      		<label for="file"  class="form-label">이미지</label>
+      		<img class="img-fluid" src="${pageContext.request.contextPath}/upload/${dto.bimg}">
+   		</div>
+   		
       	<div  class="my-3  text-end"> 
       		<a href="${pageContext.request.contextPath}/board/edit.do?bno=${dto.bno}"
       		   class="btn btn-outline-primary"  title="글수정">수정</a>

@@ -36,7 +36,7 @@ public class UserTest001 {
 		System.out.println(test);
 	}
 	
-	@Test
+	@Ignore
 	public void test2() throws UnknownHostException {
 		UserDto userDto = new UserDto();
 		

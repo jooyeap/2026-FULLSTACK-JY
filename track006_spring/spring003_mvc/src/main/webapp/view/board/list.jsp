@@ -26,6 +26,10 @@
     <!--  content -->
     <section class="container  my-5">
         <h3> MultiBoard </h3>
+        <pre>
+페이징 : ${paging}
+전체 리스트 : ${list}
+        </pre>
         <table  class="table  table-striped  table-bordered table-hover">
             <caption> BOARD 목록 </caption>
             <thead>
@@ -53,6 +57,41 @@
 					</tr>
 				</c:forEach>
             </tbody>
+            <tfoot><tr><td colspan="5">
+            	<ul class="pagination  justify-content-center"> 
+				<!-- 이전 -->
+				<li class="page-item
+					<c:if test="${paging.start <= 1}"> disabled </c:if>
+				">
+					<a class="page-link"
+					href="${pageContext.request.contextPath}/board/list.do?pstartno=${paging.start -1}">
+					이전
+					</a>
+				</li>
+				<!-- 1,2,3~~ -->
+				<c:forEach var="i" begin="${paging.start}" end="${paging.end}">
+					<li class="page-item
+						<c:if test="${i == paging.current}">
+						 	active
+						</c:if>
+					">
+						<a href="${pageContext.request.contextPath}/board/list.do?pstartno=${i}"
+						   class="page-link">${i}</a>
+					</li>
+				</c:forEach>
+				<!-- 다음 -->
+				<li class="page-item
+					<c:if test="${paging.end >= paging.pagetotal}">
+						disabled
+					</c:if> 
+				">
+					<a class="page-link"
+					href="${pageContext.request.contextPath}/board/list.do?pstartno=${paging.end +1}">
+					다음
+					</a>
+				</li>
+				</ul></td></tr>
+            </tfoot>
         </table>
 
         <div  class="text-end">

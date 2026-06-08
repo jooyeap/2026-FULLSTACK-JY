@@ -2,6 +2,7 @@ package com.the703.service;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,16 @@ public class BoardServiceImpl implements BoardService {
 //		}
 //		else{return 0;}
 		return dao.update(dto);
+		
+//		int result = -1; // 비번 안맞음
+//		BoardDto find = dao.select(dto.getBno()); // 파라미터로 들어온 유저 데이터 bno 사용해서 넣음
+//		
+//		if(find.getBpass().equals( dto.getBpass() )) { // 테이블 bpass 값이랑 입력한 비밀번호랑 일치하는지 확인
+//			result = dao.update(dto);
+//		}
+//		dao.update(dto);
+//		
+//		return result;
 	}
 
 	@Override
@@ -65,7 +76,23 @@ public class BoardServiceImpl implements BoardService {
 	public int passCheck(BoardDto dto) {
 		return dao.passCheck(dto);
 	}
+
 	
+	// paging
 	
+	@Override
+	public List<BoardDto> select10(int pstartno) {
+		HashMap<String,Integer> map = new HashMap<>();
+		map.put("start", (pstartno-1)*10); // 1 -> 0번째부터, 10개
+		map.put("end", 10);
+		return dao.select10(map);
+	}
+
+	@Override
+	public int selectCnt() {
+		return dao.selectCnt();
+	}
+	
+
 
 }

@@ -1,5 +1,6 @@
 package com.the703.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.the703.dto.BoardDto;
@@ -26,5 +27,10 @@ public interface BoardService {
 	
 	// 비밀번호 체크
 	public int passCheck(BoardDto dto);
+
+	
+	// paging
+	public List<BoardDto> select10(int pstartno);
+	public int selectCnt();
 
 }

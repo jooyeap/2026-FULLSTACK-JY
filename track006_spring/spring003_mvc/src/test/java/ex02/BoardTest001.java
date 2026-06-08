@@ -2,6 +2,7 @@ package ex02;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.HashMap;
 
 import javax.sql.DataSource;
 
@@ -97,5 +98,16 @@ public class BoardTest001 {
 		
 		// 전체 리스트
 		service.selectAll();
+	}
+	
+	@Test
+	public void test4() {
+		// 전체 글 카운트
+		System.out.println(board.selectCnt());
+		// 최신글 10개씩
+		HashMap<String,Integer> map = new HashMap<>();
+		map.put("start", 0);
+		map.put("end", 10);
+		System.out.println(board.select10(map));
 	}
 }
