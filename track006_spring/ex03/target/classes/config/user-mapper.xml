@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.the703.dao.UserMapper">
+	<insert id="insert" parameterType="UserDto">
+		insert into users (nickname, bpass, email, mobile, udate, bip)
+		values (#{nickname},#{bpass},#{email},#{mobile},now(),#{bip})
+	</insert>
+	
+	<select id="findLogin" parameterType="UserDto" resultType="int">
+		select count(*) from users where email=#{email} and bpass=#{bpass}
+	</select>
+	
+	<select id="findByUno" parameterType="int" resultType="UserDto">
+		select * from users where uno=#{uno}
+	</select>
+	
+	<select id="findByEmail" parameterType="string" resultType="string">
+		select email from users where email=#{email}
+	</select>
+	
+	<select id="findUser" parameterType="string" resultType="UserDto">
+		select * from users where email=#{email}
+	</select>
+	
+	<insert id="insertAuth" parameterType="AuthDto">
+		insert into authorities (email, auth) values (#{email}, #{auth})
+	</insert>
+	
+	<select id="readAuth" parameterType="AuthDto" resultMap="authListMap">
+		select u.email, u.bpass, a.auth
+		from users u left join authorities a
+		on u.email = a.email
+		where u.email = #{email}
+	</select>
+	
+	<resultMap id="authListMap" type="AuthListDto">
+		<result property="email" column="email" />
+		<result property="bpass" column="bpass" />
+		<collection property="authList" resultMap="authMap" />
+	</resultMap>
+	
+	<resultMap id="authMap" type="AuthDto">
+		<result property="email" column="email" />
+		<result property="auth" column="auth" />
+	</resultMap>
+<!-- 	
+	<update id="update" parameterType="UserDto">
+		update users set nickname=#{nickname}, bpass=#{bpass},
+		email=#{email}, mobile=#{mobile} where uno=#{uno}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from users where uno=#{uno}
+	</delete>
+	
+	<select id="selectAll" resultType="UserDto">
+		select * from users
+	</select>
+	
+	<select id="select" parameterType="int" resultType="UserDto">
+		select * from users where uno=#{uno}
+	</select> -->
+	
+</mapper>
