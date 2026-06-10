@@ -8,7 +8,7 @@ import com.the703.dto.UserDto;
 
 public interface UserService {
 	
-	// join 회원가입
+	// join 회원가입 + 권한 추가
 	public int insert(UserDto dto);
 	
 	// 로그인	
@@ -21,9 +21,11 @@ public interface UserService {
 	public String findByEmail(String email);
 	
 	// 로그인 이후 유저 데이터 가져오기
-	public UserDto findUser(String email);
+	public UserDto findByEmailUserInfo(String email);
 	
-	public int insertAuth(AuthDto dto);
+	
+	// security login
+//	public int insertAuth(AuthDto dto);
 	
 	public AuthListDto readAuth (AuthDto dto);
 }

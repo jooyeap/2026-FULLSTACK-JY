@@ -29,7 +29,6 @@ public class UserController {
 	@RequestMapping( value = "/users/join.do", method = RequestMethod.POST )
 	public String join_post(UserDto dto, RedirectAttributes rttr) throws UnknownHostException {
 		String result = "회원가입 실패";
-		dto.setBip(InetAddress.getLocalHost().getHostAddress());
 		if(service.insert(dto) > 0) {
 			result = "회원가입 성공";
 			rttr.addFlashAttribute("result",result);
@@ -52,7 +51,7 @@ public class UserController {
 		if(service.findLogin(dto) > 0) {
 			result = "로그인 성공";
 			rttr.addFlashAttribute("result",result);
-			rttr.addAttribute("uno",service.findUser(dto.getEmail()).getUno());
+			rttr.addAttribute("uno",service.findByEmailUserInfo(dto.getEmail()).getUno());
 			return "redirect:/users/mypage.do";
 		}
 		rttr.addFlashAttribute("result",result);

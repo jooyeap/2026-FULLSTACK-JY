@@ -1,6 +1,7 @@
 package com.the703.service;
 
-import java.util.List;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,12 +18,13 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public int insert(UserDto dto) {
-		int result = dao.insert(dto);
+		try { dto.setBip(InetAddress.getLocalHost().getHostAddress());
+		} catch (UnknownHostException e) { e.printStackTrace(); }
 		AuthDto auth = new AuthDto();
 		auth.setEmail(dto.getEmail());
 		auth.setAuth("ROLE_MEMBER");
 		dao.insertAuth(auth);
-		return result;
+		return dao.insert(dto);
 	}
 
 	@Override
@@ -41,14 +43,14 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public UserDto findUser(String email) {
-		return dao.findUser(email);
+	public UserDto findByEmailUserInfo(String email) {
+		return dao.findByEmailUserInfo(email);
 	}
 
-	@Override
-	public int insertAuth(AuthDto dto) {
-		return dao.insertAuth(dto);
-	}
+//	@Override
+//	public int insertAuth(AuthDto dto) {
+//		return dao.insertAuth(dto);
+//	}
 
 	@Override
 	public AuthListDto readAuth(AuthDto dto) {

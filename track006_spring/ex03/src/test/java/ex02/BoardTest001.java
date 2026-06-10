@@ -133,7 +133,6 @@ public class BoardTest001 {
 		userDto.setBpass(pwencoder.encode("b"));
 		userDto.setEmail("b@b");
 		userDto.setMobile("000-1111-2222");
-		userDto.setBip("111.111.111.111");
 		System.out.println(service.insert(userDto));
 		
 		// ROLE_MEMBER, ROLE_ADMIN / 권한 2개 회원, ADMIN

@@ -12,7 +12,7 @@ public interface UserMapper {
 	public int findLogin(UserDto dto);
 	public UserDto findByUno(int uno);
 	public String findByEmail(String email);
-	public UserDto findUser(String email);
+	public UserDto findByEmailUserInfo(String email);
 	
 	public int insertAuth(AuthDto dto);
 	public AuthListDto readAuth (AuthDto dto);

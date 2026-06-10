@@ -20,7 +20,7 @@
 		select email from users where email=#{email}
 	</select>
 	
-	<select id="findUser" parameterType="string" resultType="UserDto">
+	<select id="findByEmailUserInfo" parameterType="string" resultType="UserDto">
 		select * from users where email=#{email}
 	</select>
 	
