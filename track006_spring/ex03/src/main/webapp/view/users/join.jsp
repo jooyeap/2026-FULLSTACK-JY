@@ -18,6 +18,7 @@
 	4) 처리경로     : 처리후 로그인 폼으로 (LoginAction - Get)   
    --> 
   <form action="${pageContext.request.contextPath}/users/join.do" method="post" onsubmit="return checkForm()">
+  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
     <div class="my-3">
       <label for="nickname" class="form-label">닉네임</label>
       <input type="text" class="form-control" id="nickname" name="nickname" />
