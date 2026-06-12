@@ -27,6 +27,37 @@
     <div class="my-3 alert alert-warning etarget">
     	이메일 중복 검사 알림
     </div>
+    <script>
+    	window.addEventListener("load",function(){
+    		let email = document.getElementById("email");
+    		let etarget = document.querySelector(".etarget");
+    		email.addEventListener("keyup", function(e){
+    			let value = e.target.value.trim();
+    			if(value !== ""){
+					fetch("${pageContext.request.contextPath}/doubleEmail?email=" + encodeURIComponent(value))
+					.then( response => response.json() )
+					.then( data => {
+						if(data.result){
+							target.textContent="";
+							target.className="";
+						}
+						else{
+							target.textContent="";
+							target.className="";
+						}
+					}).catch(error => {
+						target.textContent="";
+						target.className="";
+					})
+    			}
+    			else{
+    				target.textContent="";
+					target.className="";
+    			}
+    		});
+    	})
+    </script>
+    
     <div class="my-3">
       <label for="mobile" class="form-label">휴대폰</label>
       <input type="text" class="form-control" id="mobile" name="mobile" />

@@ -36,6 +36,7 @@ desc mvcboard1;
 create table mvcboard2 select *from mvcboard1 where 1=2;
 desc mvcboard2;
 alter table mvcboard2 modify bno int not null primary key auto_increment;
+alter table mvcboard2 change bimg bfile varchar(500) default 'the703.png';
 
 select * from mvcboard2;
 

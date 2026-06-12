@@ -16,4 +16,5 @@ public interface UserMapper {
 	
 	public int insertAuth(AuthDto dto);
 	public AuthListDto readAuth (AuthDto dto);
+	 
 }
