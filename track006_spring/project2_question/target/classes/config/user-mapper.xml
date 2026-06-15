@@ -8,6 +8,7 @@
      from      users u    left   join authorities a    on u.email   = a.email  
      where     u.email =#{email} 
   </select>
+  
   <resultMap  id="authListMap"          type="AuthUserDto">
        <result  property="email"         column="email"  />
        <result  property="bpass"         column="bpass"  />

@@ -584,4 +584,3 @@ select *
 from emp
 where sal > any(select min(sal) from emp where deptno=30 group by deptno)
 order by sal desc;
-
