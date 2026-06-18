@@ -51,3 +51,18 @@ foreign key (from_id) references appr_form(from_id),
 foreign key (dept_id) references dept(dept_id),
 foreign key (com_id) references com(com_id)
 );
+
+-- 결재 양식 테이블
+create table  appr_form(
+for_id int not null primary key auto_increment,
+com_id int not null,
+for_code varchar(50) not null,
+for_title varchar(50) not null,
+for_content varchar(500) not null,
+for_status boolean not null default false,
+for_created datetime not null,                     -- 생성일
+for_updated datetime not null,                     -- 수정일
+foreign key (com_id) references 회사테이블(com_id)
+   on update cascade
+  on delete cascade
+);
