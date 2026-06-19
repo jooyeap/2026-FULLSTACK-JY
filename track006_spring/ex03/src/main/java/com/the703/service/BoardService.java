@@ -7,30 +7,29 @@ import com.the703.dto.BoardDto;
 
 public interface BoardService {
 	
-	// 1. ÀüÃ¼¸®½ºÆ®
-	public List<BoardDto> selectAll();
-	
-	// 2. ±Û¾²±â ±â´É
-	public int insert(BoardDto dto); // Á¦¸ñ ÀÌ¸§ µî ´Ù µ¥ÀÌÅÍ ³Ö¾î¾ßÇÔ
-	
-	// 3. ±Û »ó¼¼º¸±â - Á¶È¸¼ö Ã³¸® / ÇØ´ç ±Û 
-	public BoardDto detail(int bno); // bno¸¸ °¡Á®¿Í¼­ sql±¸¹®À¸·Î Ã³¸®
-	
-	// 4-1. ±Û ¼öÁ¤ Æû °æ·Î - ÇØ´ç ±Û
-	public BoardDto editView(int bno); // À§¿Í µ¿ÀÏ
-	
-	// 4-2. ±Û ¼öÁ¤ ±â´É - ºñ¹Ğ¹øÈ£ ÀÏÄ¡ È®ÀÎ ÈÄ ¼öÁ¤
-	public int edit(BoardDto dto); // ±âÁ¸¿¡ ÀÔ·ÂÇß´ø ±Û °°Àº°É ´Ù °¡Á®¿Í¾ßÇÔ
-	
-	// 6. ±Û »èÁ¦±â´É - ºñ¹Ğ¹øÈ£ ÀÏÄ¡ È®ÀÎÈÄ »èÁ¦
-	public int delete(BoardDto dto); // À§¿Í µ¿ÀÏ
-	
-	// ºñ¹Ğ¹øÈ£ Ã¼Å©
-	public int passCheck(BoardDto dto);
+	// 1. ì „ì²´ë¦¬ìŠ¤íŠ¸
+    public List<BoardDto> selectAll();
+    
+    // 2. ê¸€ì‘ì„± ì²˜ë¦¬
+    public int insert(BoardDto dto); // ì„±ê³µ ì‹¤íŒ¨ ê°’ ë‘˜ ì¤‘ í•˜ë‚˜ë¥¼ ë¦¬í„´í•´ì¤Œ
+    
+    // 3. ê¸€ ìƒì„¸ë³´ê¸° - ì¡°íšŒìˆ˜ ì²˜ë¦¬ / í•´ë‹¹ ê¸€
+    public BoardDto detail(int bno); // bnoë¥¼ ë„˜ê²¨ë°›ì•„ì„œ sqlë¬¸ì—ì„œ ì²˜ë¦¬
+    
+    // 4-1. ê¸€ ìˆ˜ì • ì „ ì¡°íšŒ - í•´ë‹¹ ê¸€
+    public BoardDto editView(int bno); // ìˆ˜ì • í™”ë©´
+    
+    // 4-2. ê¸€ ìˆ˜ì • ì²˜ë¦¬ - ë¹„ë°€ë²ˆí˜¸ ì¼ì¹˜ í™•ì¸ í›„ ìˆ˜ì •
+    public int edit(BoardDto dto); // ìœ ì €ê°€ ì…ë ¥í–ˆë˜ ê¸€ ì •ë³´ë¡œ ë°ì´í„° ìˆ˜ì •
+    
+    // 6. ê¸€ ì‚­ì œì²˜ë¦¬ - ë¹„ë°€ë²ˆí˜¸ ì¼ì¹˜ í™•ì¸í›„ ì‚­ì œ
+    public int delete(BoardDto dto); // ë°ì´í„° ì‚­ì œ
+    
+    // ë¹„ë°€ë²ˆí˜¸ ì²´í¬
+    public int passCheck(BoardDto dto);
 
-	
-	// paging
-	public List<BoardDto> select10(int pstartno);
-	public int selectCnt();
-
+    
+    // paging
+    public List<BoardDto> select10(int pstartno);
+    public int selectCnt();
 }

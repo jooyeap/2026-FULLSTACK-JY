@@ -16,93 +16,93 @@ import com.the703.util.PagingUtil;
 
 @Controller
 public class BoardController {  
-	
-	@Autowired BoardService  service;
-	
-	//¡á1.  ÀüÃ¼¸®½ºÆ®
-	//	@RequestMapping("/board/list.do")
-	//	public String list(Model model) {  
-	//		model.addAttribute("list", service.selectAll());  
-	//		return  "board/list";   
-	//	}
-	
-	@RequestMapping("/board/list.do")
-	public String list(Model model  , @RequestParam(value="pstartno" , defaultValue = "1" ) int pstartno  ) {
-		
-		model.addAttribute("paging" , new PagingUtil( service.selectCnt() , pstartno) );  /*  serviceÀüÃ¼°¹¼ö */
-		model.addAttribute("list"   , service.select10(pstartno));     /*  list10 */
-		return  "board/list";   
-	} 
-	
-	//           /view(Æú´õ)  +  board(Æú´õ)/list(ÆÄÀÏ¸í)   +  .jsp (È®ÀåÀÚ)
-	//Å×½ºÆ® : http://localhost:8282/spring003_mvc/board/list.do
+    
+    @Autowired BoardService  service;
+    
+    // ê¸°ëŠ¥1. ì „ì²´ë¦¬ìŠ¤íŠ¸
+    //  @RequestMapping("/board/list.do")
+    //  public String list(Model model) {  
+    //      model.addAttribute("list", service.selectAll());  
+    //      return  "board/list";   
+    //  }
+    
+    @RequestMapping("/board/list.do")
+    public String list(Model model  , @RequestParam(value="pstartno" , defaultValue = "1" ) int pstartno  ) {
+        
+        model.addAttribute("paging" , new PagingUtil( service.selectCnt() , pstartno) );  /* serviceì „ì²´ê°¯ìˆ˜ */
+        model.addAttribute("list"   , service.select10(pstartno));     /* list10 */
+        return  "board/list";   	
+    } 
+    
+    //           /view(ê²½ë¡œ)  +  board(í´ë”)/list(íŒŒì¼ëª…)   +  .jsp (í™•ìž¥ìž)
+    //í…ŒìŠ¤íŠ¸ : http://localhost:8282/spring003_mvc/board/list.do
 
-	//¡á2. ±Û¾²±â Æû°æ·Î
-	@RequestMapping( value="/board/write.do" , method=RequestMethod.GET)
-	public String write() { return  "board/write";  }
-	//Å×½ºÆ® : http://localhost:8282/spring003_mvc/board/write.do
-	
-	//¡á2. ±Û¾²±â ±â´É  
-	//@PreAuthorize("hasAnyRole('ROLE_ADMIN' , 'ROLE_MEMBER')")  //4. ¾È¿¡ ÀÖ´Â ±ÇÇÑÁß
-	//@PreAuthorize("isAuthenticated()  and  hasRole('ROLE_ADMIN')") //3. ·Î±×ÀÎ + ADMIN ±ÇÇÑÀÌ ÀÖ´Ù¸é
+    // ê¸°ëŠ¥2. ê¸€ì“°ê¸° í¼ìœ¼ë¡œ
+    @RequestMapping( value="/board/write.do" , method=RequestMethod.GET)
+    public String write() { return  "board/write";  }
+    //í…ŒìŠ¤íŠ¸ : http://localhost:8282/spring003_mvc/board/write.do
+    
+    // ê¸°ëŠ¥2. ê¸€ì“°ê¸° ì²˜ë¦¬  
+    //@PreAuthorize("hasAnyRole('ROLE_ADMIN' , 'ROLE_MEMBER')")  //4. ê¶Œí•œì´ ìžˆëŠ” ì‚¬ìš©ìžë§Œ
+    //@PreAuthorize("isAuthenticated()  and  hasRole('ROLE_ADMIN')") //3. ë¡œê·¸ì¸ + ADMIN ê¶Œí•œì´ ìžˆë‹¤ë©´
 
-	//@PreAuthorize("isAnonymous()")       // 1. ·Î±×ÀÎÇÏÁö ¾ÊÀº »ç¿ëÀÚ
-	@PreAuthorize("isAuthenticated()") // 2. ·Î±×ÀÎÀ» Çß´Ù¸é
-	@RequestMapping( value="/board/write.do" 
-							,method = RequestMethod.POST , headers=("content-type=multipart/*"))
-	public String write_post(BoardDto dto ,
-			 @RequestParam("file") MultipartFile file   ,
-			RedirectAttributes rttr) { 
-		String result ="±Û¾²±â ½ÇÆÐ";
-		
-		if(service.insert(dto , file) > 0) {  result = "±Û¾²±â ¼º°ø"; }
-		rttr.addFlashAttribute("result", result);  // Flash - 1¹ø¸¸µ¿ÀÛ
-		return "redirect:/board/list.do";   //response.sendRedirect + alert (x)
-	}
-	
+    //@PreAuthorize("isAnonymous()")       // 1. ë¡œê·¸ì¸í•˜ì§€ ì•Šì€ ì‚¬ìš©ìž
+    @PreAuthorize("isAuthenticated()") // 2. ë¡œê·¸ì¸í–ˆë‹¤ë©´
+    @RequestMapping( value="/board/write.do" 
+                            ,method = RequestMethod.POST , headers=("content-type=multipart/*"))
+    public String write_post(BoardDto dto ,
+                             @RequestParam("file") MultipartFile file   ,
+                            RedirectAttributes rttr) { 
+        String result ="ê¸€ì“°ê¸° ì‹¤íŒ¨";
+        
+        if(service.insert(dto , file) > 0) {  result = "ê¸€ì“°ê¸° ì„±ê³µ"; }
+        rttr.addFlashAttribute("result", result);  // Flash - 1íšŒì„±ì „ì†¡
+        return "redirect:/board/list.do";   //response.sendRedirect + alert (x)
+    }
+    
 
-	//¡á3. ±Û»ó¼¼º¸±â
-	@RequestMapping("/board/detail.do")
-	public String detail( int bno ,  Model model ) {  
-		model.addAttribute("dto" , service.detail(bno)); 
-		return  "board/detail";  
-	}
-	//Å×½ºÆ® : http://localhost:8282/spring003_mvc/board/detail.do
-	 
-	//¡á4. ±Û¼öÁ¤Æû °æ·Î
-	@RequestMapping( value= "/board/edit.do" , method = RequestMethod.GET)
-	public String edit( int bno  , Model model) {  // ³Ñ°Ü¹Þ´Â bno , edit.jsp  
-		model.addAttribute("dto" , service.editView(bno));
-		return  "board/edit";  
-	} 
-	//Å×½ºÆ® : http://localhost:8282/spring003_mvc/board/edit.do		
-	//¡á4. ±Û¼öÁ¤ ±â´É 
-	@RequestMapping( value= "/board/edit.do" , method = RequestMethod.POST)
-	public String edit_post(
-			BoardDto dto,
-			@RequestParam("file")  MultipartFile file, 
-			RedirectAttributes rttr) { 
-		// ¾Ë¸²Ã¢
-		String result = "ºñ¹Ð¹øÈ£ È®ÀÎ!";
-		if( service.edit(dto , file) > 0 ) {  result = "¼öÁ¤¼º°ø";  }
-		rttr.addFlashAttribute("result", result);
-		
-		return "redirect:/board/detail.do?bno=" + dto.getBno();
-	} 
-	//¡á5. ±Û»èÁ¦Æû °æ·Î	
-	@RequestMapping( value="/board/delete.do", method = RequestMethod.GET)
-	public String delete(int bno) { return  "board/delete";  }
-	
-	//Å×½ºÆ® : http://localhost:8282/spring003_mvc/board/delete.do
-	//¡á5. ±Û»èÁ¦ ±â´É
-	@RequestMapping( value="/board/delete.do" , method = RequestMethod.POST)
-	public String delete_post(BoardDto dto, RedirectAttributes rttr) {  
-		String result = "ºñ¹Ð¹øÈ£ È®ÀÎ!";
-		if( service.delete(dto) > 0 ) {  result = "»èÁ¦¼º°ø";  }
-		rttr.addFlashAttribute("result", result);
-		
-		return  "redirect:/board/list.do";  
-	}
+    // ê¸°ëŠ¥3. ê¸€ìƒì„¸ë³´ê¸°
+    @RequestMapping("/board/detail.do")
+    public String detail( int bno ,  Model model ) {  
+        model.addAttribute("dto" , service.detail(bno)); 
+        return  "board/detail";  
+    }
+    //í…ŒìŠ¤íŠ¸ : http://localhost:8282/spring003_mvc/board/detail.do
+     
+    // ê¸°ëŠ¥4. ê¸€ìˆ˜ì •í¼ìœ¼ë¡œ ê°€ëŠ” ì²˜ë¦¬
+    @RequestMapping( value= "/board/edit.do" , method = RequestMethod.GET)
+    public String edit( int bno  , Model model) {  // ë„˜ê²¨ë°›ëŠ” bno , edit.jsp  
+        model.addAttribute("dto" , service.editView(bno));
+        return  "board/edit";  
+    } 
+    //í…ŒìŠ¤íŠ¸ : http://localhost:8282/spring003_mvc/board/edit.do      
+    // ê¸°ëŠ¥4. ê¸€ìˆ˜ì • ì²˜ë¦¬ 
+    @RequestMapping( value= "/board/edit.do" , method = RequestMethod.POST)
+    public String edit_post(
+            BoardDto dto,
+            @RequestParam("file")  MultipartFile file, 
+            RedirectAttributes rttr) { 
+        // ì•Œë¦¼ì°½
+        String result = "ë¹„ë°€ë²ˆí˜¸ í™•ì¸!";
+        if( service.edit(dto , file) > 0 ) {  result = "ìˆ˜ì •ì„±ê³µ";  }
+        rttr.addFlashAttribute("result", result);
+        
+        return "redirect:/board/detail.do?bno=" + dto.getBno();
+    } 
+    // ê¸°ëŠ¥5. ê¸€ì‚­ì œí¼ìœ¼ë¡œ ê°€ëŠ” ì²˜ë¦¬  
+    @RequestMapping( value="/board/delete.do", method = RequestMethod.GET)
+    public String delete(int bno) { return  "board/delete";  }
+    
+    //í…ŒìŠ¤íŠ¸ : http://localhost:8282/spring003_mvc/board/delete.do
+    // ê¸°ëŠ¥5. ê¸€ì‚­ì œ ì²˜ë¦¬
+    @RequestMapping( value="/board/delete.do" , method = RequestMethod.POST)
+    public String delete_post(BoardDto dto, RedirectAttributes rttr) {  
+        String result = "ë¹„ë°€ë²ˆí˜¸ í™•ì¸!";
+        if( service.delete(dto) > 0 ) {  result = "ì‚­ì œì„±ê³µ";  }
+        rttr.addFlashAttribute("result", result);
+        
+        return  "redirect:/board/list.do";  
+    }
 
 }
  

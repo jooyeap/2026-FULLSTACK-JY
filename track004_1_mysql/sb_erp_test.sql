@@ -3,6 +3,8 @@ desc company;
 show databases;
 show tables;
 
+
+
 desc company;
 desc appr_form;
 desc appr_doc;
@@ -22,7 +24,7 @@ show create table appr_form;
 
 delete from appr_form where for_id > 0;
 
-insert into (com_id, for_code, for_title, for_)
+
 
 
 
