@@ -281,4 +281,21 @@ INSERT INTO `reservation` (`rev_id`, `res_id`, `com_id`, `emp_id`, `quantity`, `
 -- UNION ALL SELECT 'resource',     COUNT(*) FROM resource
 -- UNION ALL SELECT 'reservation',  COUNT(*) FROM reservation;
 
+use sb_erp_db;
 UPDATE `sb_erp_db`.`employee` SET `emp_pass` = '$2a$10$Qci4eB7OsX3GEjYpthpquO.TFoA6ylChzZTyoEdry3K/qS5Y8piHu' WHERE (`emp_id` = '1');
+
+SET SQL_SAFE_UPDATES = 0;
+
+update project
+set pro_status = 'TODO'
+where pro_status = '계획';
+
+update project
+set pro_status = 'DOING'
+where pro_status = '진행중';
+
+update project
+set pro_status = 'DONE'
+where pro_status = '완료';
+
+SET SQL_SAFE_UPDATES = 1;

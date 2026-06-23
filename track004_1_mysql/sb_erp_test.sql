@@ -24,7 +24,6 @@ show create table appr_form;
 
 delete from appr_form where for_id > 0;
 
+select * from employee;
 
-
-
-
+delete from appr_form where for_id = 18;
