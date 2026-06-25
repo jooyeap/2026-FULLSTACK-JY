@@ -21,7 +21,7 @@ public class Sboard2Dto {
 	private String bfile;
 	private int bhit;
 	private String bip;
-	private String createAt;
+	private String createdAt;
 }
 
 //이름          널?       유형             

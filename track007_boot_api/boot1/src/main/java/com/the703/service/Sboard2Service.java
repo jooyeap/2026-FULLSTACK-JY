@@ -28,4 +28,7 @@ public interface Sboard2Service {
 	
 	// 7. 삭제 기능
 	public int delete(Sboard2Dto dto);
+	
+	// 조회수 처리 안하고 데이터 가져오기
+	public Sboard2Dto selectById(Sboard2Dto dto);
 }

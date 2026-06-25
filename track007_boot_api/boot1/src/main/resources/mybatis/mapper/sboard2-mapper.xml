@@ -31,7 +31,7 @@
 	</select>
 	
 	<!-- 페이징 -->
-	<select id="selectPaging" resultType="int" parameterType="java.util.HashMap">
+	<select id="selectPaging" resultType="Sboard2Dto" parameterType="java.util.HashMap">
 		select * from sboard2
 		order by ID desc
 		offset ${start} rows fetch next ${end} rows only
@@ -56,7 +56,7 @@
 		update sboard2 set 
 			BTITLE = #{btitle},
 			BCONTENT = #{bcontent},
-			BFILE = #{bfile}
+			BFILE = #{bfile, jdbcType=VARCHAR}
 		where
 			ID = #{id}
 			

@@ -91,6 +91,10 @@ public class Sboard2ServiceImpl implements Sboard2Service{
 		return dao.delete(dto);
 	}
 	
-
+	// 조회수 없이 데이터 가져오기
+	@Override
+	public Sboard2Dto selectById(Sboard2Dto dto) {
+		return dao.selectById(dto);
+	}
 	
 }
