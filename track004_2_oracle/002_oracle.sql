@@ -43,3 +43,79 @@ update sboard2 set btitle='new', bcontent='new', bfile='2.png' where id = 1;
 
 -- 해당 번호 delete
 delete from sboard2 where id = 1;
+
+drop table authorities;
+
+create sequence appuser_seq;
+create table appuser(
+    APP_USER_ID number(5) not null primary key,
+    EMAIL VARCHAR2(100) not null,
+    PASSWORD VARCHAR2(100),
+    MBTI_TYPE_ID number(3),
+    CREATED_AT DATE,
+    UFILE VARCHAR2(255),
+    MOBILE VARCHAR2(50),
+    NICKNAME VARCHAR2(50),
+    PROVIDER VARCHAR2(50) not null,
+    PROVIDER_ID VARCHAR2(100)
+);
+
+alter table appuser modify CREATED_AT date default sysdate;
+
+create sequence auth_seq;
+create table authorities(
+    AUTH_ID number(5) not null primary key,
+    EMAIL VARCHAR2(255),
+    AUTH VARCHAR2(255) not null,
+    APP_USER_ID number(5)    
+);
+
+alter table authorities modify
+    APP_USER_ID number(5) constraint APP_USER_ID foreign key (APP_USER_ID) references appuser(APP_USER_ID)
+
+desc appuser;
+desc authorities;
+
+select * from appuser;
+select * from authorities;
+
+-- 1) 회원가입
+insert into appuser 
+    (APP_USER_ID, EMAIL, PASSWORD, MBTI_TYPE_ID, CREATED_AT, UFILE, MOBILE, NICKNAME, PROVIDER, PROVIDER_ID)
+values
+    (appuser_seq.nextval, 'first@gmail.com', 'first', 1, sysdate, '1.png', '000-1111-2222', 'first', 'the703', 't7-1');
+    
+-- 2) 로그인 - 이메일로 이메일, 비밀번호 권한 가져오기
+select u.email, u.password, a.auth
+from appuser u left join authorities a on u.email = a.email
+where u.email = 'first@gmail.com';
+
+-- 3) 이메일로 유저찾기
+select * from appuser where email = 'first@gmail.com';
+
+-- 4) 이메일로 중복검사
+select count(*) from appuser where email = 'first@gmail.com';
+
+-- 5) 회원수정
+update appuser
+set
+    password='2222',
+    mbti_type_id=2,
+    ufile = '2.png',
+    nickname = 'second',
+    mobile = '000-2222-2222',
+    provider = 'naver',
+    provider_id =  'n-1'
+where app_user_id = 1;
+
+-- 6) 회원삭제
+delete from appuser where app_user_id = 1;
+
+-- 7) 권한삽입
+insert into authorities
+    (AUTH_ID, EMAIL, AUTH)
+values
+    (auth_seq.nextval, 'first@gmail.com', 'ROLE_MEMBER');
+
+-- 8) 권한삭제
+delete from authorities where EMAIL = 'first@gmail.com';
