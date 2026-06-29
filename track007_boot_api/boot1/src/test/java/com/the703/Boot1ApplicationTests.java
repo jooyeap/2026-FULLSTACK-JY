@@ -26,6 +26,7 @@ class Boot1ApplicationTests {
 	@Autowired Sboard2Dao sboard;
 	@Autowired Sboard2Service service;
 	
+	
 	@Disabled
 	@Test
 	public void test10_delete() {

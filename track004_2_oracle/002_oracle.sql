@@ -119,3 +119,9 @@ values
 
 -- 8) 권한삭제
 delete from authorities where EMAIL = 'first@gmail.com';
+
+select * from authorities;
+select * from appuser;
+
+delete from appuser where app_user_id = 21;
+delete from authorities where auth_id = 2;

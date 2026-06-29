@@ -31,7 +31,7 @@
 			)
 	</insert>
 	
-	<select id="readAuthByEmail" parameterType="AppUserDto" resultType="AppUserAuthDto">
+	<select id="readAuthByEmail" parameterType="AppUserDto" resultMap="AppUserAuthResultMap">
 		select
 			u.email, u.password, a.auth
 		from
@@ -44,24 +44,47 @@
 			u.email = #{email}
 	</select>
 	
+	<resultMap type="AppUserAuthDto" id="AppUserAuthResultMap">
+		<result property="email" column="email"/>
+    	<result property="password" column="password"/>
+    	<collection property="authList" ofType="com.the703.dto.AuthDto">
+	        <result property="auth" column="auth"/>
+	    </collection>
+	</resultMap>
+	
 	<select id="findByEmail" parameterType="AppUserDto" resultType="AppUserDto">
 		select * from appuser where email = #{email}
 	</select>
 	
-	<select id="iddoubleByEmail" parameterType="AppUserDto" resultType="int	">
+	<select id="iddoubleByEmail" parameterType="AppUserDto" resultType="int">
 		select count(*) from appuser where email = #{email}
 	</select>
-	
+
 	<update id="updateAppUser" parameterType="AppUserDto">
 		update appuser
-		set
-			password = #{password},
-			mbti_type_id = #{mbtiTypeId},
-			ufile = #{ufile},
-			nickname = #{nickname},
-			mobile = #{mobile},
-			provider = #{provider},
-			provider_id = #{providerId}
+		<set>
+			<!-- <if test="password != null">
+				password = #{password},
+			</if> -->
+			<if test="mbtiTypeId != null">
+				mbti_type_id = #{mbtiTypeId},
+			</if>
+			<if test="ufile != null">
+				ufile = #{ufile},
+			</if>
+			<if test="nickname != null">
+				nickname = #{nickname},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile},
+			</if>
+			<if test="provider != null">
+				provider = #{provider},
+			</if>
+			<if test="providerId != null">
+				provider_id = #{providerId}
+			</if>
+		</set>
 		where
 			app_user_id = #{appUserId}
 	</update>
@@ -76,7 +99,7 @@
 		insert into authorities
 			(auth_id, email, auth)
 		values
-			(#{authId}, #{email}, #{auth})
+			(auth_seq.nextval, #{email}, #{auth})
 	</insert>
 	
 	<delete id="deleteAuth" parameterType="AuthDto">
