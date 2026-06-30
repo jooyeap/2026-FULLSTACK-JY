@@ -79,8 +79,8 @@
 	        <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
 	        <version>1.16</version>
 	    </dependency>   
-	    <!--        -->
-	    <!--        -->
+	    <!--     SECURITY     -->
+	    <!--     SECURITY     -->
 	    <!-- https://mvnrepository.com/artifact/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect -->
 	    <!-- 추가 -->
 	    <dependency>
@@ -106,6 +106,22 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		<!-- SOCIAL -->
+		<!-- SOCIAL -->
+		<!-- API -->
+		<!-- API -->
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
+		
+		
 	</dependencies>
 
 	<build>

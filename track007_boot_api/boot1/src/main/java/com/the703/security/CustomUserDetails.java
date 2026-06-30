@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import com.the703.dto.AppUserAuthDto;
 import com.the703.dto.AppUserDto;
@@ -16,8 +17,10 @@ import com.the703.dto.AppUserDto;
 import lombok.Getter;
 
 @Getter
-public class CustomUserDetails implements UserDetails{
+public class CustomUserDetails implements UserDetails, OAuth2User{ // 1.UserDetails - security
 	// UserDetails (security) , oauth2-client
+	
+	private static final long serialVersionUID = 1L;
 	
 	private AppUserDto user;
 	private AppUserAuthDto authDto;
@@ -34,7 +37,7 @@ public class CustomUserDetails implements UserDetails{
 	}
 	
 	/////////////////////////////////////////
-	@Override
+	@Override 
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		if( authDto == null || authDto.getAuthList() == null || authDto.getAuthList().isEmpty()) {
 			return List.of( new SimpleGrantedAuthority("ROLE_MEMBER"));
@@ -56,10 +59,35 @@ public class CustomUserDetails implements UserDetails{
 		// 1@1 : local, 2@2 : kakao
 		return user.getEmail() + ":" + user.getProvider();
 	}
-	/////////////////////////////////////////
+	
 	// 필요한 값들 직접 만들어서 가져다 쓸수있게
 	public Integer getAppUserId() { return user.getAppUserId(); }
 	public String getEmail() { return user.getEmail(); }
 	public String getProvide() { return user.getProvider(); }
+	//////////////////// social /////////////////////
+	// java : alt + shift + s
+	
+	public CustomUserDetails(AppUserDto user, Map<String, Object> attributes) {
+		super();
+		this.user = user;
+		this.authDto = new AppUserAuthDto();
+		this.attributes = new HashMap<>( attributes != null ? attributes : Map.of());
+		this.attributes.put("email", user.getEmail());
+		this.attributes.put("provider", user.getProvider());
+	}
+
+	@Override
+	public String getName() {
+		return user.getEmail() + ":" + user.getProvider();
+	}
+	
+	@Override
+	public Map<String, Object> getAttributes(){
+		return attributes;
+	}
+	
+	public void setAttributes(Map<String, Object> attributes) {
+		this.attributes = attributes;
+	}
 
 }

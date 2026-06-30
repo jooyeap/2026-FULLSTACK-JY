@@ -11,6 +11,10 @@
 		<span th:text="${errorMessage}"></span>
 	    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	</div>
+	<div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+    	<span th:text="${successMessage}"></span>
+    	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 
     <h2 class="mb-4">로그인</h2> 
     <!-- 로그인 폼은 익명 사용자만 -->
@@ -31,7 +35,7 @@
     <!-- 로그인한 유저 -->  
     <div sec:authorize="isAuthenticated()">
     	<p class="alert alert-info">이미 로그인한 상태입니다.</p>
-    	<a   class="btn btn-success">마이페이지로 이동</a>
+    	<a class="btn btn-success">마이페이지로 이동</a>
    	</div>
  
  
