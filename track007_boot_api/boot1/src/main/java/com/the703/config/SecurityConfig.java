@@ -8,22 +8,29 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.the703.oauth2.Oauth2UserService;
+
+import lombok.RequiredArgsConstructor;
+
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+	
+	private final Oauth2UserService oAuth2UserService;
 	
 	// http 경로설정
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		
 		http// 1. 허용 경로
-			.authorizeHttpRequests(auth -> auth
-					.requestMatchers("users/join", "users/login", "api/**").permitAll()
-					.requestMatchers("users/mypage", "users/update", "users/delete").authenticated()
+			.authorizeHttpRequests( auth -> auth
+					.requestMatchers("/users/join", "/users/login", "/users/iddouble", "/api/**").permitAll()
+					.requestMatchers("/users/mypage", "/users/update", "/users/delete").authenticated()
 					.anyRequest().permitAll()
 			)
 			// 2. 로그인 처리
-			.formLogin(form -> form
+			.formLogin( form -> form
 					.loginPage("/users/login")
 					.loginProcessingUrl("/users/loginProc")
 					.defaultSuccessUrl("/users/mypage" , true)
@@ -37,6 +44,12 @@ public class SecurityConfig {
 					.invalidateHttpSession(true)
 					.clearAuthentication(true)
 					.permitAll()
+			)
+			// oauth2 - social
+			.oauth2Login( oauth2 -> oauth2
+						.loginPage("/users/login")
+						.defaultSuccessUrl("/users/mypage", true)
+						.userInfoEndpoint(userinfo -> userinfo.userService(oAuth2UserService))
 			)
 			// 4. csrf 예외 처리
 			.csrf( csrf -> csrf

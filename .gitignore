@@ -17,3 +17,6 @@ track005_jsp/tomcat9.0/
 # OS별 임시파일
 *.DS_Store
 Thumbs.db
+
+# 보안파일 제외
+application-oauth.properties

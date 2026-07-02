@@ -82,7 +82,8 @@ CREATE TABLE appr_line (
   emp_id NUMBER NOT NULL,
   lin_order NUMBER NOT NULL,
   lin_status VARCHAR2(20) NOT NULL,
-  lin_approved DATE default sysdate NULL,
+  lin_approved DATE NULL,
+  is_current char(1) default 'N' not null,
   CONSTRAINT fk_appr_line_appr_doc1
     FOREIGN KEY (doc_id)
     REFERENCES appr_doc (doc_id),
