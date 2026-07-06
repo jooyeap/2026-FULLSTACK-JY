@@ -172,3 +172,5 @@ INSERT INTO sboard2 (ID, APP_USER_ID, BTITLE, BCONTENT, BPASS, BIP, CREATED_AT) 
 
 commit;
 
+
+select * from appr_form;
