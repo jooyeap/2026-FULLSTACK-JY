@@ -256,7 +256,7 @@ CREATE TABLE appr_form (
   created_at  DATE DEFAULT SYSDATE NOT NULL,
   updated_at  DATE DEFAULT SYSDATE NOT NULL,
   CONSTRAINT pk_appr_form PRIMARY KEY (for_id, for_version),
-  CONSTRAINT uq_appr_form_com_code UNIQUE (com_id, for_code),
+  CONSTRAINT uq_appr_form_com_code UNIQUE (com_id, for_code, for_version),
   CONSTRAINT fk_appr_form_company1
     FOREIGN KEY (com_id) REFERENCES company (com_id),
   CONSTRAINT chk_appr_form_status CHECK (for_status IN (0,1)),
