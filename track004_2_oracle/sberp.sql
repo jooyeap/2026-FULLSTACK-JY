@@ -110,3 +110,52 @@ CHECK (
     (for_content IS NULL AND for_schema IS NOT NULL)
 )
 
+select * from appr_form where com_id = 1;
+
+alter table appr_form modify (for_content null);
+update appr_doc set doc_status = 'REJ' where doc_status = 'CAN';
+
+ -- 기존 CHECK 제약 삭제
+alter table evaluation_period drop constraint ck_period_status;
+
+-- 새 CHECK 제약 (REPORTING, REPORTING_FAILED 추가)
+alter table evaluation_period 
+    add constraint ck_period_status 
+    check (period_status in ('READY', 'OPEN', 'CLOSED', 'REPORTING', 'REPORTING_FAILED', 'REPORTED'));
+
+-- 새 제약 확인이 필요하면
+select constraint_name, search_condition
+  from user_constraints
+ where table_name = 'EVALUATION_PERIOD'
+   and constraint_type = 'C'; 
+
+--사원
+update employee set emp_pass='$2b$10$zaOMPKyTkWmzevgUykuqtut57S3Py02TWhUo1JIXs1np4y2ihE5YW' where emp_id = 218;
+--주임
+update employee set emp_pass='$2b$10$zaOMPKyTkWmzevgUykuqtut57S3Py02TWhUo1JIXs1np4y2ihE5YW' where emp_id = 55;
+--대리
+update employee set emp_pass='$2b$10$zaOMPKyTkWmzevgUykuqtut57S3Py02TWhUo1JIXs1np4y2ihE5YW' where emp_id = 41;
+--과장
+update employee set emp_pass='$2b$10$zaOMPKyTkWmzevgUykuqtut57S3Py02TWhUo1JIXs1np4y2ihE5YW' where emp_id = 31;
+-- 차장
+update employee set emp_pass='$2b$10$zaOMPKyTkWmzevgUykuqtut57S3Py02TWhUo1JIXs1np4y2ihE5YW' where emp_id = 136;
+-- 부장 a@a
+
+select 
+    e.emp_id,
+    e.emp_email,
+    e.emp_name,
+    e.pos_id,
+    e.com_id,
+    d.dept_id,
+    d.dept_name,
+    p.pos_name
+from employee e
+left join emp_position p on e.pos_id = p.pos_id
+left join department d on e.dept_id = d.dept_id
+where e.com_id = 1 and d.dept_id = 1;
+
+commit;
+
+select * from appr_doc where com_id = 1;
+desc appr_line;

@@ -20,3 +20,6 @@ Thumbs.db
 
 # 보안파일 제외
 application-oauth.properties
+
+# node
+track008_1_nodereact/back/node_modules
