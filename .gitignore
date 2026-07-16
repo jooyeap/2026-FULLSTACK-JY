@@ -23,3 +23,4 @@ application-oauth.properties
 
 # node
 track008_1_nodereact/back/node_modules
+track008_1_nodereact/front/node_modules
