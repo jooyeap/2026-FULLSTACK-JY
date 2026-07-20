@@ -319,3 +319,20 @@ const gen2 = g2();
 
 console.log( gen2.next() ); // gen2.next() 호출
 ```
+
+2) saga 기본함수
+- all, fork , call, put, takeLatest
+1. all - 여러 saga를 동시에 실행
+2. fork - [비동기]로 saga를 실행
+3. call - api를 호출하고 결과를 기다림 (blocking) > [동기]
+4. put - redux 액션을 dispatch(붙이기)
+5. takeLatest - 특정 액션을 감지하고 가장 마지막 액션만 처리
+
+
+주소경로
+post : /user/register (requestBody)
+post : /user/login    (requestBody)
+post : /user/logout   
+get  : /user/
+patch: /user/{id}/nickname 
+delete: /user/{id} 
