@@ -159,3 +159,160 @@ commit;
 
 select * from appr_doc where com_id = 1;
 desc appr_line;
+
+
+select * from appr_form where com_id = 1;
+select * from appr_doc where com_id = 1;
+-- 1086테스트3 1087테스트1 1088테스트2 1089
+select * from appr_line where doc_id = 1086;
+
+-- 버전 확인용 양식
+insert into appr_form (for_id, com_id, for_code, for_title, for_schema, for_status, is_deleted, for_version)
+values (99998, 1, '양식버전테스트용', '버전테스트용', '{
+	"title": "휴가 신청서",
+	"fields": [
+		{
+			"key": "employee_name",
+			"label": "신청자 이름",
+			"type": "text",
+			"required": true
+		},
+		{
+			"key": "department",
+			"label": "부서",
+			"type": "text",
+			"required": true
+		},
+		{
+			"key": "start_date",
+			"label": "휴가 시작 일자",
+			"type": "date",
+			"required": true
+		},
+		{
+			"key": "end_date",
+			"label": "휴가 종료 일자",
+			"type": "date",
+			"required": true
+		},
+		{
+			"key": "leave_type",
+			"label": "휴가 종류",
+			"type": "select",
+			"required": true,
+			"options": ["연차", "병가", "경조사", "기타"]
+		},
+		{
+			"key": "reason",
+			"label": "신청 사유",
+			"type": "textarea",
+			"required": true
+		}
+	]
+}',1,0,1);
+
+-- 일반 양식
+insert into appr_form (for_id, com_id, for_code, for_title, for_content, for_status, is_deleted, for_version)
+values (99999, 1, '일반문서테스트용', '일반문서', '
+		<div class="appr-table-wrap">
+			<table class="appr-table">
+				<tbody>
+					<tr>
+						<th colspan="4" style="font-size: 20px; padding: 15px; background-color: #e9ecef;">휴 가 신 청 서</th>
+					</tr>
+					<tr>
+						<td class="appr-title-cell">휴가 종류</td>
+						<td>(연차 / 오전반차 / 오후반차 / 공가 / 병가) 중 기입</td>
+						<td class="appr-title-cell">비상 연락처</td>
+						<td>010-</td>
+					</tr>
+					<tr>
+						<td class="appr-title-cell">기간</td>
+						<td colspan="3">2026년 __월 __일 ~ 2026년 __월 __일 (총 __일간)</td>
+					</tr>
+					<tr>
+						<td class="appr-title-cell">휴가 사유</td>
+						<td colspan="3" style="height: 150px; vertical-align: top;">
+							<p>※ 구체적인 휴가 사유를 입력해 주세요.</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4" style="text-align: center; color: #666; font-size: 12px; background-color: #fafafa;">
+							위와 같이 휴가를 신청하오니 승인하여 주시기 바랍니다.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		'
+        ,1,0,1);
+        
+-- 결재 문서 (테스트 2)
+insert into appr_doc (doc_id, emp_id, for_id, com_id, doc_title, doc_content, doc_status, is_important, doc_revision, for_version)
+values(3333, 218, 99998, 1, '테스트2','<div class="appr-table-wrap">
+					<table class="appr-table">
+						<tbody>
+							<tr><th>신청자 이름</th><td>test</td></tr><tr><th>부서</th><td>test</td></tr><tr><th>휴가 시작 일자</th><td>2026-07-20</td></tr><tr><th>휴가 종료 일자</th><td>2026-07-25</td></tr><tr><th>휴가 종류</th><td>기타</td></tr><tr><th>신청 사유</th><td>test</td></tr>
+						</tbody>
+					</table>
+				</div>','ING',0,1,1);
+
+-- 결재 문서 (테스트 3) 
+insert into appr_doc (doc_id, emp_id, for_id, com_id, doc_title, doc_content, doc_status, is_important, doc_revision, for_version)
+values(3334, 218, 99999, 1, '테스트3', '
+		<div class="appr-table-wrap">
+			<table class="appr-table">
+				<tbody>
+					<tr>
+						<th colspan="4" style="font-size: 20px; padding: 15px; background-color: #e9ecef;">휴 가 신 청 서</th>
+					</tr>
+					<tr>
+						<td class="appr-title-cell">휴가 종류</td>
+						<td>(연차 / 오전반차 / 오후반차 / 공가 / 병가) 중 기입</td>
+						<td class="appr-title-cell">비상 연락처</td>
+						<td>010-</td>
+					</tr>
+					<tr>
+						<td class="appr-title-cell">기간</td>
+						<td colspan="3">2026년 __월 __일 ~ 2026년 __월 __일 (총 __일간)</td>
+					</tr>
+					<tr>
+						<td class="appr-title-cell">휴가 사유</td>
+						<td colspan="3" style="height: 150px; vertical-align: top;">
+							<p>※ 구체적인 휴가 사유를 입력해 주세요.</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4" style="text-align: center; color: #666; font-size: 12px; background-color: #fafafa;">
+							위와 같이 휴가를 신청하오니 승인하여 주시기 바랍니다.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		','ING',0,1,1);
+
+-- 결재 문서 (테스트 버전)
+insert into appr_doc (doc_id, emp_id, for_id, com_id, doc_title, doc_content, doc_status, is_important, doc_revision, for_version)
+values(3332, 218,
+
+-- 결재선 (테스트 2)
+insert into appr_line (lin_id, doc_id, emp_id, lin_order, lin_status) values (appr_line_seq.nextval, 3333,55,1,'APP');
+insert into appr_line (lin_id, doc_id, emp_id, lin_order, lin_status) values (appr_line_seq.nextval, 3333,41,2,'APP');
+insert into appr_line (lin_id, doc_id, emp_id, lin_order, lin_status) values (appr_line_seq.nextval, 3333,1,3,'WAI');
+
+-- 결재선 (테스트 3)
+insert into appr_line (lin_id, doc_id, emp_id, lin_order, lin_status) values (appr_line_seq.nextval, 3334,1,1,'WAI');
+
+-- 테스트 이후 데이터 삭제
+-- delete from appr_line where doc_id in (3332,3333,3334);
+-- delete from appr_doc where doc_id in (3332,3333,3334);
+select * from appr_form where com_id = 1;
+select * from appr_doc where com_id = 1;
+select * from appr_doc where for_id = 1031;
+select * from appr_line where doc_id = 1093;
+delete from appr_form where for_code = '양식버전테스트용';
+delete from appr_doc where for_id = 1031;
+delete from appr_line where doc_id = 1093;
+        
+commit;

@@ -277,3 +277,45 @@ step3) 본문 영역의 main.container 안에 컨텐츠 출력
     - useSelector로 상태읽기
 
 ```
+
+
+6. 개발 ( reducer - saga - view ) (2) saga
+
+```
+front/
+└── sagas/                  # ✅ Redux-Saga 폴더
+│   ├── index.js            # 루트 사가
+│   ├── user.js             # 사용자 관련 사가
+│   └── user.test.js        # 사가 테스트 코드
+```
+
+1) 제너레이터 함수
+```js
+
+function* g1(){
+  let i = 0;
+  while(true){
+    yield i++;
+  }
+}
+
+const gen1 = g1();
+
+console.log( gen1.next().value ); // gen1.next() 호출
+```
+
+```js
+
+function* g2(){
+  console.log("first");
+  yield 1; // 첫번째 반환
+  console.log("second");
+  yield 2; // 두번째 반환
+  console.log("third");
+  yield 3; // 세번째 반환
+}
+
+const gen2 = g2();
+
+console.log( gen2.next() ); // gen2.next() 호출
+```
