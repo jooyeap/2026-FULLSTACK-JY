@@ -186,8 +186,52 @@ async function findUserByNickname(nickname){
     }
 }
 
+// 9. 이메일 중복검사
+async function checkEmail(email){
+    let conn;
+    try{
+        conn = await oracledb.getConnection(dbConfig);
+        const result = await conn.execute(`
+            select count(*) as cnt
+            from appuser
+            where email = :email
+        `,
+        {email},
+        options);
+        console.log(result.rows);
+        return result.rows[0].CNT > 0;
+    } catch(err) {
+        console.log('checkEmail Error', err)
+        throw err;
+    } finally {
+        if(conn) await conn.close();
+    }
+}
+
+// 10. 닉네임 중복검사
+async function checkNickname(nickname){
+    let conn;
+    try{
+        conn = await oracledb.getConnection(dbConfig);
+        const result = await conn.execute(`
+            select count(*) as cnt
+            from appuser
+            where nickname = :nickname
+        `,
+        {nickname},
+        options);
+        return result.rows[0].CNT > 0;
+    } catch(err) {
+        console.log('checkNickname Error', err)
+        throw err;
+    } finally {
+        if(conn) await conn.close();
+    }
+}
+
 /////////////////// export ///////////////////
 module.exports = { 
     createUser, findUserByEmail, findUserById, verifyUser,
-    getAllUsers, updateUserNickname, deleteUser, findUserByNickname
+    getAllUsers, updateUserNickname, deleteUser, findUserByNickname,
+    checkEmail, checkNickname
 };

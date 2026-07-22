@@ -168,7 +168,7 @@ select * from appr_line where doc_id = 1086;
 
 -- 버전 확인용 양식
 insert into appr_form (for_id, com_id, for_code, for_title, for_schema, for_status, is_deleted, for_version)
-values (99998, 1, '양식버전테스트용', '버전테스트용', '{
+values (99998, 1, '양식버전테스트용', '양식버전테스트용', '{
 	"title": "휴가 신청서",
 	"fields": [
 		{
@@ -292,9 +292,15 @@ values(3334, 218, 99999, 1, '테스트3', '
 		</div>
 		','ING',0,1,1);
 
--- 결재 문서 (테스트 버전)
+-- 결재 문서 (테스트 4)
 insert into appr_doc (doc_id, emp_id, for_id, com_id, doc_title, doc_content, doc_status, is_important, doc_revision, for_version)
-values(3332, 218,
+values(3332, 218, 99998, 1, '테스트4', '<div class="appr-table-wrap">
+					<table class="appr-table">
+						<tbody>
+							<tr><th>신청자 이름</th><td>test</td></tr><tr><th>부서</th><td>test</td></tr><tr><th>휴가 시작 일자</th><td>2026-07-20</td></tr><tr><th>휴가 종료 일자</th><td>2026-07-25</td></tr><tr><th>휴가 종류</th><td>기타</td></tr><tr><th>신청 사유</th><td>test</td></tr>
+						</tbody>
+					</table>
+				</div>', 'ING', 0, 1, 1);
 
 -- 결재선 (테스트 2)
 insert into appr_line (lin_id, doc_id, emp_id, lin_order, lin_status) values (appr_line_seq.nextval, 3333,55,1,'APP');
@@ -304,15 +310,16 @@ insert into appr_line (lin_id, doc_id, emp_id, lin_order, lin_status) values (ap
 -- 결재선 (테스트 3)
 insert into appr_line (lin_id, doc_id, emp_id, lin_order, lin_status) values (appr_line_seq.nextval, 3334,1,1,'WAI');
 
+-- 결재선 (테스트 4)
+insert into appr_line (lin_id, doc_id, emp_id, lin_order, lin_status) values (appr_line_seq.nextval, 3332,1,1,'WAI');
+
 -- 테스트 이후 데이터 삭제
 -- delete from appr_line where doc_id in (3332,3333,3334);
 -- delete from appr_doc where doc_id in (3332,3333,3334);
-select * from appr_form where com_id = 1;
-select * from appr_doc where com_id = 1;
-select * from appr_doc where for_id = 1031;
-select * from appr_line where doc_id = 1093;
-delete from appr_form where for_code = '양식버전테스트용';
-delete from appr_doc where for_id = 1031;
-delete from appr_line where doc_id = 1093;
-        
+-- delete from appr_form where for_id in (99998,99999);
+
+-- 테스트용 사원
+-- insert into employee (emp_id, emp_no, emp_name, emp_pass, emp_email, emp_mobile, hire_date, com_id, pos_id, dept_id)
+-- values (seq_employee.nextval, 'EMP-99999', '한나신', '$2b$10$zaOMPKyTkWmzevgUykuqtut57S3Py02TWhUo1JIXs1np4y2ihE5YW', 'emp00218@sbis.co.kr', '010-9042-6866','26/02/27',1,1,1);
+
 commit;

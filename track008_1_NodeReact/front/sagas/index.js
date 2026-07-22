@@ -6,7 +6,7 @@
     - Redux-Saga의 all, fork 를 사용해서 병렬로 실행
 */
 
-import {all, fork} from 'redux-saga';    // 여러 saga를 동시에 실행하기 위해 함수
+import {all, fork} from 'redux-saga/effects';    // 여러 saga를 동시에 실행하기 위해 함수
 import userSaga from './user';
 
 export default function* rootSaga(){

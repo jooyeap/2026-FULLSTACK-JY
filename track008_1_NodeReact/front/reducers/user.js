@@ -11,9 +11,9 @@ export const LOG_IN_REQUEST = 'LOG_IN_REQUEST'; // 로그인 요청
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS'; // 로그인 성공
 export const LOG_IN_FAILURE = 'LOG_IN_FAILURE'; // 로그인 실패
 
-export const LOG_OUT_REQUEST = 'LOG_IN_REQUEST'; // 로그아웃 요청
-export const LOG_OUT_SUCCESS = 'LOG_IN_SUCCESS'; // 로그아웃 성공
-export const LOG_OUT_FAILURE = 'LOG_IN_FAILURE'; // 로그아웃 실패
+export const LOG_OUT_REQUEST = 'LOG_OUT_REQUEST'; // 로그아웃 요청
+export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS'; // 로그아웃 성공
+export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE'; // 로그아웃 실패
 
 export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST'; // 회원가입 요청
 export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS'; // 회원가입 성공
@@ -31,19 +31,29 @@ export const DELETE_USER_REQUEST = 'DELETE_USER_REQUEST'; // 사용자 삭제 �
 export const DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS'; // 사용자 삭제 성공
 export const DELETE_USER_FAILURE = 'DELETE_USER_FAILURE'; // 사용자 삭제 실패
 
+export const EMAIL_CHECK_REQUEST = 'EMAIL_CHECK_REQUEST'; // 이메일 체크 요청
+export const EMAIL_CHECK_SUCCESS = 'EMAIL_CHECK_SUCCESS'; // 이메일 체크 성공
+export const EMAIL_CHECK_FAILURE = 'EMAIL_CHECK_FAILURE'; // 이메일 체크 실패
+
+export const NICKNAME_CHECK_REQUEST = 'NICKNAME_CHECK_REQUEST'; // 닉네임 체크 요청
+export const NICKNAME_CHECK_SUCCESS = 'NICKNAME_CHECK_SUCCESS'; // 닉네임 체크 성공
+export const NICKNAME_CHECK_FAILURE = 'NICKNAME_CHECK_FAILURE'; // 닉네임 체크 실패
+
 // 2. 초기상태
 export const initialState={
     me: null, // 로그인 사용자 정보 { id, email, nickname }
     users: [], // 전체 사용자 목록  [{id, email, nickname}]
-    isloading: false, // api 요청중 여부
+    isLoading: false, // api 요청중 여부
     error: null, // 에러 메세지
     signUpDone: false, // 회원가입 완료 여부
+    isCheck: false, // 닉네임, 이메일 중복 여부
 }
 
 // 3. reducer 함수
 const reducer = ( state=initialState, action ) => { // 현재상태, 요청액션
     switch( action.type ){
         // 요청 액션 -> 로딩 시작
+        case NICKNAME_CHECK_REQUEST:
         case LOG_IN_REQUEST:
         case LOG_OUT_REQUEST:
         case SIGN_UP_REQUEST:
@@ -52,6 +62,8 @@ const reducer = ( state=initialState, action ) => { // 현재상태, 요청액�
         case DELETE_USER_REQUEST:
             return { ...state, isLoading: true, error: null };
         // 성공 액션 -> 상태 업데이트
+        case NICKNAME_CHECK_SUCCESS:
+            return { ...state, isLoading: true, isCheck: action.data };
         case LOG_IN_SUCCESS:
             return { ...state, isLoading: false, me: action.data };
         case LOG_OUT_SUCCESS:
@@ -76,6 +88,7 @@ const reducer = ( state=initialState, action ) => { // 현재상태, 요청액�
             };
 
         // 실패 액션 -> 에러 메세지 저장
+        case NICKNAME_CHECK_FAILURE:
         case LOG_IN_FAILURE:
         case LOG_OUT_FAILURE:
         case SIGN_UP_FAILURE:

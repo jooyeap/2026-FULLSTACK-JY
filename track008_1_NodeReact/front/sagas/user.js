@@ -7,7 +7,7 @@
     -
 */
 
-import {all, pork, call, put, takeLatest} from 'redux-saga/effects'; // saga 기본함수
+import {all, fork, call, put, takeLatest} from 'redux-saga/effects'; // saga 기본함수
 import axios from 'axios'; // http요청 라이브러리
 import reducer, {
     initialState,
@@ -17,12 +17,31 @@ import reducer, {
     LOAD_USER_REQUEST, LOAD_USER_SUCCESS, LOAD_USER_FAILURE,
     UPDATE_NICKNAME_REQUEST, UPDATE_NICKNAME_SUCCESS, UPDATE_NICKNAME_FAILURE,
     DELETE_USER_REQUEST, DELETE_USER_SUCCESS, DELETE_USER_FAILURE,
+    NICKNAME_CHECK_REQUEST, NICKNAME_CHECK_SUCCESS, NICKNAME_CHECK_FAILURE,
 } from '../reducers/user'; // 액션 타입 불러오기
 
 const client = axios.create({
     baseURL : 'http://localhost:3065', // API 서버 주소
     withCredentials : true             // 쿠키/세션 인증포함
 });
+
+// - 닉네임 체크 watchCheckNickname
+// get : /checkNickname
+export function checkNicknameApi(nickname){
+    return client.get('/checkNickname', { params: {nickname}}); 
+}
+export function* checkNickname(action){
+    try{
+        const result = yield call ( checkNicknameApi, action.data );
+        yield put ( {type:NICKNAME_CHECK_SUCCESS, data: result.data.result} );
+    } catch (err) {
+        yield put ( {type:NICKNAME_CHECK_FAILURE, error: err.response?.data || err.message} );
+    }
+}
+
+function* watchCheckNickname(){
+    yield takeLatest( NICKNAME_CHECK_REQUEST, checkNickname);
+}
 
 // - 로그인 watchLogin
 // post : /user/login
@@ -179,5 +198,6 @@ export default function* userSaga(){
         fork(watchLoadUsers), 
         fork(watchUpdateNickname), 
         fork(watchDeleteUser), 
+        fork(watchCheckNickname),
     ]);
 }

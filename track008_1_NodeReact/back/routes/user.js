@@ -10,13 +10,82 @@ const express = require('express');
 const passport = require('passport'); // passport
 const  {
     createUser, findUserByEmail, findUserById, verifyUser,
-    getAllUsers, updateUserNickname, deleteUser, findUserByNickname
+    getAllUsers, updateUserNickname, deleteUser, findUserByNickname,
+    checkEmail, checkNickname
 } = require('../models/users');
 const isAuthenticated = require('../middlewares/isAuthenticated'); // 미들웨어
 
 const router = express.Router();
 
 // 2. 부품
+/**
+ * @swagger
+ * /user/checkEmail:
+ *   get:
+ *     summary: 이메일 중복검사
+ *     description: 이메일 중복검사 실행 (중복 true)
+ *     parameters: 
+ *       - in: query
+ *         name: email
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: 중복 검사할 이메일
+ *     responses:
+ *       200:
+ *         description: 중복검사 성공
+ *       401:
+ *         description: 사용중 이메일
+ */
+router.get('/checkEmail', async(req, res, next)=>{
+    try{
+        const {email} = req.query;
+        const result = await checkEmail(email);
+        return res.status(200).json({result});
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+});
+
+// router.get('/check-email', async(req,res) => {
+//     try{
+//         const user = await findUserByEmail(req.query);
+//         if(user) {return res.status(409).json({isAvailable:false, message: '이미사용중'})}
+//         return res.status(200).json({isAvailable:true, message: '사용가능'});
+//     } catch(err) {
+//         res.status(500).json({message:'서버 오류'});
+//     }
+// })
+
+/**
+ * @swagger
+ * /user/checkNickname:
+ *   get:
+ *     summary: 닉네임 중복검사
+ *     description: 닉네임 중복검사 실행 (중복 true)
+ *     parameters: 
+ *       - in: query
+ *         name: nickname
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: 중복 검사할 닉네임
+ *     responses:
+ *       200:
+ *         description: 중복검사 성공
+ */
+router.get('/checkNickname', async(req, res, next)=>{
+    try{
+        const {nickname} = req.query;
+        const result = await checkNickname(nickname);
+        return res.status(200).json({result});
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+});
+
 /**
  * @swagger
  * /user/register:
@@ -53,6 +122,8 @@ router.post('/register', async(req, res)=>{
 });
 
 // post : /user/login    (requestBody) 로그인
+
+
 /**
  * @swagger
  * /user/login:
