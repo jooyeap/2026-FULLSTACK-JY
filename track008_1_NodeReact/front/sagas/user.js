@@ -18,17 +18,51 @@ import reducer, {
     UPDATE_NICKNAME_REQUEST, UPDATE_NICKNAME_SUCCESS, UPDATE_NICKNAME_FAILURE,
     DELETE_USER_REQUEST, DELETE_USER_SUCCESS, DELETE_USER_FAILURE,
     NICKNAME_CHECK_REQUEST, NICKNAME_CHECK_SUCCESS, NICKNAME_CHECK_FAILURE,
+    EMAIL_CHECK_REQUEST, EMAIL_CHECK_SUCCESS, EMAIL_CHECK_FAILURE,
 } from '../reducers/user'; // 액션 타입 불러오기
 
 const client = axios.create({
     baseURL : 'http://localhost:3065', // API 서버 주소
     withCredentials : true             // 쿠키/세션 인증포함
 });
+// - 이메일 체크 수업 답안
+// export function checkEmailApi(email){
+//     return client.get( `/user/checkEmail?email=${email}`);
+// }
+// export function* checmEmail(action){
+//     try{
+//         const result = yield call( checkEmailApi, action.data );
+//         yield put( {type: EMAIL_CHECK_SUCCESS, data: result.data} )
+//     } catch(err){
+//         yield put({type: EMAIL_CHECK_FAILURE, error: err.response?.data || err.message});
+//     }
+// }
+// function* watchCheckEmail(){
+//     yield takeLatest( EMAIL_CHECK_REQUEST, checkEmail);
+// }
+
+// - 이메일 체크 watchCheckEmail
+// get : /user/checkEmail
+export function checkEmailApi(email){
+    return client.get('/user/checkEmail', { params: {email}});
+}
+export function* checkEmail(action){
+    try{
+        const result = yield call ( checkEmailApi, action.data );
+        yield put ( {type:EMAIL_CHECK_SUCCESS, data: result.data.result });
+    } catch (err) {
+        yield put ( {type:EMAIL_CHECK_FAILURE, error: err.response?.data || err.message});
+    }
+}
+
+function* watchCheckEmail(){
+    yield takeLatest( EMAIL_CHECK_REQUEST, checkEmail);
+}
 
 // - 닉네임 체크 watchCheckNickname
-// get : /checkNickname
+// get : /user/checkNickname
 export function checkNicknameApi(nickname){
-    return client.get('/checkNickname', { params: {nickname}}); 
+    return client.get('/user/checkNickname', { params: {nickname}}); 
 }
 export function* checkNickname(action){
     try{
@@ -199,5 +233,6 @@ export default function* userSaga(){
         fork(watchUpdateNickname), 
         fork(watchDeleteUser), 
         fork(watchCheckNickname),
+        fork(watchCheckEmail),
     ]);
 }

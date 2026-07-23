@@ -198,7 +198,7 @@ async function checkEmail(email){
         `,
         {email},
         options);
-        console.log(result.rows);
+        //console.log(result.rows);
         return result.rows[0].CNT > 0;
     } catch(err) {
         console.log('checkEmail Error', err)

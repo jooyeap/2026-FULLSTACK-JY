@@ -1,7 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux'; // 전역 상태, 상태 알림
 import { useState, useEffect } from 'react'; // 변수상태변경, 이벤트 변경
 import { useRouter } from 'next/router'; // 경로
-import { SIGN_UP_REQUEST, SIGN_UP_SUCCESS } from '../reducers/user';
+import { SIGN_UP_REQUEST, SIGN_UP_SUCCESS, NICKNAME_CHECK_REQUEST,
+         EMAIL_CHECK_REQUEST
+ } from '../reducers/user';
 
 // useSelector - 전역상태
 // useDispatch - 스토어 알림
@@ -14,7 +16,8 @@ export default function JoinPage(){
     const dispatch = useDispatch();
     const router = useRouter();
     // 1) Store : 전역상태 감지 useSelector
-    const {me, isLoading, error, signUpDone} = useSelector( (state) => state.user);
+    // 수업 답안 적용시 / checkEmailLoading 추가
+    const {me, isLoading, error, signUpDone, isCheck, isEmailCheck} = useSelector( (state) => state.user);
     // console.log("......", me);      
     //      변수, 변수셋팅함수
     const [email, setEmail] = useState('');       // let email = ''
@@ -40,8 +43,18 @@ export default function JoinPage(){
             alert('닉네임을 입력해주세요.');
             return;
         }
+        if(isCheck === null || isCheck === true){
+            alert('닉네임 중복검사는 필수입니다.');
+            return;
+        }
+        if(isEmailCheck === null || isEmailCheck === true){
+            alert('이메일 중복검사는 필수입니다.');
+            return;
+        }
         // 2) Store : 액션 알림 useDispatch
         dispatch({type:SIGN_UP_REQUEST, data:{email,password,nickname} });
+        isCheck = null;
+        isEmailCheck = null;
     };
     // 5) 상태 변화 감지
     useEffect( () => {
@@ -60,7 +73,35 @@ export default function JoinPage(){
 
     function setChangeEmail(){
         setEmail('..........');
-    }
+    };
+
+    // 닉네임 체크
+    const onCheck = () => {
+        if(!nickname){
+            alert('닉네임 입력');
+            return;
+        }
+        dispatch({type:NICKNAME_CHECK_REQUEST, data:nickname});
+    };
+
+    // 이메일 체크 수업 답안
+    // const onCheckEmail = (e) => {
+    //     e.preventDefault();
+    //     if(!email.trim()){
+    //         alert('이메일을 입력해주세요.')
+    //         return;
+    //     }
+    //     dispatch({type:EMAIL_CHECK_REQUEST, data:email});
+    // };
+
+    // 이메일 체크
+    const onEmailCheck = () => {
+        if(!email.trim()){
+            alert('이메일을 입력해주세요.');
+            return;
+        }
+        dispatch({type:EMAIL_CHECK_REQUEST, data:email});
+    };
 
     // 2. view - 렌더링 <></>, 공백 , 닫기태그
     return (
@@ -68,13 +109,17 @@ export default function JoinPage(){
             <h3 className="mb-3">회원가입</h3>
             <form className="w-50 mx-auto" onSubmit={onSubmit}>
                 {/* 이메일 입력 */}
-                <div className="mb-3">
+                <div className="mb-3 input-group">
                     <input type="email" className="form-control"
                            placeholder="이메일" title="이메일 입력"
                            value={email}
                            onChange={(e) => {setEmail(e.target.value);}}
                            />
+                    <button type="button" className="btn btn-secondary" onClick={onEmailCheck}>중복 체크</button>
                 </div>
+                {isEmailCheck !== null && (isEmailCheck ?
+                <div className="alert alert-danger">중복된 이메일입니다.</div> :
+                <div className="alert alert-success">사용 가능합니다.</div>)}
                 {/* 비밀번호 입력 */}
                 <div className="mb-3">
                     <input type="password" className="form-control"
@@ -84,14 +129,17 @@ export default function JoinPage(){
                            />
                 </div>
                 {/* 닉네임 입력 */}
-                <div className="mb-3">
+                <div className="mb-3 input-group">
                     <input type="text" className="form-control"
                            placeholder="닉네임" title="닉네임 입력"
                            value={nickname}
                            onChange={(n) => {setNickname(n.target.value);}}
                            />
-                    <button className="btn btn-secondary">중복 체크</button>
+                    <button type="button" className="btn btn-secondary" onClick={onCheck}>중복 체크</button>
                 </div>
+                {isCheck !== null && (isCheck ?
+                <div className="alert alert-danger">중복된 닉네임입니다.</div> :
+                <div className="alert alert-success">사용 가능합니다.</div>)}
                 {/* 버튼 입력 */}
                 <div className="mb-3">
                     <button type="submit" className="btn btn-primary w-100"
@@ -103,3 +151,9 @@ export default function JoinPage(){
         </div>
     );
 }
+// 버튼 안쪽 답안
+// {checkEmailLoading ? '확인 중' : '중복 확인'}
+
+// 하단 메시지 답안
+// {isCheck == true && <div className="text-success mb-2">사용 가능한 이메일입니다.</div>}
+// {isCheck == false && <div className="text-danger mb-2">중복 된 이메일입니다.</div>}
