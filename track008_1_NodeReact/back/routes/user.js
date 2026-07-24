@@ -48,6 +48,7 @@ router.get('/checkEmail', async(req, res, next)=>{
     }
 });
 
+// 수업 답안
 // router.get('/check-email', async(req,res) => {
 //     try{
 //         const user = await findUserByEmail(req.query);
