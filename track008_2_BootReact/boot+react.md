@@ -30,17 +30,17 @@
 4.  jpa + mybatis  → 데이터베이스 접근 (orm + sql mapper 병행)
 
 ##### [실습]  1. 스프링부트 프로젝트 
-- [ ] 1. 개발개요안내
-- [ ] 2. java.sun.com - JAVA 17 다운로드 - 설치
-- [ ] 3. SPRING BOOT   - https://spring.io/ - 다운로드 - 설치
+- [x] 1. 개발개요안내
+- [x] 2. java.sun.com - JAVA 17 다운로드 - 설치
+- [x] 3. SPRING BOOT   - https://spring.io/ - 다운로드 - 설치
   > 이전버젼
   https://github.com/spring-projects/spring-tools/wiki/Previous-Versions
-- [ ] 4. SPRING BOOT 프로젝트 만들기
-- [ ] 5. lombok
+- [x] 4. SPRING BOOT 프로젝트 만들기
+- [x] 5. lombok
 
 
 ##### [실습]  2. docker 설치
-- [ ] 1. docker 설치
+- [x] 1. docker 설치
 - https://www.docker.com/products/docker-desktop/
 - 다운로드 및 설치
   1. window 업데이트
@@ -55,7 +55,7 @@ docker --version
 docker ps
 ```
 
-- [ ] 2. redis 설치 
+- [x] 2. redis 설치 
 
 ```bash
 docker pull  redis
@@ -94,3 +94,127 @@ get  저장이름
 - Refresh Token 중앙에서 관리
 - TTL(만료 시간)로 자동 만료처리
 - 로그아웃 시 즉시 삭제  
+
+##### [실습] 3. oracle 유저셋팅
+
+``` sql
+-- cmd
+-- sqlplus
+-- conn system/1234
+
+-- 유저만들기 ( 오라클 12 이상에서 기존방식으로 생성자 생성 허용)
+ALTER SESSION SET "_ORACLE_SCRIPT" = TRUE;
+CREATE USER boot identified by react;
+
+-- 권한부여
+grant connect, resource to boot;
+
+ALTER USER boot DEFAULT TABLESPACE users QUOTA UNLIMITED ON users;    -- 물리적공간이용
+grant  create table to boot;
+```
+
+##### [실습] 4. Boot + React ver 1 ( 기본 게시판, 회원가입 )
+
+1. board
+- [x] 1. project
+- [x] 2. 부품객체 () : gradle
+  ※ https://mvnrepository.com/
+- [x] 3. application.yml
+```
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521/XE      # jdbc URL 설정
+    username: boot                                # 사용자 계정
+    password: react                               # 계정 비밀번호
+    driver-class-name: oracle.jdbc.OracleDriver   # oracle, mysql, h2
+
+  jpa:
+    hibernate:
+      ddl-auto: update    # 엔티티 변경사항 db테이블 자동으로 변경사항 반영
+                          # update:수정 반영, 기존 데이터 유지 / create-drop : 생성 후 삭제, 매번 초기화
+                          # 배포 할때는 none ( 기본 ), validate
+    properties:
+      hibernate:
+        format_sql: true  # 콘솔 및 로그에 출력되는 sql 들여쓰기 속성
+        show_sql: true    # sql 쿼리 문장 그대로 로그에 출력
+
+  servlet:
+    multipart:
+      enabled: true           # 파일 업로드 처리 기능 활성화 
+      max-file-size: 10MB     # 업로드하는 최대 허용 용량
+      max-request-size: 20MB  # 한번에 전송되는 총 용량
+
+  data:
+    redis:
+      host: localhost   # redis 연결주소
+      port: 6379        # 서버포트 
+      timeout: 2000     # 서버와 연결 대기시간 
+
+  config:
+    import: 
+      - optional:application-oauth.yml    # api 설정관련
+      - optional:file:.env[.properties]   # .env 파일 실제 보관 키
+
+
+mybatis:
+  config-location: classpath:mybatis-config.xml # 전역 설정 파일
+  mapper-locations: classpath:mapper/**/*.xml   # 매퍼 경로 패턴
+  type-aliases-package: com.thejoa703.domain    # 도메인 설정
+
+jwt:
+  issuer: thejoa703                   # jwt 토큰 발행한 주체자
+  secret: ${JWT_SECRET}               # 사용할 비밀 키 - 외부환경변수에서 불러와서 설정
+  access-token-exp-seconds: 900       # 토큰 유효 시간
+  refresh-token-exp-seconds: 1209600  # 토큰 유효 시간
+  header: Authorization               # 토큰 전달시 http요청 헤더 이름 지정
+  prefix: Bearer                      # 토큰 앞에 붙는 이름 (접두사)
+
+file:
+  upload-dir: uploads   # 업로드된 파일 설정 경로 
+
+#server:
+#  port: 8484     # 포트 번호
+```
+- [ ] 4. entity ( 테이블을 객체로 처리 )
+```
+  ※ (oracle db:table) -> dto -> mapper -> service -> controller -> view / 기존
+```
+  back1
+    ㄴ src/main/java
+      ㄴ com.thejoa703.entity
+        - AppUser
+        - Post
+
+
+  A. JPA
+    - ORM(Object-Relational Mapping)
+    부품객체(자바 클래스) 와 RDB(관계형 데이터베이스)의 불일치를 해결하려고
+    SQL 중심이 아니라 객체 중심으로 데이터를 다룰수 있게 해주는 기술
+
+    1) @Entity DB의 테이블과 매핑
+    - 테이블 컬럼 변경시 SQL을 일일이 수정할 필요 없이 엔티티 클래스만 수정
+    - 데이터베이스 방언(Dialect) 지원 - oracle, mysql 특정 데이터에 종속
+
+    2) JpaRepository 
+    - db에 접속해서 crud 작업을 처리하는 인터페이스
+
+    3) 외래키 설정
+    - 한사람이 여러 글을 쓸수있다.
+    @OneToMany
+    > AppUser 입장
+
+    @ManyToOne
+    > Post 입장
+
+- [ ] 5. Dto
+- [ ] 6. Repository
+  back1
+    ㄴ src/main/java
+      ㄴ com.thejoa703.repository
+        - AppUserRepository
+        - PostRepository
+- [ ] 7. Service
+- [ ] 8. Controller
+- [ ] 9. View
+
+2. 회원가입
