@@ -22,8 +22,5 @@ Thumbs.db
 application-oauth.properties
 
 # node
-test/back-t/node_modules
-test/front-t/node_modules
-track008_1_nodereact/back/node_modules
-track008_1_nodereact/front/node_modules
+node_modules/
 .next/
