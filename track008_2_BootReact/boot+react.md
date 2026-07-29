@@ -286,25 +286,25 @@ front/
 ├── node_modules/              # 설치된 npm 패키지들
 ├── pages/                     # Next.js 라우팅 기반 페이지 폴더
 │   ├── posts/             
-│   │  └──new.js               #  글쓰기 파일
+│   │  └──new.js               # 글쓰기 파일
 │   ├── _app.js                # 전체 앱의 공통 설정 (Redux Provider, 글로벌 스타일 등)
 │   ├── signup.js              # 회원가입
 │   ├── mypage.js              # 마이페이지
 │   └── index.js               # 메인 페이지
 ├── reducers/                  # Redux 리듀서 폴더
 │   ├── __tests__/       
-│   │  ├── postr.test.js       # 게시판 테스트 코드 
+│   │  ├── post.test.js        # 게시판 테스트 코드 
 │   │  └── user.test.js        # 리듀서 테스트 코드
 │   ├── index.js               # 루트 리듀서 (combineReducers)
 │   ├── authReducer.js         # 사용자 관련 리듀서
 │   └── postReducer.js         # 게시판 관련 리듀서 
 ├── sagas/                     # Redux-Saga 폴더
 │   ├── __tests__/       
-│   │  ├── postr.test.js       # 게시판 사가 테스트 코드
-│   │  └── user.test.js        #  유저   사가  테스트 코드
+│   │  ├── post.test.js        # 게시판 사가 테스트 코드
+│   │  └── user.test.js        # 유저   사가 테스트 코드
 │   ├── index.js               # 루트 사가
-│   ├── user.js                # 사용자 관련 사가
-│   └── post.js                # 게시판 관련 사가 
+│   ├── userSaga.js            # 사용자 관련 사가
+│   └── postSaga.js            # 게시판 관련 사가 
 ├── store/                     # Redux 스토어 설정 폴더
 │   ├── configureStore.js      # Redux 스토어 설정
 │   └── configureStore.test.js # 스토어 테스트 코드
@@ -314,7 +314,7 @@ front/
 ├── .eslintrc                  # ESLint 설정 파일
 ├── package-lock.json          # npm 의존성 잠금 파일
 ├── package.json               # 프로젝트 메타 정보 및 의존성
-└── setupTests.js              #  테스트 환경 설정 파일
+└── setupTests.js              # 테스트 환경 설정 파일
 
 
 Step1) 프로젝트 만들기
