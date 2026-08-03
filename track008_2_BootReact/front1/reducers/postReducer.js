@@ -75,6 +75,9 @@ const postReducer = createSlice({
             );
             state.currentPost = action.payload;
             state.success = true;
+            console.log('payload:', action.payload);
+            console.log('existing ids:', state.posts.map(p => typeof p.id));
+            console.log('payload id type:', typeof action.payload.id);
         },
         updatePostFailure : (state, action) => {
             state.loading = false;

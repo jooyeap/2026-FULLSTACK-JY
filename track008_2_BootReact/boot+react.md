@@ -346,3 +346,83 @@ Step5) view
 <Link href="/mypage">    -> mypage.js    # 마이 페이지
 <Link href="/signup">    -> signup.js    # 회원가입
 <Link href="/posts/new"> -> posts/new.js # 글쓰기 파일
+
+## (1) : 회원가입 + board (crud)
+## (2) : 멤버기능 + board (이미지 업로드, 해쉬태그, 좋아요) (crud)
+boot2 - 프로젝트 만들기
+- table   -> mapper (dto)     -> service -> controller
+- @Entity -> repository (dto) -> service -> controller
+
+1) 유저는 많은 글을 쓸수 있다.
+<AppUser> -> <Post>
+
+```
+<AppUser>
+@OneToMany( mappedBy = "user" ,cascade = CascadeType.ALL, orphanRemoval = true )
+private List<Post> posts = new ArrayList<>(); 
+
+<Post>
+@ManyToOne   // 1. 다대일 (테이블의 필드명)
+@JoinColumn(name="APP_USER_ID" , nullable = false)
+private AppUser user;
+```
+
+2) 글은 많은 이미지를 갖는다.
+<Post> -> <Image>
+
+```
+  <Post>
+  @OneToMany // 2. 일대다
+
+  <Image>
+  @ManyToOne 
+```
+
+3) 글은 많은 해쉬태그를 갖는다. / 해쉬태그는 많은 글을 갖는다,
+- 1) 다:다
+- 2) 중간테이블
+<Post> -> <Hashtag> 하나의 글(여러)은 많은 해쉬태그를 갖는다.
+
+@ManyToMany
+
+<Hashtag> -> <Post> 해쉬태그는 많은 글을 갖는다.
+
+<Post>                                            <Hashtag>
+content                                           1 test
+delete                                            2 like
+        <-> <Post_Hashtag> <->
+            1  1
+            1  2
+            2  1
+            2  2
+            1번글 test123
+            1번글 like
+
+```
+<Post>
+@ManyToMany
+@JoinTable(name="POST_HASHTAG",
+  joinColumns = @JoinColumn(name="POST_ID"),
+  inverseJoinColumns = @JoinColumn(name="HASHTAG_ID")
+)
+private List<Hashtag> hashtags = new ArrayList<>();
+
+<Hashtag>
+@ManyToMany(mappedBy = "hashtags")
+private List<Post> posts = new ArrayList<>();
+```
+
+4) 글은 많은 좋아요를 갖는다
+
+좋아요번호 글번호 유저번호
+1         1     1
+2         1     2
+3         1     3
+4         2     2
+5         2     3
+
+5) 리트윗
+
+6) 팔로우
+
+front2 - 프로젝트 복사

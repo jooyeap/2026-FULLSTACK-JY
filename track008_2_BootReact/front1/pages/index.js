@@ -1,9 +1,12 @@
 // pages/index.js
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux"; // 전역 상태, 스토어 알림
 import React, { useDebugValue, useEffect, useState } from 'react';
-import { useRouter } from "next/router";
-import { fetchPostsRequest } from '../reducers/postReducer';
+import Router, { useRouter } from "next/router";
+import { fetchPostsRequest, updatePostRequest, deletePostRequest } from '../reducers/postReducer';
 import { Card, Button, Spin } from 'antd';
+import PostList from '../components/PostList';
+import EditPostModal from '../components/EditPostModal';
+
 // 실행 npm run dev
 export default function Home(){
 
@@ -17,17 +20,45 @@ export default function Home(){
         dispatch(fetchPostsRequest());
     }, [dispatch]);
 
+    // 수정 모달 : isEditModalVisible, setIsEditModalVisible
+    const [isEditModalVisible, setIsEditModalVisible] = useState(false);
+    // 수정할 글 : editPost, setEditPost
+    const [editPost, setEditPost] = useState(null);
+    // 수정 기능 : handleEditSubmit
+    const handleEdit = (post) => {
+        setEditPost(post); // 수정 글 셋팅
+        setIsEditModalVisible(true); // 수정 화면 보이기
+    }
+
+    const handleEditSubmit = (values) => {
+        dispatch(
+            updatePostRequest({ postId: editPost.id, dto:{ content: values.content }}) // 수정 기능 후
+        ); 
+        setIsEditModalVisible(false); // 화면 안보이게
+        setEditPost(null);
+    };
+
+    // 삭제 기능
+    const handleDelete = (postId) => {
+        dispatch(
+            deletePostRequest(postId)
+        );
+    }
+
     // VIEW
     return (
-    <div>
-        {/* 게시판 리스트 */}
-        <h3> 게시글 : {posts.length}</h3>
-        {posts.map( (post, index) => (
-            <Card key={post.id || index} style={{marginBottom:"10px"}}>
-                <p>{post.content}</p>
-            </Card>
-        ))}
-        {/* 수정 모달 */}
-    </div>
+    <>
+        <PostList 
+            posts={posts}
+            handleEdit={handleEdit}
+            handleDelete={handleDelete}
+        />
+        <EditPostModal
+            visible={isEditModalVisible}
+            onCancel={() => setIsEditModalVisible(false)}
+            editPost={editPost}
+            onSubmit={handleEditSubmit}
+        />
+    </>
     );
 }       
