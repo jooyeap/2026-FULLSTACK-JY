@@ -53,10 +53,10 @@ public class Follow {
 	// 실제 객체를 사용하는 시점에서 쿼리 실행, 불필요한 join 줄이기
 	
 	@ManyToOne(fetch = FetchType.LAZY) 
-	@JoinColumn(name = "FOLLOWR_ID", nullable = false)
+	@JoinColumn(name = "FOLLOWER_ID", nullable = false)
 	private AppUser follower; // @ManyToOne 보는 사람
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "FOLLOWW_ID", nullable = false)
+	@JoinColumn(name = "FOLLOWEE_ID", nullable = false)
 	private AppUser followee; // @ManyToOne 보여지는 사람
 }
