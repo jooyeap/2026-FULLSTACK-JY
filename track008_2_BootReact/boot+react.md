@@ -413,7 +413,18 @@ private List<Post> posts = new ArrayList<>();
 ```
 
 4) 글은 많은 좋아요를 갖는다
+<Post>
+@OneToMany
+List<Post_Like> likes ;
 
+<Post_Like>
+@ManyToOne
+AppUser user; 
+
+@ManyToOne
+Post post;
+
+<Post>  <->  <Post_Like>
 좋아요번호 글번호 유저번호
 1         1     1
 2         1     2
@@ -423,6 +434,34 @@ private List<Post> posts = new ArrayList<>();
 
 5) 리트윗
 
+<>  <->  <>  <->  <>
+
 6) 팔로우
 
 front2 - 프로젝트 복사
+
+-- Dto / Service
+- table -> mapper (dto) -> service
+- @Entity -> repository (dto) -> service
+
+-- 맴버 관리
+
+회원가입 ( 이메일 중복 검사, 닉네임 중복 검사)
+
+로그인 
+
+마이페이지 (닉네임변경, 프로필이미지 변경, 회원탈퇴, 로그아웃) ※ 팔로워 / 팔로잉
+
+1) UserDto : UserRequestDto / UserResponseDto
+UserRequestDto < email, password, nickname, image(Multipart) / provider, mobile, mbtitype>
+UserResponseDto < email, nickname, ufile, role / provider, mobile, mbtitype >
+
+LoginRequestDto < email, password >
+
+-- 게시글 관리
+
+게시글 작성
+
+게시글 목록 ( 전체글 / 좋아요 한 글 / 내글 + 리트윗 )
+-> 각 세부 내용 / 수정 / 삭제
+-> 좋아요 / 리트윗 / 댓글

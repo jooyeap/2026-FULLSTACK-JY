@@ -31,7 +31,7 @@ import com.thejoa703.repository.PostRepository;
 
 @SpringBootTest
 @Transactional  // 테스트 완료 후에 데이터 자동 롤백
-class Boot2ApplicationTests2 {
+class Boot2ApplicationTests1_Entity {
 
 	@Autowired private AppUserRepository appUserRepository;
 	@Autowired private PostRepository postRepository;
