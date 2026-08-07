@@ -2,24 +2,32 @@ package com.thejoa703.controller;
 
 import java.util.List;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.thejoa703.dto.PostDto.PostRequestDto;
 import com.thejoa703.dto.PostDto.PostResponseDto;
+import com.thejoa703.dto.UserDto.UserRequestDto;
 import com.thejoa703.entity.Post;
 import com.thejoa703.service.PostService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
@@ -27,7 +35,6 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/posts")
 @RequiredArgsConstructor
-@CrossOrigin(origins="*")
 public class PostController {
 	
 	private final PostService postService;
@@ -40,13 +47,22 @@ public class PostController {
 		return ResponseEntity.ok(new PostResponseDto(response));
 	}
 	
-	// 게시글 수정
+	// 주소창에서 값을 받음 -> @PathVariable
+	// 게시글 수정 -> /api/posts/{postId}
 	@Operation( summary = "게시글 수정", description = "특정 게시글을 수정합니다.")
-	@PutMapping("{id}")
-	public ResponseEntity<PostResponseDto> updatePost(@PathVariable("id") Long id,
-													  @RequestBody PostRequestDto requestDto){
-		Post response = postService.updatePost(requestDto.getUserId(),requestDto.getContent());
-		return ResponseEntity.ok(new PostResponseDto(response));
+	@PatchMapping( value = "/{postId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<PostResponseDto> updatePost(
+			@Parameter(description = "수정할 글의 ID")
+			@PathVariable("postId") Long postId,
+			@Parameter(description = "작성자의 사용자 ID")
+			@RequestParam("userId") Long userId,
+			@ModelAttribute PostRequestDto request, // multipart/form-data
+			@Parameter(description = "업로드 할 이미지 파일 리스트") // swagger	
+			@RequestPart(name = "files", required = false) List<MultipartFile> files	
+			
+	){
+			
+		return ResponseEntity.ok( postService.updatePost(postId, userId, request, files));
 	}
 	
 	// 게시글 삭제
@@ -73,10 +89,15 @@ public class PostController {
 	
 	// 게시글 작성
 	@Operation( summary = "게시글 작성", description = "새로운 게시글을 등록합니다.")
-	@PostMapping
-	public ResponseEntity<PostResponseDto> createPost(@RequestBody PostRequestDto requestDto){
-		Post createdPost = postService.createPost(requestDto.getUserId(), requestDto.getContent());
-		return ResponseEntity.ok(new PostResponseDto(createdPost));
+	@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<PostResponseDto> createPost(
+			@Parameter(description = "작성자의 사용자 ID")
+			@RequestParam("userId") Long userId,
+			@ModelAttribute PostRequestDto request, // multipart/form-data
+			@Parameter(description = "업로드 할 이미지 파일 리스트") // swagger	
+			@RequestPart(name = "files", required = false) List<MultipartFile> files
+	){
+		return ResponseEntity.ok( postService.createPost(userId, request, files) );
 	}
 //	public ResponseEntity<Post> createPost(@RequestBody PostRequestDto requestDto) {
 //		Post response = postService.createPost(requestDto.getUserId(), requestDto.getContent());

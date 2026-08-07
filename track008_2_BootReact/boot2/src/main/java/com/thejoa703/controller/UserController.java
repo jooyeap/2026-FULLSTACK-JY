@@ -30,7 +30,7 @@ import lombok.RequiredArgsConstructor;
 @Tag( name = "User Api", description = "사용자 관련 API") // swagger
 // @Controller + @ResponseBody 가 합쳐진것
 @RestController
-@RequestMapping("/auth") // /api/users
+@RequestMapping("/auth") 
 @RequiredArgsConstructor
 public class UserController {
 
@@ -39,9 +39,9 @@ public class UserController {
 	private final UserService userService;
 	
 	// 사용자 등록 (회원가입)
-	// ResponseEntity - 상태 코드 전달 - /api/users
+	// ResponseEntity - 상태 코드 전달 - /api/signup
 	@Operation( summary = "회원가입", description = "새로운 사용자를 등록합니다.")
-	@PostMapping( value = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE) 
+	@PostMapping( value = "/signup", consumes = MediaType.MULTIPART_FORM_DATA_VALUE) 
 	public ResponseEntity<UserResponseDto> createUser(@ModelAttribute UserRequestDto request, // multipart/form-data
 													  @Parameter(description = "프로필 이미지 파일") // swagger	
 													  @RequestPart(name = "ufile", required = false) MultipartFile ufile){

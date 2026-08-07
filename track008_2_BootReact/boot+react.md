@@ -465,3 +465,33 @@ LoginRequestDto < email, password >
 게시글 목록 ( 전체글 / 좋아요 한 글 / 내글 + 리트윗 )
 -> 각 세부 내용 / 수정 / 삭제
 -> 좋아요 / 리트윗 / 댓글
+
+[5] RestController
+
+> Ver2 . frontend
+
+1. 프로젝트 만들기
+```
+mkdir front2
+cd front2
+npm init
+```
+
+2. 프로그램 설치 (npm install)
+```
+npm install
+```
+
+3. 개발
+
+1) reducer
+2) saga
+3) page
+
+- [ ] login.js 로그인
+- [ ] 닉네임 수정
+- [ ] 이미지 프로필 수정
+- [ ] 게시판 작성
+- [ ] 게시판 삭제
+
+4. 보안

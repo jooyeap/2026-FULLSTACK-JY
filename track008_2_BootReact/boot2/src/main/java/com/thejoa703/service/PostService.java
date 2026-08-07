@@ -1,14 +1,24 @@
 package com.thejoa703.service;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.thejoa703.dto.PostDto.PostRequestDto;
+import com.thejoa703.dto.PostDto.PostResponseDto;
 import com.thejoa703.entity.AppUser;
+import com.thejoa703.entity.Hashtag;
+import com.thejoa703.entity.Image;
 import com.thejoa703.entity.Post;
 import com.thejoa703.repository.AppUserRepository;
+import com.thejoa703.repository.HashtagRepository;
 import com.thejoa703.repository.PostRepository;
+import com.thejoa703.util.FileStorageService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,6 +28,8 @@ import lombok.RequiredArgsConstructor;
 public class PostService {
 	private final PostRepository postRepository;
 	private final AppUserRepository appUserRepository;
+	private final HashtagRepository hashtagRepository; // 해쉬태그
+	private final FileStorageService fileStorageService; // 이미지 업로드 처리
 	
 	// 1. 전체 게시글 조회
 	public List<Post> getAllPosts() {
@@ -39,30 +51,117 @@ public class PostService {
 		return postRepository.findPostsWithPaging(start, end);
 	}
 	
-	// 4. 게시글 생성 (save)
+	// 4. 게시글 생성 (save + 해쉬 태그 + 이미지 업로드)
 	@Transactional
-	public Post createPost(Long userId, String content) {
+	public PostResponseDto createPost(Long userId, PostRequestDto dto, List<MultipartFile> files) {
 		AppUser user = appUserRepository.findById(userId)
 				.orElseThrow( () -> new IllegalArgumentException("존재하지 않는 사용자 입니다. ID:"+ userId) );
 		
 		Post post = new Post();
-		post.setContent(content);
+		post.setContent(dto.getContent());
 		post.setUser(user);
 		
-		return postRepository.save(post);
+		// 이미지 업로드
+		if(files != null && !files.isEmpty()) {
+			files.forEach( file -> {
+				String url = fileStorageService.upload(file);
+				Image image = new Image();
+				image.setSrc(url);
+				image.setPost(post);
+				post.getImages().add(image);
+			});
+		}
+		
+		// 해쉬 태그 
+		// 1. 겹치면 안됨
+		// 2. #해쉬 #브라운 #맛잇어
+		if(dto.getHashtags() != null && !dto.getHashtags().isEmpty()) {
+			Set<String> distinctTags =
+				// 1. , 기준으로 분리해서 배열을 스트림
+				Arrays.stream(dto.getHashtags().split(","))
+				// 2. 공백 빼기
+                .map(String::trim)   
+                // 3. 빈거 아닌 애들
+                .filter(s -> !s.isEmpty())
+                // 4. 콜렉션 프레임워크, 겹치는 값이 있으면 안됨
+                .collect(Collectors.toSet());
+			
+			distinctTags.forEach(tagStr -> {
+				// 1. 각 태그들에서 # 을 제거 ( 위에서 , 기준으로 잘랐으니 첫번째 글자가 #이됨)
+                String normalized = tagStr.startsWith("#") ? tagStr.substring(1) : tagStr;
+                // 2. 기존에 등록된 태그인지 db에 조회
+                Hashtag tag = hashtagRepository.findByName(normalized)
+            		// 3. 존재하지 않으면 새로운 해쉬태그 객체 생성
+                    .orElseGet(() -> {
+                        Hashtag newTag = new Hashtag();
+                        // 4. 해쉬태그 이름 세팅 하고
+                        newTag.setName(normalized);
+                        // 5. db에 저장
+                        return hashtagRepository.save(newTag);
+                    });
+                // 6. 해쉬태그 객체(리스트)에 저장
+                post.getHashtags().add(tag);
+            });
+		}
+		
+		return PostResponseDto.from(postRepository.save(post));
 	}
 	
 	// 5. 게시글 수정 (save 안쓰고 update 쿼리 반영)
 	@Transactional
-	public Post updatePost(Long postId, String content) {
+	public PostResponseDto updatePost(Long postId, Long userId, PostRequestDto dto, List<MultipartFile> files) {
 		Post post = postRepository.findById(postId)
 				.orElseThrow( () -> new IllegalArgumentException("존재하지 않는 게시글입니다. ID:" + postId) );
 		
-		if(post.getDeleted()) {
-			throw new IllegalArgumentException("삭제된 게시글은 수정할 수 없습니다.");
+		if(post.getUser().getId().equals(userId)) {
+			throw new IllegalArgumentException("본인글만 수정 할 수 있습니다.");
 		}
-		post.setContent(content); // 저장 메서드를 따로 호출하지 않아도 update 쿼리가 반영
-		return post; // 더티 체킹 
+		post.setContent(dto.getContent()); // 저장 메서드를 따로 호출하지 않아도 update 쿼리가 반영
+		
+		// 이미지 업로드
+		if(files != null && !files.isEmpty()) {
+			files.forEach( file -> {
+				String url = fileStorageService.upload(file);
+				Image image = new Image();
+				image.setSrc(url);
+				image.setPost(post);
+				post.getImages().add(image);
+			});
+		}
+		
+		// 해쉬 태그 
+		// 1. 겹치면 안됨
+		// 2. #해쉬 #브라운 #맛잇어
+		if(dto.getHashtags() != null && !dto.getHashtags().isEmpty()) {
+			Set<String> distinctTags =
+				// 1. , 기준으로 분리해서 배열을 스트림
+				Arrays.stream(dto.getHashtags().split(","))
+				// 2. 공백 빼기
+                .map(String::trim)   
+                // 3. 빈거 아닌 애들
+                .filter(s -> !s.isEmpty())
+                // 4. 콜렉션 프레임워크, 겹치는 값이 있으면 안됨
+                .collect(Collectors.toSet());
+			
+			distinctTags.forEach(tagStr -> {
+				// 1. 각 태그들에서 # 을 제거 ( 위에서 , 기준으로 잘랐으니 첫번째 글자가 #이됨)
+                String normalized = tagStr.startsWith("#") ? tagStr.substring(1) : tagStr;
+                // 2. 기존에 등록된 태그인지 db에 조회
+                Hashtag tag = hashtagRepository.findByName(normalized)
+            		// 3. 존재하지 않으면 새로운 해쉬태그 객체 생성
+                    .orElseGet(() -> {
+                        Hashtag newTag = new Hashtag();
+                        // 4. 해쉬태그 이름 세팅 하고
+                        newTag.setName(normalized);
+                        // 5. db에 저장
+                        return hashtagRepository.save(newTag);
+                    });
+                // 6. 해쉬태그 객체(리스트)에 저장
+                post.getHashtags().add(tag);
+            });
+		}
+		
+		return PostResponseDto.from(postRepository.save(post)); 
 	}
 	
 	// 6. 게시글 삭제
