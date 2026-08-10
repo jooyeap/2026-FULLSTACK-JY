@@ -1,4 +1,4 @@
-import { Button, Card, Popconfirm, Spin } from "antd";
+import { Button, Card, Popconfirm, Spin, Carousel, Image } from "antd";
 import React from "react";
 
 export default function PostList({posts, handleEdit, handleDelete}){
@@ -6,7 +6,7 @@ export default function PostList({posts, handleEdit, handleDelete}){
     <div>
         {/* 게시판 리스트 */}
         <h3> 게시글 : {posts.length}</h3>
-        {posts.map( (post, index) => (
+        {posts?.map( (post, index) => (
             <Card key={post.id || index} 
                   style={{marginBottom:"10px"}}
                   actions={[
@@ -19,6 +19,34 @@ export default function PostList({posts, handleEdit, handleDelete}){
                     <Button type="link">삭제</Button>
                   </Popconfirm>
                   ]}>
+                {/* 게시글 이미지 - imageUrls */}
+                {post?.imageUrls && post.imageUrls.length > 0 && (
+                    <Carousel dots draggable style={{ marginBottom: "15px" }}> 
+                        {post.imageUrls.map( (v, idx) => (
+                            <div key={idx} style={{ textAlign: "center", background: "#f0f2f5" }}>
+                            <Image
+                                // 이미지 소스 URL 설정  
+                                src={`http://localhost:8080/${v}`}
+                                alt={`post image ${idx}`}
+                                // 스타일 조정 (카드 너비에 맞춤)
+                                style={{ maxWidth: "100%", height: "300px", objectFit: "cover", borderRadius: "8px" }}
+                            />
+                            </div> 
+                        ))}
+                    </Carousel>
+                )}
+                {/* 게시글 해쉬태그 - hashtags */}
+                { (post?.hashtags ?? []).length > 0 && (
+                    <div>
+                        해쉬태그 : {""}
+                        {post.hashtags.map( (tag, idx) => (
+                            <span style={{color: "gray", marginRight: "8px"}}>
+                                #{tag}
+                            </span>
+                        ))}
+                    </div>
+                )}
+                {/* 게시글 텍스트 내용 - content */}
                 <p>{post.content}</p>
             </Card>
         ))}

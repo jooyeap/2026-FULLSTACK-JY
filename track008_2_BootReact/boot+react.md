@@ -485,13 +485,142 @@ npm install
 3. 개발
 
 1) reducer
-2) saga
+2) saga 
 3) page
 
-- [ ] login.js 로그인
-- [ ] 닉네임 수정
-- [ ] 이미지 프로필 수정
-- [ ] 게시판 작성
-- [ ] 게시판 삭제
+- [x] login.js 로그인
+- [x] 닉네임 수정
+- [x] 이미지 프로필 수정
+- [x] 게시판 작성
+- [ ] 게시판 수정
 
-4. 보안
+* 1) 부분수정 > 지난시간
+* 2) 게시판 리스트 > boot List<PostResponseDto>
+* 3) 이미지-캐로셀 >
+* 4) 해쉬태그 >
+
+4. 보안 + 시큐리티
+
+0) 프로젝트 복사
+   > back
+   > front
+1) 설정파일 : build.gradle pom.xml 시큐리티 / .env ( 필요한 설정파일 )
+   각종 설정 파일 : WebConfig ( 세션, 쿠키 - false / jwt )
+
+2) security : Jwt + Redis
+   com.thejoa703.security
+    ㄴ JwtAuthenticationFilter (4) 검증
+    ㄴ JwtProperties (1) Jwt 토큰
+    ㄴ JwtProvider (2) 발급
+    ㄴ TokenStore (3) redis에 보관
+
+3) oauth2 : 소셜 처리 ( 구글/카카오/네이버 인증 )
+   com.thejoa703.oauth2
+    ㄴ UserInfoOAuth2 1) ( 공통 속성 추출 )
+    ㄴ UserInfoGoogle / UserInfoKakao / UserInfoNaver 2) 각 소셜마다 처리
+    ㄴ CustomOAuth2User 3) Security : local + Oauth2 : 소설 - 유저정보
+    ㄴ OAuth2SuccessHandler 4) 로그인시 - redis / jwt 설정 ( 소셜 로그인시 유저 저장, 토큰설정 )
+4) service - 기존 활용
+    ㄴ AuthUserJwtService ( 유저 정보 활용 )
+5) controller
+    ㄴ UserController ( 로그인시 - Accescc Token, Refresh Token / cookie 설정 )
+    ㄴ post에서 AuthUserJwtSerivce 활용해서 가져오기
+6) react
+
+
+STEP1)
+```
+[사용자]
+  ├─▶ 로컬 회원가입/로그인
+  │       - 이메일/비밀번호 (local) → DB 저장
+  │       - 로그인 성공 시 JWT 발급
+  │
+  └─▶ 소셜 로그인(OAuth2)
+          - 구글/카카오/네이버 인증
+          - OAuth2SuccessHandler 실행
+            • 사용자 정보 추출
+            • DB 저장/조회
+            • Access Token 발급 (출입증)
+            • Refresh Token 발급 (장기체류증) → Redis 저장 + 쿠키
+```
+
+STEP2)
+```
+[프론트엔드]
+  └─▶ Access Token localStorage 저장
+        API 호출 시 Authorization 헤더에 Bearer 붙임
+```
+
+STEP3)
+```
+[Spring Boot 서버]
+  ├─▶ JwtAuthenticationFilter
+  │       - 토큰 검증 (출입증 검사)
+  │       - SecurityContext에 사용자 정보 저장
+  │
+  └─▶ Controller/Service
+          - userId 기반 DB 조회
+          - 응답 반환 (사원증 스캔)
+```
+
+■ 핵심정리
+1. JWT VS SESSION
+- 세션 : 서버 메모리에 사용자 상태를 저장 -> 서버 확장시 부담이 있음
+        서버에서 출입 명단을 직접 들고 있음
+- JWT (Json Web Token) : 토근 자체에 인증 정보를 포함시킴 -> 
+        사용자가 직접 출입증을 들고 있음
+
+2. Access Token vs Refresh Token
+- Access Token : 출입증을 짧은 기간 유효 -> api 호출시 사용
+- Refresh Token : 출입증을 긴 기간 유효 -> redis에 보관
+
+3. Redis 사용
+- 토큰 냉장고 -> 장기 체류증 안전하게 보관, 필요시 꺼내서 사용함
+- Refresh Token 중앙에서 관리
+- TTL (만료시간)로 자동 만료처리
+- 로그아웃 시 즉시 삭제
+
+4. 구조확인)
+1) security + jwt + redis
+  - JwtProperties  : 토큰
+    * 기본 속성 : secret, issuer, expSeconds
+  - JwtProvider  : 토큰 발급 / 검증
+    * AccessToken (출입증)
+    * Refresh Token (장기 출입증)
+  - TokenStore   : 토큰 저장소 
+    * Redis에 저장, Refresh Token
+  - JwtAuthenticationFilter  : 보안 게이트
+    * 매 요청마다 Authorization 헤더 확인 -> 토큰 검증 -> SecurityContext 에 사용자 정보를 저장
+    * api 사용시 신분증은 검사하는 게이트
+
+2) oauth2.0
+  - OAuth2  : 입국 심사대
+  - UserInfoOAuth2 / UserInfoNaver , UserInfoKakao , UserInfoGoogle
+  - CustomOAuth2User
+  - OAuth2SuccessHandler
+
+3) 설정파일
+  - SecurityConfig
+  - WebConfig
+  - RedisConfig
+  - SwaggerConfig
+
+4) jwt 구조
+1. Header → 토큰의 머릿말 ( 이 토큰은 HS256 알고리즘으로 서명했어!  정보 )
+```json
+   { "alg": "HS256", "typ": "JWT" }
+```
+2. Payload(Claims)   →  토큰의 몸통 ( 누가, 어떤권한, 언제까지  사용자의 신분증정보)
+```json
+   {
+     "iss": "thejoa703",   // 발급자
+     "sub": "12345",       // 사용자 ID
+     "role": "USER",       // 권한
+     "email": "user@test.com",
+     "exp": 1737000000     // 만료 시간
+   }
+```
+3. Signature     →  토큰의 도장 ( 서버만 아는 비밀키로 찍은 도장 → 위변조 방지)
+```json
+   HMACSHA256(base64UrlEncode(header) + "." + base64UrlEncode(payload), secret)
+```

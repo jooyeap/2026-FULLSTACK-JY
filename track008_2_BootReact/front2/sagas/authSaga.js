@@ -2,7 +2,6 @@
 import { all, call, put, take, takeLatest } from 'redux-saga/effects';
 import axios from 'axios'; // 외부연동
 import {signupRequest, signupSuccess, signupFailure,
-        fetchUserRequest, fetchUserSuccess, fetchUserFailure,
         loginRequest, loginSuccess, loginFailure,
         logoutRequest, logoutSuccess, logoutFailure,
         updateNicknameRequest, updateNicknameSuccess, updateNicknameFailure,

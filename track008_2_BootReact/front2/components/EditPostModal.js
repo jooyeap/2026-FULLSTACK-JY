@@ -17,12 +17,18 @@ export default function EditPostModal({
 
     useEffect( () => {
         if(editPost) {
-            form.setFieldValue({
+            form.setFieldsValue({
                 content: editPost.content,
                 hashtags: editPost.hashtags || [],
             });
         }
     }, [editPost, form]);
+
+    useEffect(() => {
+        if (!visible) {
+            setFileList([]); // 모달 닫힐 때 화면 표시용 fileList도 초기화
+        }
+    }, [visible]);
 
     return(
         <Modal title="글 수정" open={visible} footer={null} onCancel={onCancel}>
@@ -33,6 +39,7 @@ export default function EditPostModal({
                 }}
                 onFinish={onSubmit}
                 layout="vertical"
+                form={form}
             >
                 <Form.Item name="content" label="내용">
                     <Input.TextArea rows={4}/>
@@ -55,8 +62,10 @@ export default function EditPostModal({
                     <Upload
                         multiple
                         beforeUpload={()=>false}
-                        onChange={ ({fileList}) => 
-                        setFileList(fileList.map((f) => f.originFileObj))}
+                        fileList={fileList}
+                        onChange={ ({fileList}) => {
+                        setFileList(fileList);
+                        setUploadFiles(fileList.map((f) => f.originFileObj))}}
                         listType="picture-card"
                     >
                         <Button icon={<UpOutlined/>}>이미지 선택</Button>

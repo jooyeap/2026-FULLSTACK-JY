@@ -55,6 +55,13 @@ export default function Home(){
         );
     }
 
+    // 모달창 초기화
+    const handleCloseModal = () => {
+        setIsEditModalVisible(false);
+        setEditPost(null);
+        setUploadFiles([]);
+    };
+
     // VIEW
     return (
     <>
@@ -65,7 +72,7 @@ export default function Home(){
         />
         <EditPostModal
             visible={isEditModalVisible}
-            onCancel={() => setIsEditModalVisible(false)}
+            onCancel={handleCloseModal}
             editPost={editPost}
             onSubmit={handleEditSubmit}
             UploadFiles={uploadFiles}

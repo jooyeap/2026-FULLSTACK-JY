@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.thejoa703.dto.PostDto.PostRequestDto;
 import com.thejoa703.dto.PostDto.PostResponseDto;
 import com.thejoa703.entity.Post;
+import com.thejoa703.service.AuthUserJwtService;
 import com.thejoa703.service.PostService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,6 +35,8 @@ import lombok.RequiredArgsConstructor;
 public class PostController {
 	
 	private final PostService postService;
+	private final AuthUserJwtService authUserJwtService;
+	
 	
 	// 게시글 단건조회
 	@Operation( summary = "게시글 단건 조회", description = "사용자 ID로 특정 게시글을 조회합니다.")
@@ -47,24 +51,29 @@ public class PostController {
 	@Operation( summary = "게시글 수정", description = "특정 게시글을 수정합니다.")
 	@PatchMapping( value = "/{postId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<PostResponseDto> updatePost(
+//			@Parameter(description = "작성자의 사용자 ID")
+//			@RequestParam("userId") Long userId,
+			Authentication authentication,
 			@Parameter(description = "수정할 글의 ID")
 			@PathVariable("postId") Long postId,
-			@Parameter(description = "작성자의 사용자 ID")
-			@RequestParam("userId") Long userId,
 			@ModelAttribute PostRequestDto request, // multipart/form-data
 			@Parameter(description = "업로드 할 이미지 파일 리스트") // swagger	
 			@RequestPart(name = "files", required = false) List<MultipartFile> files	
 			
 	){
-			
+		Long userId = authUserJwtService.getCurrentUserId(authentication);	
 		return ResponseEntity.ok( postService.updatePost(postId, userId, request, files));
 	}
 	
 	// 게시글 삭제
 	@Operation( summary = "게시글 삭제", description = "게시글을 삭제합니다.")
 	@DeleteMapping("{id}")
-	public ResponseEntity<Long> deletePost(@PathVariable("id") Long id) {
-		postService.deletePost(id);
+	public ResponseEntity<Long> deletePost(
+			@PathVariable("id") Long id,
+			Authentication authentication
+	) {
+		Long userId = authUserJwtService.getCurrentUserId(authentication);
+		postService.deletePost(userId, id);
 		return ResponseEntity.ok(id);
 	}
 	
@@ -93,6 +102,7 @@ public class PostController {
 	@Operation( summary = "게시글 작성", description = "새로운 게시글을 등록합니다.")
 	@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<PostResponseDto> createPost(
+			Authentication authentication,
 			@Parameter(description = "작성자의 사용자 ID")
 			@RequestParam("userId") Long userId,
 			@ModelAttribute PostRequestDto request, // multipart/form-data
