@@ -624,3 +624,32 @@ STEP3)
 ```json
    HMACSHA256(base64UrlEncode(header) + "." + base64UrlEncode(payload), secret)
 ```
+
+0. boot
+
+1) docker -> redis
+2) boot 구동
+
+1. react
+
+1) 폴더만들기
+2) 프로젝트 설치
+3) reducer -> saga -> page
+4) jwt 사용
+front3
+  ㄴ api/axios.js
+  ㄴ pages
+    ㄴ signup.js
+    ㄴ login.js
+    ㄴ mypage.js
+
+3. social
+> kakao, naver, google 개발자 key
+
+
+```
+mkdir front3
+cd front3
+front2 프로젝트 .next/ node.modules 빼고 안에 콘텐츠 넣기
+npm install
+```
