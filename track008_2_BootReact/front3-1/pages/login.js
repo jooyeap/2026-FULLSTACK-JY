@@ -29,6 +29,10 @@ export default function LoginPage() {
         }
     },[user, router]);
 
+    const handleSocialLogin = (provider) => { 
+        window.location.href = `http://localhost:8080/oauth2/authorization/${provider}`;
+    }; 
+
     return (
         <Row justify={"center"}>
             {/* Q6. 반응형 처리 xs 제일 작은 모바일 24칸, sm 16칸, md 8칸 */}
@@ -50,7 +54,7 @@ export default function LoginPage() {
                     <Form.Item 
                         label="비밀번호"
                         name="password" 
-                        rules={[ {
+                        rules={[{
                             required: true,
                             message: "비밀번호를 입력하세요."
                         }]}
@@ -68,6 +72,29 @@ export default function LoginPage() {
                         </Button>
                     </div>
                 </Form> 
+
+                {/*   소셜  로그인 이미지 버튼 */}
+                <div style={{ marginTop: 20, textAlign: "center" }}>
+                    <img
+                        src="/images/google.png"       alt="Google Login"
+                        style={{ cursor: "pointer", width: "200px", marginBottom: "10px" }}
+                        onClick={()=> handleSocialLogin("google")}
+                    />
+                </div> 
+                <div style={{ marginTop: 20, textAlign: "center" }}>
+                    <img
+                        src="/images/kakao.png"      alt="Kakao Login"
+                        style={{ cursor: "pointer", width: "200px", marginBottom: "10px" }}
+                        onClick={()=> handleSocialLogin("kakao")}
+                    />
+                </div>
+                <div style={{ marginTop: 20, textAlign: "center" }}>
+                    <img
+                        src="/images/naver.png"      alt="Naver Login"
+                        style={{ cursor: "pointer", width: "200px", marginBottom: "10px" }}
+                        onClick={()=> handleSocialLogin("naver")}
+                    />
+                </div>
             </Col>
         </Row>
     );

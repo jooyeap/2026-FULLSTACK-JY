@@ -100,6 +100,8 @@ public class UserService {
 	}
 	
 	// saveSocialUser
+	// social - insert
+	@Transactional 
 	public AppUser saveSocialUser( String email, String provider, String providerId, String nickname, String image) {
 	    AppUser user  = AppUser.builder()
 	                        .email(email)
@@ -107,6 +109,8 @@ public class UserService {
 	                        .providerId(providerId)
 	                        .nickname(nickname)
 	                        .ufile(image)
+	                        // social + security
+	                        .password(passwordEncoder.encode("thejoa703"))
 	                        .role("ROLE_USER")
 	                        .build();
 	    return appUserRepository.save(user);  
