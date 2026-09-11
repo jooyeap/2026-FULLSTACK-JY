@@ -876,12 +876,68 @@ git push origin main
 6) 외부테스트
 http://13.209.70.179
 
-```
+```bash
 ssh 접속
 pm2 list
 pm2 logs backend
+# 에러 더 확인
+pm2 logs backend --out --lines 200 | grep -E -A 5 "Exception|Caused by|Error)"
 ```
 
-■Step4. HTTPS + DOMAIN
+문제 확인 1)
+```
+ubuntu@ip-172-31-32-9:~$ pm2 logs backend --out --lines 200 | grep -E -A 5 "(Exception|Caused by|Error)"
+4|backend  | 2026-09-03T00:55:27.923Z  WARN 44592 --- [back] [nio-8080-exec-9] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 1950, SQLState: 42000
+4|backend  | 2026-09-03T00:55:27.924Z ERROR 44592 --- [back] [nio-8080-exec-9] o.h.engine.jdbc.spi.SqlExceptionHelper   : ORA-01950: no privileges on tablespace 'USERS'
+4|backend  | 
+4|backend  | 2026-09-03T00:55:27.951Z ERROR 44592 --- [back] [nio-8080-exec-9] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.InvalidDataAccessResourceUsageException: could not execute statement [ORA-01950: no privileges on tablespace 'USERS'
+4|backend  | ] [insert into app_user (created_at,deleted,email,mbti_type_id,mobile,nickname,password,provider,provider_id,role,ufile,updated_at,app_user_id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)]; SQL [insert into app_user (created_at,deleted,email,mbti_type_id,mobile,nickname,password,provider,provider_id,role,ufile,updated_at,app_user_id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)]] with root cause
+4|backend  | 
+4|backend  | oracle.jdbc.OracleDatabaseException: ORA-01950: no privileges on tablespace 'USERS'
+4|backend  | 
+4|backend  |    at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:636) ~[ojdbc11-21.9.0.0.jar!/:21.9.0.0.0]
+4|backend  |    at oracle.jdbc.driver.T4CTTIoer11.processError(T4CTTIoer11.java:563) ~[ojdbc11-21.9.0.0.jar!/:21.9.0.0.0]
+4|backend  |    at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:1230) ~[ojdbc11-21.9.0.0.jar!/:21.9.0.0.0]
+4|backend  |    at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:771) ~[ojdbc11-21.9.0.0.jar!/:21.9.0.0.0]
+4|backend  |    at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:298) ~[ojdbc11-21.9.0.0.jar!/:21.9.0.0.0]
+4|backend  |    at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:511) ~[ojdbc11-21.9.0.0.jar!/:21.9.0.0.0]
+4|backend  |    at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:162) ~[ojdbc11-21.9.0.0.jar!/:21.9.0.0.0]
+4|backend  |    at oracle.jdbc.driver.T4CPreparedStatement.executeForRows(T4CPreparedStatement.java:1240) ~[ojdbc11-21.9.0.0.jar!/:21.9.0.0.0]
+--
+4|backend  |    at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126) ~[spring-security-web-6.3.4.jar!/:6.3.4]
+4|backend  |    at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120) ~[spring-security-web-6.3.4.jar!/:6.3.4]
+4|backend  |    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.3.4.jar!/:6.3.4]
+4|backend  |    at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131) ~[spring-security-web-6.3.4.jar!/:6.3.4]
+4|backend  |    at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85) ~[spring-security-web-6.3.4.jar!/:6.3.4]
+4|backend  |    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.3.4.jar!/:6.3.4]
+4|backend  |    at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100) ~[spring-security-web-6.3.4.jar!/:6.3.4]
+--
+4|backend  |    at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.31.jar!/:na]
+4|backend  |    at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.31.jar!/:na]
+4|backend  |    at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.31.jar!/:na]
+4|backend  |    at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:384) ~[tomcat-embed-core-10.1.31.jar!/:na]
+4|backend  |    at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.31.jar!/:na]
+4|backend  |    at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905) ~[tomcat-embed-core-10.1.31.jar!/:na]
+```
 
+해결1)
+```bash
+# 1. 도커에 오라클 접속
+sudo docker exec -it oracle-xe sqlplus system/1234@XE
+# 2. 테이블 스페이스 할당량 권한 체크
+ALTER USER boot QUOTA UNLIMITED ON USERS;
+```
 
+> 로그아웃
+```js
+const handleLogout = (e)=>{   
+    if(e && e.preventDefault) e.preventDefault();
+    dispatch(logoutRequest());
+    //router.replace('/login');
+    if(typeof window !== 'undefined') {
+        localStorage.removeItem('accessToken');
+        sessionStorage.clear();
+        window.location.href='/login';
+    }
+};
+```
