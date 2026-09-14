@@ -323,3 +323,7 @@ insert into appr_line (lin_id, doc_id, emp_id, lin_order, lin_status) values (ap
 -- values (seq_employee.nextval, 'EMP-99999', '한나신', '$2b$10$zaOMPKyTkWmzevgUykuqtut57S3Py02TWhUo1JIXs1np4y2ihE5YW', 'emp00218@sbis.co.kr', '010-9042-6866','26/02/27',1,1,1);
 
 commit;
+
+select * from employee where emp_id = 1;
+update employee set emp_pass = '$2b$10$TinVWcTgMgSURv8T.Kv9pu6o7a1gL3bsVHIFkMP2gBuJPSCUbSgKu' where emp_id = 1;
+commit;
