@@ -8,4 +8,4 @@ urlpatterns = [
     # 기본경로, 처리.dashboard_view, 이름
     path('', views.dashboard_view, name='dashboard'),
     path('api/statistics/', views.api_receive_statistics, name='api_receive_statistics'),
-]
+]   
