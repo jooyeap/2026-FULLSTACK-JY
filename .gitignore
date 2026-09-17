@@ -24,3 +24,5 @@ application-oauth.properties
 # node
 node_modules/
 .next/
+
+./track009_aws_ex/
