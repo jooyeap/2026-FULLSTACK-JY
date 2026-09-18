@@ -4,6 +4,9 @@ import 'package:mobile2/shared/components/app_layout.dart';
 //import 'shared/components/app_layout.dart';
 import 'features/auth/presentation/login_page.dart';
 import 'features/auth/presentation/users_page.dart';
+import 'features/post/presentation/post_write_page.dart';
+import 'features/post/presentation/post_list_page.dart';
+import 'features/post/presentation/post_detail_page.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -22,10 +25,12 @@ class App extends StatelessWidget {
       ),
       initialRoute: '/', // 시작경로  
       routes: {
-        '/' : (context) => const UsersPage(), // 메인페이지 ( 게시글 목록 )
+        '/' : (context) => const PostListPage(), // 메인페이지 ( 게시글 목록 )
         '/login' : (context) => const LoginPage(), // 로그인
         '/signup' : (context) => const SignupPage(), // 회원가입
         '/users' : (context) => const UsersPage(), // 마이페이지
+        '/post-write' : (context) => const PostWritePage(), // 글작성
+        '/post-list' : (context) => const PostListPage(), // 글목록
       },
     );
   }
